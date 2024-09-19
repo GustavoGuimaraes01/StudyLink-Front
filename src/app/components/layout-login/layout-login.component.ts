@@ -12,5 +12,6 @@ import { Title } from '@angular/platform-browser';
 export class LayoutLoginComponent {
   @Input() titulo: string = "";
   @Input() btnText: string = "";
-  @Input() imageMain: string="";
+  @Input () imagem: string = "";
+
 }

@@ -1,22 +1,5 @@
-@import "../../../styles/variaveis.css";
-
-.imagemLogo{
-    background-image: url(../../../assets/svg/logo.svg);
-    width: 126px;
-    height: 36px;
-    background-size: cover;
-    margin-top: 30px;
-}
-.imagemMain{
-    width: 500px;
-    height: 500px;
-    background-size: cover;
-    background-color: var(--cor-de-fundo);
-}
-
-
 main{
-  
+
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -32,10 +15,9 @@ main{
     }
 
     .ladoEsquerdo{
-        gap: 15px;
+        gap: 100px;
         flex-grow: 1;
-        background-color: aqua;
-
+        
     }
 
     .ladoDireito{
