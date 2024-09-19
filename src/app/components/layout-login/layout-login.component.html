@@ -1,26 +1,17 @@
 <main>
 
-<section>
-    <img src="../../../assets/svg/logo.svg">
-
-    
+<section class="ladoEsquerdo">
+    <div class="imagemLogo">
+    </div> 
+    <div class="imagemMain" ngStyle="{'background-image': 'url(' + imageMain + ')'}">
+    </div>    
 </section>
-<section>
-    <h1> Seja bem-vindo de volta!!</h1>
+<section class="ladoDireito">
+    <h1>{{titulo}}</h1>
+
     <h3>A melhor plataforma de estudos colaborativos</h3>
-    
-    <button>Entrar</button>
-    <div>
-        <p>Nao tem uma conta</p>
-        <a> Inscreva-se</a>
-    </div>
-    <div>
-        <p>ou</p>
-    </div>
-    <div>
-        <img src="" alt=""> 
-        <img src="" alt=""> 
-        <img src="" alt=""> 
-    </div>
+
+    <button>{{btnText}}</button>
+
 </section>
 </main>

@@ -1,0 +1,46 @@
+@import "../../../styles/variaveis.css";
+
+.imagemLogo{
+    background-image: url(../../../assets/svg/logo.svg);
+    width: 126px;
+    height: 36px;
+    background-size: cover;
+    margin-top: 30px;
+}
+.imagemMain{
+    width: 500px;
+    height: 500px;
+    background-size: cover;
+    background-color: var(--cor-de-fundo);
+}
+
+
+main{
+  
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    
+    section{
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .ladoEsquerdo{
+        gap: 15px;
+        flex-grow: 1;
+        background-color: aqua;
+
+    }
+
+    .ladoDireito{
+        flex-grow: 0.3;
+        gap: 15px;
+    }
+}
+
