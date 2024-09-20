@@ -17,12 +17,48 @@ main{
     .ladoEsquerdo{
         gap: 100px;
         flex-grow: 1;
-        
+        position: relative;
     }
 
     .ladoDireito{
         flex-grow: 0.3;
         gap: 15px;
     }
+
+    .logo {
+        position: absolute; 
+        top: 8px; 
+        left: 10px;
+        margin: 30px; 
+        width: 125px; 
+    }
+
+    h1{
+        font-size: 26px;
+        font-weight: bold;
+        color: var(--azul-principal);
+        width: 349;
+        height: 55;
+    }
+    h3{
+        font-size: 16px;
+        font-weight: 400;
+        color: var(--cor-preto);
+        width: 279px;
+        height: 49;
+    }
+    button{
+        color: var(--branco);
+        background-color: var(--azul-principal);
+        width: 50%;
+        height: 35px;
+        align-items: center;
+        border: none;
+        border-radius: 40px;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        cursor: pointer;
+
+    }
+    
 }
 
