@@ -1,11 +1,12 @@
 import { Component, Input, input } from '@angular/core';
 import { setAlternateWeakRefImpl } from '@angular/core/primitives/signals';
 import { Title } from '@angular/platform-browser';
+import {MatButtonModule} from '@angular/material/button';
 
 @Component({
   selector: 'app-layout-login',
   standalone: true,
-  imports: [],
+  imports: [MatButtonModule],
   templateUrl: './layout-login.component.html',
   styleUrl: './layout-login.component.css'
 })

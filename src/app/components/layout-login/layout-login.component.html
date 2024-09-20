@@ -3,7 +3,7 @@
 <section class="ladoEsquerdo">
 
         <img class="logo" src="img/logo.svg" alt="StudyLink">
-        <img [src]="imagem" alt="Imagem de Login"/>
+        <img [src]="imagem" class="imagem" alt="Imagem de Login"/>
         
 </section>
 
@@ -12,8 +12,11 @@
 
     <h3>A melhor plataforma de estudos colaborativos</h3>
 
-    <ng-content></ng-content>    
-    <button>{{btnText}}</button>
+    <ng-content class="login-form"> </ng-content>    
+
+    <button mat-flat-button>{{btnText}}</button>
+
+    <ng-content class="ngBaixo"></ng-content>  
 
 </section>
 </main>

@@ -1,12 +1,26 @@
-<app-layout-login 
-titulo="Seja bem-vindo de volta!!"
-btnText="Entrar"
-imagem="img/students.svg">
+<app-layout-login
+    titulo="Seja bem-vindo de volta!!"
+    btnText="Entrar"
+    imagem="img/students.svg">
 
-
-<form [formGroup]="loginForm">
-
-    <input type="text">
-</form>
+    <form [formGroup]="loginForm" class="login-form">
+        <div  class="campo">
+            <input type="email" class="borda" placeholder="E-mail">
+        </div>
+        <div class="campo">
+            <input type="password" class="borda" placeholder="Senha">
+        </div>
+        <div class="esqueceu_senha">
+            <input type="checkbox" class="checkbox">
+            <span>Lembrar de mim</span>
+            <a href ="#" style="padding: 10px;">Esqueceu a senha?</a>
+        </div>
+        <div class="ngBaixo">
+            <div class="nao_tem_conta">
+                <span>Não tem uma conta?</span>
+                <a href="http://localhost:4200/cadastro">inscreva-se</a>
+            </div>
+        </div>
+    </form>
 
 </app-layout-login>
