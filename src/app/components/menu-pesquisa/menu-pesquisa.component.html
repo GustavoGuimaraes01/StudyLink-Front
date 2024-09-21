@@ -1,24 +1,30 @@
-<main>
-    <div>
-        <img src="img/logo.svg" alt="">
-    </div>
-    <div>
-        <img src="img/imagemTeste.svg" >
-        <p>Bob esponja</p>
-    </div>
-    <div>
-        <img src="img/iconHome.svg" alt="">
-        <p>Home</p>
-
-        <img src="img/iconTarefas.svg" alt="">
-        <p>Tarefas</p>
-
-        <img src="img/iconMateriais.svg" alt="">
-        <p>Materiais</p>
-
-        <img src="img/iconConfig.svg" alt="">
-        <p>Config</p>
-    </div>
-
-
+<main class="">
+    <section class="sidebar">
+        <div class="logo">
+            <img src="img/logo.svg" alt="Logo" />
+        </div>
+        <div class="perfil">
+            <img src="img/imagemTeste.svg" alt="Imagem de Perfil" />
+            <p>Bob esponja</p>
+        </div>
+        <div class="barMenu" routerLink="/home">
+            <div class="menuItem">
+                    <img src="img/iconHome.svg" alt="Home" />
+                    <p>Home</p>
+            </div>
+            <div class="menuItem" routerLink="/tarefas">
+                    <img src="img/iconTarefas.svg" alt="Tarefas" />
+                    <p>Tarefas</p>
+            </div>
+            <div class="menuItem" routerLink="/materiais">
+                    <img src="img/iconMateriais.svg" alt="Materiais" />
+                    <p>Materiais</p>
+            </div>
+            <div class="menuItem" routerLink="/config">
+                    <img src="img/iconConfig.svg" alt="Configurações" />
+                    <p>Config</p>
+            </div>
+        </div>
+        
+    </section>
 </main>
