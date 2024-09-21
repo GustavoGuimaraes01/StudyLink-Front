@@ -15,14 +15,16 @@ main{
     }
 
     .ladoEsquerdo{
-        gap: 100px;
+        gap: 130px;
         flex-grow: 1;
         position: relative;
     }
 
+
+
     .ladoDireito{
-        flex-grow: 0.3;
-        gap: 15px;
+        flex-grow: 1;
+        gap: 5px;
     }
 
     .logo {
@@ -30,7 +32,12 @@ main{
         top: 8px; 
         left: 10px;
         margin: 30px; 
-        width: 125px; 
+        width: 150px; 
+    }
+
+    .imagem{
+        height: 80%;
+        width: 80%;
     }
 
     h1{
@@ -47,18 +54,18 @@ main{
         width: 279px;
         height: 49;
     }
-    button{
-        color: var(--branco);
-        background-color: var(--azul-principal);
-        width: 50%;
-        height: 35px;
-        align-items: center;
-        border: none;
-        border-radius: 40px;
-        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-        cursor: pointer;
 
-    }
-    
+}
+
+button{
+    color: var(--branco);
+    background-color: var(--azul-principal);
+    width: 25%;
+    height: 35px;
+    align-items: center;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
 }
 
