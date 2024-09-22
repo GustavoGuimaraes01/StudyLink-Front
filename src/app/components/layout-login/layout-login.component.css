@@ -56,7 +56,7 @@ main{
 
 }
 
-button{
+.button{
     color: var(--branco);
     background-color: var(--azul-principal);
     width: 25%;
