@@ -14,7 +14,7 @@ import { CadastroService } from '../../services/cadastro.service';
 export class CadastroComponent {
   cadastroForm!: FormGroup;
 
-  constructor(/*private cadastroServices : CadastroService*/) {
+  constructor(private cadastroServices : CadastroService) {
     this.cadastroForm = new FormGroup({
       nome_usuario: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required, Validators.email]),
@@ -31,8 +31,8 @@ export class CadastroComponent {
     };
   }
 
-    /*enviar() {
+    enviar() {
       this.cadastroServices.register( this.cadastroForm.value.nome_usuario,this.cadastroForm.value.email, this.cadastroForm.value.senha).subscribe({next:() => console.log("Sucesso"), error: () => console.log("Erro") 
       })
-    }*/
+    }
 }
