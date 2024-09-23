@@ -5,6 +5,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { TarefasComponent } from './pages/tarefas/tarefas.component';
 import { MateriasComponent } from './pages/materias/materias.component';
 import { ConfigComponent } from './pages/config/config.component';
+import { BarraDePesquisaComponent } from './components/barra-de-pesquisa/barra-de-pesquisa.component';
 
 export const routes: Routes = [
     {path: "login", component: LoginComponent},
@@ -14,6 +15,7 @@ export const routes: Routes = [
     {path:"tarefas",component: TarefasComponent},
     {path:"materiais",component: MateriasComponent},
     {path:"config",component: ConfigComponent},
+    {path:"brP", component:BarraDePesquisaComponent}
 
 
     
