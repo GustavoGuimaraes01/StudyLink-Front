@@ -1,10 +1,20 @@
 <app-layout-login 
 titulo="Registrar-se!!"
 btnText="Cadastrar"
-imagem="img/studentsCadastro.svg">
+[disableButton] = "cadastroForm.invalid"
+imagem="img/studentsCadastro.svg"
+(enviar)="enviar()"
+>
+
+<main>
+    <form [formGroup]="cadastroForm" action="" class="form">
+
+        <input formControlName="nome_usuario" type="text" class="input" placeholder="Nome"> 
+        <input formControlName="email" type="text" class="input" placeholder="E-mail"> 
+        <input formControlName="senha" type="password" class="input" placeholder="Senha"> 
+        <input formControlName="confirmarSenha" type="password" class="input" placeholder="Confirmar senha"> 
+    </form>
+</main>
 
 </app-layout-login>
 
-<main>
-
-</main>

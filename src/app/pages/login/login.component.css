@@ -1,18 +1,16 @@
 .login-form {
     display: flex;
     flex-direction: column;
-    max-width: 300px; /* ajusta o tamanho da largura do form */
-    margin: 0 auto; /* centraliza o form na página */
-   
+    width: 320px; 
+    margin: 0 auto;
 }
 
 .campo {
     margin-bottom: 10px;
-    
 }
 
 .borda {
-    width: 110%;
+    width: 100%;
     height: 43px;
     padding: 10px;
     margin-top: 5px;
@@ -22,24 +20,94 @@
     border-radius: 10px;
     box-sizing: border-box;
     background-color: var(--cinza-claro);
-    box-shadow:0px 4px 4px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .esqueceu_senha {
     display: flex;
-    gap: 10px;
     align-items: center;
+    justify-content: space-between; 
     font-size: 14px;
+    margin-bottom: 20px;
+    gap: 10px; 
+}
+
+.esqueceu_senha p {
+    margin: 0; 
+}
+
+.esqueceu_senha a {
+    text-decoration: none;
+    color: var(--azul-principal);
+    margin-left: auto; 
 }
 
 .checkbox {
-    margin-right: 5px;
+    cursor: pointer;
 }
 
 
 .nao_tem_conta {
     display: flex;
-    gap: 10px;
     align-items: center;
+    justify-content: flex-start; 
+    gap: 10px; 
     font-size: 14px;
+    margin-top: 20px;
+}
+
+.nao_tem_conta p {
+    margin: 0;
+}
+
+.nao_tem_conta a {
+    text-decoration: none;
+    color: var(--azul-principal);
+    margin-right: auto; 
+}
+
+
+.divisoria {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 320px;
+    margin: 20px 0; 
+}
+
+.linha {
+    flex-grow: 1;
+    height: 1px;
+    background-color: var(--cinza-claro);
+    margin: 0 10px;
+}
+
+.divisoria span {
+    padding: 0 10px;
+    font-size: 12px;
+
+}
+
+.continuarGoogle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 320px; 
+    padding: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px; 
+    background-color: white;
+    cursor: pointer;
+}
+
+.continuarGoogle img {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px; 
+}
+
+.continuarGoogle span {
+    font-size: 14px;
+    color: #000;
 }
