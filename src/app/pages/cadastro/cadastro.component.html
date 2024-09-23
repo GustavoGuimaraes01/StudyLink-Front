@@ -2,12 +2,14 @@
 titulo="Registrar-se!!"
 btnText="Cadastrar"
 [disableButton] = "cadastroForm.invalid"
-imagem="img/studentsCadastro.svg">
+imagem="img/studentsCadastro.svg"
+
+>
 
 <main>
     <form [formGroup]="cadastroForm" action="" class="form">
 
-        <input formControlName="nome" type="text" class="input" placeholder="Nome"> 
+        <input formControlName="nome_usuario" type="text" class="input" placeholder="Nome"> 
         <input formControlName="email" type="text" class="input" placeholder="E-mail"> 
         <input formControlName="senha" type="password" class="input" placeholder="Senha"> 
         <input formControlName="confirmarSenha" type="password" class="input" placeholder="Confirmar senha"> 
