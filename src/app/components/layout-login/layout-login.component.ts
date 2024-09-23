@@ -16,6 +16,7 @@ export class LayoutLoginComponent {
   @Input() btnText: string = "";
   @Input () imagem: string = "";
   @Input() btnlink: string = ""
+  @Input() disableButton: boolean = false
   @Output("enviar") onEnviar = new EventEmitter();
 
   enviar(){

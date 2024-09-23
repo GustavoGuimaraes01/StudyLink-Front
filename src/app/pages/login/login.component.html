@@ -2,15 +2,19 @@
     titulo="Seja bem-vindo de volta!!"
     btnText="Entrar"
     imagem="img/students.svg"
+    [disableButton] = "loginForm.invalid"
     (enviar)="enviar()"
 >
     <form [formGroup]="loginForm" class="login-form">
         <div class="campo">
             <input formControlName="email" type="email" class="borda" placeholder="E-mail">
         </div>
+
         <div class="campo">
             <input formControlName="senha" type="password" class="borda" placeholder="Senha">
         </div>
+
+
         <div class="esqueceu_senha">
             <input type="checkbox" class="checkbox">
             <p>Lembrar de mim</p>
