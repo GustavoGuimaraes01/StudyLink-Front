@@ -68,3 +68,48 @@ main{
     cursor: pointer;
 }
 
+@media (max-width: 1000px ){
+    .main{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+    }
+    main .ladoEsquerdo {
+        flex-grow: 0;
+        width: 0;
+    }
+
+    .imagemMain{
+       display: none;
+    }
+
+    .ladoDireito{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    main .logo {
+        width: 130px;
+        display: block; 
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+}
+
+@media(max-width: 600px){
+    main .logo{
+        width: 120px;
+    }
+}
+
+@media (max-width: 400px){
+    main .logo{
+        width: 110px; 
+    }
+
+}
