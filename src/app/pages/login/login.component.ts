@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, ɵUSE_RUNTIME_DEPS_TRACKER_FOR_JIT } from '@angular/core';
 import { LayoutLoginComponent } from '../../components/layout-login/layout-login.component';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { LoginServiceService } from '../../services/login-service.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -16,16 +17,28 @@ import { LoginServiceService } from '../../services/login-service.service';
 export class LoginComponent {
   loginForm!: FormGroup;
   
-  constructor(private loginService: LoginServiceService) {
+  constructor(private loginService: LoginServiceService, private toastr: ToastrService) {
     this.loginForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       senha: new FormControl('', [Validators.required, Validators.minLength(6)])
     });
   }
-
-  enviar() {
-     this.loginService.login(this.loginForm.value.email, this.loginForm.value.senha).subscribe({next:() => console.log("Sucesso"), error: () => console.log("Erro") 
-     })
   
+  enviar() {
+    this.loginService.login(this.loginForm.value.email, this.loginForm.value.senha).subscribe({
+      next: () => {
+        this.toastr.success("Login feito com sucesso!", "Sucesso", {
+          timeOut: 3000,
+          progressBar: true,
+        });
+      },
+      error: () => {
+        this.toastr.error("Não foi possível efetuar o login!", "Erro", {
+          timeOut: 3000,
+          progressBar: true,
+        });
+      }
+    });
   }
+  
 }
