@@ -8,6 +8,10 @@
 .campo {
     margin-bottom: 10px;
 }
+.campo small{
+ color: red;
+ margin-left: 20px;
+}
 
 .borda {
     width: 100%;

@@ -5,11 +5,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { LoginServiceService } from '../../services/login-service.service';
 import { ToastrService } from 'ngx-toastr';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [LayoutLoginComponent, ReactiveFormsModule, MatFormFieldModule, MatInputModule],
+  imports: [LayoutLoginComponent, ReactiveFormsModule, MatFormFieldModule, MatInputModule, CommonModule],
   providers: [LoginServiceService],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
@@ -23,8 +24,16 @@ export class LoginComponent {
       senha: new FormControl('', [Validators.required, Validators.minLength(6)])
     });
   }
-  
+
   enviar() {
+    if (this.loginForm.invalid) {
+      this.toastr.warning("Por favor, preencha os campos corretamente!", "Atenção", {
+        timeOut: 3000,
+        progressBar: true,
+      });
+      return;
+    }
+  
     this.loginService.login(this.loginForm.value.email, this.loginForm.value.senha).subscribe({
       next: () => {
         this.toastr.success("Login feito com sucesso!", "Sucesso", {
@@ -40,5 +49,6 @@ export class LoginComponent {
       }
     });
   }
+  
   
 }

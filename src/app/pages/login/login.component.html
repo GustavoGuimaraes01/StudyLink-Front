@@ -7,12 +7,19 @@
     <form [formGroup]="loginForm" class="login-form">
         <div class="campo">
             <input formControlName="email" type="email" class="borda" placeholder="E-mail">
+            <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="error-message">
+                <small *ngIf="loginForm.get('email')?.errors?.['required']">O e-mail é obrigatório.</small>
+                <small *ngIf="loginForm.get('email')?.errors?.['email']">Insira um e-mail válido.</small>
+            </div>
         </div>
 
         <div class="campo">
             <input formControlName="senha" type="password" class="borda" placeholder="Senha">
+            <div *ngIf="loginForm.get('senha')?.invalid && loginForm.get('senha')?.touched" class="error-message">
+                <small *ngIf="loginForm.get('senha')?.errors?.['required']">A senha é obrigatória.</small>
+                <small *ngIf="loginForm.get('senha')?.errors?.['minlength']">A senha deve ter no mínimo 6 caracteres.</small>
+            </div>
         </div>
-
 
         <div class="esqueceu_senha">
             <input type="checkbox" class="checkbox">
@@ -26,11 +33,11 @@
             <p>Não tem uma conta?</p>
             <a href="http://localhost:4200/cadastro">Inscreva-se</a>
         </div>
-    <div class="divisoria">
-        <div class="linha"></div>
-        <span >ou</span>
-        <div class="linha"></div>
-    </div>
+        <div class="divisoria">
+            <div class="linha"></div>
+            <span>ou</span>
+            <div class="linha"></div>
+        </div>
 
         <div class="continuarGoogle">
             <img src="/img/google-logo.svg" alt="">
