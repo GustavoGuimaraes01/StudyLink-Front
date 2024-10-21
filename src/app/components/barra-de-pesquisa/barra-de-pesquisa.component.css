@@ -8,6 +8,7 @@
     margin-bottom: 75%;
     width: 450px;
     height: 35px;
+    flex-grow: 0.5;
 }
 
 .barraPesquisa {
