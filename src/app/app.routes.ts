@@ -6,16 +6,17 @@ import { TarefasComponent } from './pages/tarefas/tarefas.component';
 import { MateriasComponent } from './pages/materias/materias.component';
 import { ConfigComponent } from './pages/config/config.component';
 import { BarraDePesquisaComponent } from './components/barra-de-pesquisa/barra-de-pesquisa.component';
+import { AgendadorComponent } from './components/agendador/agendador.component';
 
 export const routes: Routes = [
     {path: "login", component: LoginComponent},
-    {path:"cadastro", component: CadastroComponent},    
-    
+    {path:"cadastro", component: CadastroComponent}, 
     {path:"home",component: HomeComponent},
     {path:"tarefas",component: TarefasComponent},
     {path:"materiais",component: MateriasComponent},
     {path:"config",component: ConfigComponent},
-    {path:"brP", component:BarraDePesquisaComponent}
+    {path:"brP", component:BarraDePesquisaComponent},
+    {path:"agenda", component:AgendadorComponent}
 
 
     

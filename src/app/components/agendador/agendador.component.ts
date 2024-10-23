@@ -69,7 +69,7 @@ datepickerObject.appendTo('#agendador');
   template: `
     <ejs-schedule 
       height="100%" 
-      width="80%"
+      width="100%"
       [selectedDate]="dataAtual" 
       locale="pt"
       [views]="view"

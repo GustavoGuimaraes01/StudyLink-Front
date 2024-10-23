@@ -1,33 +1,39 @@
- .barraL {
-   height: 100%;
- }
+.barraL {
+  height: 100%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); 
+  display: flex; 
+}
 
+.barra {
+  background-color: var(--cinza-escuro);
+  position: fixed;
+  top: 0; 
+  left: 0; 
+  right: 0; 
+  z-index: 9; 
+  padding: 8px 16px; 
+}
 
- .barra {
-   background-color: var(--cinza-escuro);
- }
+.barra span {
+  color: var(--azul-principal);
+}
 
- .barra span {
-   color: var(--azul-principal);
+.barra span b {
+  color: var(--branco);
+}
 
- }
+.barra button {
+  color: var(--branco);
+}
 
- .barra span b {
-   color: var(--branco);
- }
+.sidenav {
+  width: 250px;
+  background-color: var(--cinza-claro);
+  margin-top: 64px; 
+  height: calc(100% - 64px);
+}
 
- .barra button {
-   color: var(--branco);
-
- }
-
- .sidenav {
-   width: 250px;
-   background-color: var(--cinza-claro);
- }
-
-
-
- .conteudo {
-   padding: 16px;
- }
+.conteudo {
+  padding: 16px;
+  margin-top: 64px; 
+}
