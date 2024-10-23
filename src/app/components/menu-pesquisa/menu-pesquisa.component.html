@@ -3,22 +3,21 @@
 <mat-sidenav-container class="barraL" style="height: 100vh;">
   <mat-sidenav #sidenav mode="side" class="sidenav" [opened]="false">
     <mat-nav-list>
-      <mat-list-item routerLink="/home">
+      <mat-list-item routerLink="/home" [class.active]="currentRoute === '/home'">
         <mat-icon aria-hidden="false" aria-label="Home icon">home</mat-icon>Home
       </mat-list-item>
-      <mat-list-item routerLink="/tarefas">
+      <mat-list-item routerLink="/tarefas" [class.active]="currentRoute === '/tarefas'">
         <mat-icon aria-hidden="false" aria-label="Tarefas icon">task</mat-icon>Tarefas
       </mat-list-item>
-      <mat-list-item routerLink="/materiais">
+      <mat-list-item routerLink="/materiais" [class.active]="currentRoute === '/materiais'">
         <mat-icon aria-hidden="false" aria-label="Materiais icon">library_books</mat-icon>Materiais
       </mat-list-item>
-      <mat-list-item routerLink="/config">
+      <mat-list-item routerLink="/config" [class.active]="currentRoute === '/config'">
         <mat-icon aria-hidden="false" aria-label="Config icon">settings</mat-icon>Config
       </mat-list-item>
     </mat-nav-list>
   </mat-sidenav>
 
-  <mat-sidenav-content>
     <mat-toolbar class="barra" style="position: fixed; top: 0; left: 0; right: 0; z-index: 1;">
       <button mat-icon-button (click)="sidenav.toggle()">
         <mat-icon>menu</mat-icon>
@@ -26,13 +25,5 @@
       <span>Study<b>link</b></span>
     </mat-toolbar>
 
-    <div class="conteudo" style="margin-top: 64px;">
-      <router-outlet>
-          <app-agendador>
-            
-          </app-agendador>
 
-      </router-outlet>
-    </div>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+  
