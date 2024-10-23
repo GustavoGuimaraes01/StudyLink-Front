@@ -1,89 +1,33 @@
-.sidebar {
-    box-shadow: 6px 4px 40px rgba(0, 0, 0, 0.25);
-    background-color: rgba(217, 217, 217, 1);
-    width: 250px;
-    height: 100vh;
-    position: absolute;
-    left: 0px;
-    top: 0px;
-    border-radius: 23px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    margin-left: 30px;
-}
+ .barraL {
+   height: 100%;
+ }
 
-.logo img {
-    width: 130px;
-    height: 56px;
-    border-radius: 50%;
-    margin-top: 10px;
-}
-.perfil{
-    margin-bottom: 80px;
-    cursor: pointer;
-}
 
-.perfil img {
-    width: 100%;
-    height: 80px;
-    border-radius: 50%;
-}
+ .barra {
+   background-color: var(--cinza-escuro);
+ }
 
-.perfil p {
-    color: var(--cinza-escuro);
-    font-weight: 600;
-    font-size: 18px;
-    margin-top: 5px;
-}
+ .barra span {
+   color: var(--azul-principal);
 
-.barMenu  {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-bottom: 300px;
-    cursor: pointer;
-    gap: 50px;
-}
+ }
 
-.menuItem {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    transition: transform 0.3s ease, color 0.3s ease;
-}
+ .barra span b {
+   color: var(--branco);
+ }
 
-.menuItem:hover {
-    transform: scale(1.2);
-}
+ .barra button {
+   color: var(--branco);
 
-.menuItem img {
-    width: 30px;
-    height: 30px;
-    transition: filter 0.3s ease; 
-}
+ }
 
-.menuItem:hover img {
-    filter: brightness(0) invert(1); 
+ .sidenav {
+   width: 250px;
+   background-color: var(--cinza-claro);
+ }
 
-}
 
-.menuItem p {
-    font-size: 18px;
-    font-weight: 600;
-    opacity: 75%;
-    color: var(--cinza-escuro);
-}
 
-.menuItem:hover p{
-    color: var(--branco); 
-}
-
-.menuItem a{
-    text-decoration: none;
-    color: inherit;
-}
-
+ .conteudo {
+   padding: 16px;
+ }
