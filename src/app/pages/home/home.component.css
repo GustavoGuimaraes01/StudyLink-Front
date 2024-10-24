@@ -1,18 +1,21 @@
-/* app.component.css */
-.container {
-    display: flex;              /* Usar flexbox para alinhar os componentes */
-    flex-direction: column;     /* Colocar os componentes em coluna */
-    align-items: stretch;       /* Esticar os componentes para ocupar toda a largura */
-    margin: 0 auto;            /* Centralizar o contêiner */
-    max-width: 1200px;         /* Largura máxima do contêiner */
-    padding: 20px;             /* Espaçamento interno */
-  }
-  
+
+.menu {
+  width: 250px; 
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); 
+  z-index: 1; 
+ 
+}  
+
+.agenda {
+  flex-grow: 1;
+  padding: 20px; 
+  margin-top: 80px; 
+  position: relative; 
+  overflow: hidden; 
+}
+
+@media (max-width: 768px) {
   app-menu-pesquisa {
-    margin-bottom: 20px;       /* Espaçamento entre os componentes */
+    width: 200px; 
   }
-  
-  app-agendador {
-    flex-grow: 1;              /* Permite que o agendador cresça para preencher o espaço restante */
-  }
-  
+}
