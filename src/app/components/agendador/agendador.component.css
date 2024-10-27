@@ -1,4 +1,58 @@
-.agendador{
+.agendador {
     float: right;
     margin-top: 40px;
 }
+
+.e-schedule .e-schedule-toolbar .e-tbar-btn-text{
+    font-weight: 500;
+}
+
+.e-schedule .e-schedule-toolbar .e-active-view .e-tbar-btn-text,
+.e-schedule .e-schedule-toolbar .e-active-view .e-icons {
+    color: var(--azul-principal)  
+}
+
+
+.e-schedule .e-vertical-view .e-header-cells.e-current-day {
+    color: var(--azul-principal);
+    font-weight: 600;
+}
+
+.e-schedule .e-vertical-view .e-clone-time-indicator, .e-schedule .e-vertical-view .e-current-time {
+    color: var(--azul-principal);
+    font-size: 14px;
+}
+
+.e-schedule .e-vertical-view .e-previous-timeline {
+    border-top: 1px solid var(--azul-principal);
+}
+.e-schedule .e-vertical-view .e-current-timeline {
+    border-top: 1px solid var(--azul-principal);
+}
+
+.e-calendar .e-content td.e-today.e-selected span.e-day {
+    background-color: var(--azul-principal);
+    border: 1px solid var(--azul-principal);
+    box-shadow: inset 0 0 0 2px #fff;
+    color: #fff;
+}
+
+.e-calendar .e-content td.e-today.e-selected:hover span.e-day, .e-calendar .e-content td.e-selected:hover span.e-day, .e-calendar .e-content td.e-selected.e-focused-date span.e-day {
+    background: var(--azul-principal);
+    color: #fff;
+    border: var(--azul-principal);
+}
+
+
+.e-btn.e-flat.e-primary, .e-css.e-btn.e-flat.e-primary {
+    background: rgba(0, 0, 0, 0);
+    border-color: rgba(0, 0, 0, 0);
+    color: var(--azul-principal);
+}
+
+.e-btn.e-flat.e-primary:hover, .e-css.e-btn.e-flat.e-primary:hover {
+    background: rgba(227, 22, 91, .04);
+    border-color: rgba(0, 0, 0, 0);
+    color: var(--azul-principal);
+}
+

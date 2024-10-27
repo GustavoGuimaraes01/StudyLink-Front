@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=home" />
 
 <mat-sidenav-container class="container" style="height: 100vh;">
-  <mat-sidenav #sidenav mode="side" class="sidenav" style="border-radius: 0;" [opened]="false">
+  <mat-sidenav #sidenav mode="side" class="sidenav" style="border-radius: 0;" [opened]="true">
     <mat-nav-list class="nav-list">
       <mat-list-item routerLink="/home" [class.active]="currentRoute === '/home'" class="list-item">
         <mat-icon aria-hidden="false" aria-label="Home icon">home</mat-icon>Inicio
@@ -25,7 +25,7 @@
     </mat-toolbar>
 
    
-    <ng-content select=".agenda"></ng-content>
+    <ng-content select=".conteudoPrincipal"></ng-content>
 
   </mat-sidenav-container>
 

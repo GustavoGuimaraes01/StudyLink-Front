@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component , ViewEncapsulation} from '@angular/core';
 import { DatePicker } from '@syncfusion/ej2-calendars';
-import { ScheduleModule, View } from '@syncfusion/ej2-angular-schedule';
-import { EventSettingsModel,WeekService, MonthService,  DayService, AgendaService } from '@syncfusion/ej2-angular-schedule';
+import { ScheduleModule, View, RenderCellEventArgs } from '@syncfusion/ej2-angular-schedule';
+import { EventSettingsModel, WeekService, MonthService, DayService, AgendaService } from '@syncfusion/ej2-angular-schedule';
 import { registerLicense, L10n } from '@syncfusion/ej2-base';
 import { loadCldr } from '@syncfusion/ej2-base';
 import ptNumberData from '@syncfusion/ej2-cldr-data/main/pt/numbers.json';
@@ -9,17 +9,13 @@ import ptTimeZoneData from '@syncfusion/ej2-cldr-data/main/pt/timeZoneNames.json
 import ptGregorian from '@syncfusion/ej2-cldr-data/main/pt/ca-gregorian.json';
 import ptNumberingSystem from '@syncfusion/ej2-cldr-data/supplemental/numberingSystems.json';
 
-//Chave da licença
+// Chave da licença
 registerLicense('Ngo9BigBOggjHTQxAR8/V1NDaF5cWWtCf1JpRGRGfV5ycEVAal5VTnJbUj0eQnxTdEFiWX5XcHJRT2VYV0VwXA==');
 
 // O loadCldr carrega os dados no formato que o Brasil utiliza
 loadCldr(ptNumberData, ptTimeZoneData, ptGregorian, ptNumberingSystem);
-//ptNumberData = formato dos numeros usados no Brasil
-//ptTimeZoneData = fuso horario brasileiro, 
-//ptgregorian = formato de datas, calendario gragoriano 
-//ptNumberSystem = algorismos dos numeros 0-9
 
-//Traduz as informaç~çeos para o portugues
+// Traduz as informações para o português
 L10n.load({
   'pt': {
     'schedule': {
@@ -38,7 +34,7 @@ L10n.load({
       'deleteButton': 'Excluir',
       'newEvent': 'Novo tarefa',
       'editEvent': 'Editar tarefa',
-      'title':'titulo',
+      'title': 'titulo',
       'deleteEvent': 'Excluir tarefa',
       'confirmation': 'Confirmação',
       'deleteContent': 'Tem certeza de que deseja excluir este tarefa?',
@@ -55,12 +51,14 @@ L10n.load({
     }
   }
 });
+
 let datepickerObject: DatePicker = new DatePicker({
-  //Injeta as propriedades locais .
+  // Injeta as propriedades locais.
   locale: 'pt',
   value: new Date()
 });
 datepickerObject.appendTo('#agendador');
+
 @Component({
   selector: 'app-agendador',
   standalone: true,
@@ -76,11 +74,13 @@ datepickerObject.appendTo('#agendador');
       class="agendador">
     </ejs-schedule>
   `,
-  styleUrls: ['./agendador.component.css']
+  styleUrls: ['./agendador.component.css'],
+  encapsulation: ViewEncapsulation.None, 
 })
 export class AgendadorComponent {
   public dataAtual: Date = new Date();
 
-  //Ajusta oq sera mostrado no header do calendario
-  public view: View[] = ['Day','Week','Month','Agenda'] 
+  // Ajusta o que será mostrado no header do calendário
+  public view: View[] = ['Day', 'Week', 'Month', 'Agenda'];
+
 }
