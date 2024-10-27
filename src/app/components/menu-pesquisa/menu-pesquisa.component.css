@@ -36,22 +36,9 @@
   height: calc(100% - 64px);
 } 
 
-.nav-list{
-  margin-right: 10px;
-}
 
-
-::ng-deep .mat-list-item {
-  display: flex;
-  justify-content: center;
-  
-}
  ::ng-deep .mat-icon {
   margin-right: 10px; 
   vertical-align: middle;  
 } 
 
-.conteudo {
-  padding: 16px;
-  margin-top: 64px; 
-}
