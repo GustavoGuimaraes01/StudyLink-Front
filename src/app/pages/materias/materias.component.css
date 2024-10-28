@@ -1,0 +1,81 @@
+.menu {
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); 
+    z-index: 1; 
+}  
+
+.conteudoPrincipal {
+    display: flex;
+    z-index: 10;
+}
+
+.titulo {
+    margin-top: 150px;
+    margin-left: 50px;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.cards {
+    position: fixed;
+    margin-top: 250px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+
+}
+
+.cards .botao {
+    height: 120px;
+    width: 290px;
+    margin-left: 50px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border: none;
+    border-radius: 5px;
+    font-size: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: left;
+    transition: transform 0.5s ease-in-out;
+    padding: 10px;
+}
+
+.adicionarMateria{
+    height: 120px;
+    width: 290px;
+    margin-left: 50px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border: none;
+    border-radius: 5px;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.5s ease-in-out;
+}
+
+.adicionarMateria:hover{
+    transform: scale(1.1);
+}
+
+.cards .botao:hover {
+    transform: scale(1.1);
+}
+
+.primeiro {
+    background-color: #2196F3; 
+}
+
+.segundo {
+    background-color: #FFC107; 
+}
+
+.AreaConhecimento {
+    font-size: 14px;
+    font-style: italic;
+}
+
+.Materia {
+    font-size: 18px;
+    font-weight: bold;
+}

@@ -6,7 +6,7 @@ import { MenuPesquisaComponent } from '../../components/menu-pesquisa/menu-pesqu
   standalone: true,
   imports: [MenuPesquisaComponent],
   templateUrl: './materias.component.html',
-  styleUrl: './materias.component.css'
+  styleUrl: './materias.component.css',
 })
 export class MateriasComponent {
 
