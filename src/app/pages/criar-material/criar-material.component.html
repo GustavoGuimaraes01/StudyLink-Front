@@ -1,10 +1,15 @@
-<main>
 
-<h1>Teste sadadinha</h1>
-<p>Vinicius Junior e Neymar Junior.</p>
+<div *ngIf="isOpen" class="criar-material">
 
+    <button  (click)="close()">
+        <img class="bntFechar" src="img/close.svg" alt="">
+    </button>
+    <h2>Criar Material</h2>
+    <div class="inputs">
+        <input type="image" name="Banner" id="" class="imagemBanner">
+        <input type="text" placeholder="Assunto" class="Assuntoinput">
+        <input type="text" placeholder="Area do conehcimento" class="AreaInput">
+    </div>
 
-
-<button (click)="close()">Fechar</button>
-
-</main>
+</div>
+  

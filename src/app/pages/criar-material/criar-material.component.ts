@@ -1,21 +1,20 @@
-import { Component, ViewEncapsulation } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
-import { MateriasComponent } from '../materias/materias.component';
-
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { CommonModule } from '@angular/common'
 
 @Component({
   selector: 'app-criar-material',
   standalone: true,
-  imports: [MateriasComponent],
+  imports:[CommonModule],
   templateUrl: './criar-material.component.html',
-  styleUrl: './criar-material.component.css',
-  encapsulation: ViewEncapsulation.None, 
+  styleUrls: ['./criar-material.component.css']
 })
 export class CriarMaterialComponent {
-  constructor(private dialogRef: MatDialogRef<CriarMaterialComponent>) {}
+  @Input() isOpen = false; // Recebe o estado do componente pai
+  @Output() isOpenChange = new EventEmitter<boolean>(); // Emite eventos para o componente pai
 
   close() {
-    this.dialogRef.close();
-    
+    this.isOpen = false;
+    this.isOpenChange.emit(this.isOpen); // Atualiza o estado no componente pai
   }
 }
+

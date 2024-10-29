@@ -1,23 +1,19 @@
 import { Component } from '@angular/core';
 import { MenuPesquisaComponent } from '../../components/menu-pesquisa/menu-pesquisa.component';
-import { MatDialog } from '@angular/material/dialog';
 import { CriarMaterialComponent } from '../criar-material/criar-material.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-materias',
   standalone: true,
-  imports: [MenuPesquisaComponent, CriarMaterialComponent],
+  imports: [MenuPesquisaComponent, CriarMaterialComponent,CommonModule],
   templateUrl: './materias.component.html',
   styleUrl: './materias.component.css',
 })
 export class MateriasComponent {
-  constructor(private dialog: MatDialog) {}
+  isCriarMaterialOpen = false;
 
-  openDialog() {
-    this.dialog.open(CriarMaterialComponent, {
-      width: "800px",         // Largura fixa
-      height: "500px",       // Altura fixa
-      
-    });
-   }
+  openCriarMaterial() {
+    this.isCriarMaterialOpen = true;
+  }
 }

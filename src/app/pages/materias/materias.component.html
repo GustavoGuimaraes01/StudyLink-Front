@@ -3,8 +3,11 @@
     <main class="conteudoPrincipal">
         <h1 class="titulo">Organize seus materiais de estudos</h1>
         <section class="cards">
-            <button class="adicionarMateria" (click)="openDialog()">+ Adicionar Matéria</button>
-         
+            <button class="adicionarMateria" (click)="openCriarMaterial()">+ Adicionar Matéria</button>
+            
+            <app-criar-material [(isOpen)]="isCriarMaterialOpen">
+                <p>Conteúdo do modal personalizado aqui.</p>
+            </app-criar-material>
 
             <div class="botao primeiro">
                 <div class="header">
