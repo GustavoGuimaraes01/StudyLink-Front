@@ -5,77 +5,137 @@
 
 .conteudoPrincipal {
     display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 50px;
     z-index: 10;
 }
 
-.titulo {
-    margin-top: 150px;
-    margin-left: 50px;
+.assunto {
+    margin-top: 100px;
     font-size: 40px;
     font-weight: bold;
 }
 
 .cards {
-    position: fixed;
-    margin-top: 250px;
     display: flex;
     flex-wrap: wrap;
     gap: 40px;
-
+    margin-top: 50px;
+    padding-left: 50px;
 }
 
 .cards .botao {
-    height: 120px;
+    height: 250px;
     width: 290px;
-    margin-left: 50px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border: none;
-    border-radius: 5px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--cinza-claro);
+    border-radius: 10px;
+    overflow: hidden;
     font-size: 15px;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    justify-content: left;
-    transition: transform 0.5s ease-in-out;
-    padding: 10px;
-}
-
-.adicionarMateria{
-    height: 120px;
-    width: 290px;
-    margin-left: 50px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border: none;
-    border-radius: 5px;
-    font-size: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.5s ease-in-out;
-}
-
-.adicionarMateria:hover{
-    transform: scale(1.1);
+    transition: transform 0.3s ease-in-out;
+    background-color: var(--branco);
+    position: relative;
 }
 
 .cards .botao:hover {
-    transform: scale(1.1);
+    transform: scale(1.02);
 }
 
-.primeiro {
-    background-color: #2196F3; 
+.cards .botao .header {
+    height: 50%;
+    padding: 10px;
+    color: var(--branco);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start; 
+    position: relative;
+    z-index: 2;
 }
 
-.segundo {
-    background-color: #FFC107; 
-}
-
-.AreaConhecimento {
-    font-size: 14px;
-    font-style: italic;
-}
-
-.Materia {
-    font-size: 18px;
+.cards .botao .header .assunto {
     font-weight: bold;
+    font-size: 20px;
+    color: var(--branco); 
+    z-index: 5;
+    cursor: pointer;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.9); 
+    margin: 5px 0; 
+}
+
+.cards .botao .header .area {
+    font-size: 16px;
+    color: var(--branco);
+    z-index: 5;
+    cursor: pointer;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.9); 
+    margin: 5px 0;
+}
+
+.cards .botao .header .background-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    opacity: 0.8; 
+    pointer-events: none; 
+}
+
+
+
+.cards .botao .content {
+    padding: 15px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 2;
+}
+
+.cards .botao .content .descricao {
+    color: #555;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.cards .botao .footer {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+    gap: 10px;
+    border-top: 1px solid var(--cinza-claro);
+    z-index: 2;
+}
+
+.cards .botao .footer img{
+    cursor: pointer;
+    margin-right: 8px;
+}
+
+
+
+.adicionarMateria {
+    height: 250px;
+    width: 290px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border: none;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: var(--azul-principal);
+    background-color: #f0f4ff;
+    transition: transform 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.adicionarMateria:hover {
+    transform: scale(1.02);
 }
