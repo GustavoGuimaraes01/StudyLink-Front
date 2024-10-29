@@ -1,15 +1,33 @@
-
-<div *ngIf="isOpen" class="criar-material">
-
-    <button  (click)="close()">
-        <img class="bntFechar" src="img/close.svg" alt="">
+<section *ngIf="isOpen" class="criar-material">
+    <button (click)="close()">
+        <img class="bntFechar" src="img/close.svg" alt="Fechar">
     </button>
     <h2>Criar Material</h2>
+
     <div class="inputs">
-        <input type="image" name="Banner" id="" class="imagemBanner">
+        <!-- Campo de upload de imagem -->
+        <div class="carregarImage" *ngIf="!selectedImage">
+            <label for="imagemBanner" class="labelImage">
+                <span>Clique para adicionar uma imagem</span>
+                <input type="file" id="imagemBanner" accept="image/*" class="imagemBanner" (change)="onFileSelected($event)" />
+            </label>
+        </div>
+        <div class="visualizarImage" *ngIf="selectedImage">
+            <img [src]="selectedImage" alt="Pré-visualização da imagem" class="inputimage" />
+            <button class="removeImage" (click)="removeImage()"><img src="img/closered.svg" alt=""></button>
+        </div>
+
         <input type="text" placeholder="Assunto" class="Assuntoinput">
-        <input type="text" placeholder="Area do conehcimento" class="AreaInput">
+        <input type="text" placeholder="Área do conhecimento" class="AreaInput">
+        
+        <select id="listaSuspensa" name="opcoes">
+            <option value="publica">Pública</option>
+            <option value="privada">Privada</option>
+        </select>
     </div>
 
-</div>
-  
+    <div>
+        <button class="cancelar"  (click)="close()">Cancelar</button>
+        <button class="salvar">Salvar</button>
+    </div>
+</section>

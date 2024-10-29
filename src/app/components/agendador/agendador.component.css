@@ -33,13 +33,13 @@
 .e-calendar .e-content td.e-today.e-selected span.e-day {
     background-color: var(--azul-principal);
     border: 1px solid var(--azul-principal);
-    box-shadow: inset 0 0 0 2px #fff;
-    color: #fff;
+    box-shadow: inset 0 0 0 2px var(--branco);
+    color: var(--branco);
 }
 
 .e-calendar .e-content td.e-today.e-selected:hover span.e-day, .e-calendar .e-content td.e-selected:hover span.e-day, .e-calendar .e-content td.e-selected.e-focused-date span.e-day {
     background: var(--azul-principal);
-    color: #fff;
+    color: var(--branco);
     border: var(--azul-principal);
 }
 
@@ -64,7 +64,7 @@
 .e-schedule .e-month-view .e-current-date .e-date-header, .e-schedule .e-month-agenda-view .e-current-date .e-date-header {
     background: var(--azul-principal);
     border-radius: 50%;
-    color: #fff;
+    color: var(--branco);
     min-width: 20px;
     padding: 0 4px;
     width: fit-content;
