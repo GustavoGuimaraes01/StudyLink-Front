@@ -42,3 +42,53 @@
   vertical-align: middle;  
 } 
 
+/*barra de pesquisa*/
+.barpesquisa {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  background-color: transparent;
+  padding-left: 16px;
+}
+
+.pesquisa {
+  display: flex;
+  align-items: center;
+  max-width: 700px;
+  width: 100%; 
+  background-color: transparent;
+  border: 1px solid var(--cinza-claro);
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  height: 32px;
+}
+
+.pesquisarBotao {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+}
+
+.pesquisarBotao img{
+}
+
+.pesquisa input {
+  flex: 1; 
+  padding: 0 10px;
+  height: 100%; 
+  border: none;
+  border-radius: 4px;
+  outline: none;
+  font-size: 14px;
+  background-color: transparent;
+  color: var(--cinza-claro);
+  
+}
+.pesquisa input::placeholder {
+  color: var(--cinza-claro); /* Substitua pela cor desejada */
+  opacity: 1; /* Opcional: ajusta a opacidade do placeholder */
+}
+

@@ -1,4 +1,7 @@
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=home" />
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=home"
+/>
 
 <mat-sidenav-container class="container" style="height: 100vh;">
   <mat-sidenav #sidenav mode="side" class="sidenav" style="border-radius: 0;" [opened]="true">
@@ -13,21 +16,25 @@
         <mat-icon aria-hidden="false" aria-label="Config icon">settings</mat-icon>Config
       </mat-list-item>
     </mat-nav-list>
-    
   </mat-sidenav>
 
-    <mat-toolbar class="barra" style="position: fixed; top: 0; left: 0; right: 0; z-index: 1;">
+  <mat-toolbar class="barra">
+    <div class="logo">
       <button mat-icon-button (click)="sidenav.toggle()">
         <mat-icon>menu</mat-icon>
-      <span>Study<b>Link</b></span>
-
       </button>
-    </mat-toolbar>
+      <span>Study<b>Link</b></span>
+    </div>
 
-   
-    <ng-content select=".conteudoPrincipal"></ng-content>
+    <div class="barpesquisa">
+      <div class="pesquisa">
+        <button class="pesquisarBotao">
+          <img src="img/iconPesquisa.svg" alt="Pesquisar">
+        </button>
+        <input type="text" placeholder="Pesquisar:" />
+      </div>
+    </div>
+  </mat-toolbar>
 
-  </mat-sidenav-container>
-
-
-  
+  <ng-content select=".conteudoPrincipal"></ng-content>
+</mat-sidenav-container>
