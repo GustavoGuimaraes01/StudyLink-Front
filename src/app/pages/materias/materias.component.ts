@@ -11,6 +11,18 @@ import { CommonModule } from '@angular/common';
   styleUrl: './materias.component.css',
 })
 export class MateriasComponent {
+
+  
+  materiais = [
+    {
+      id:1,
+      imagem: 'img/quimica.png',
+      assunto: 'Estequiometria',
+      area: 'Química'
+    },
+  ]
+
+
   isCriarMaterialOpen = false;
 
   openCriarMaterial() {

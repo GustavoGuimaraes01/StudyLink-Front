@@ -121,6 +121,7 @@
   font-size: 1rem;
   border: none;
   cursor: pointer;
+  transition: transform 0.3s ease;
 }
 
 .cancelar {
@@ -129,9 +130,18 @@
   margin-right: 10px;
 }
 
+.cancelar:hover{
+  background-color: var(--azul-principal);
+  transform: scale(1.1);
+}
+
 .salvar {
   background-color: var(--azul-principal);
   color: var(--branco);
+}
+
+.salvar:hover{
+  transform: scale(1.1);
 }
 
 .criar-material div:last-child {

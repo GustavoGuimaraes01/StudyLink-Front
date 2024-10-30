@@ -1,19 +1,17 @@
 <app-menu-pesquisa class="menu">
-
     <main class="conteudoPrincipal">
         <h1 class="titulo">Organize seus materiais de estudos</h1>
         <section class="cards">
-            <button class="adicionarMateria" (click)="openCriarMaterial()">+ Adicionar Matéria</button>
-            
-            <app-criar-material [(isOpen)]="isCriarMaterialOpen">
-                <p>Conteúdo do modal personalizado aqui.</p>
+            <button class="adicionarMateria" (click)="openCriarMaterial()">+ Adicionar Material</button>
+
+                 <app-criar-material *ngIf="isCriarMaterialOpen" [(isOpen)]="isCriarMaterialOpen">
             </app-criar-material>
 
-            <div class="botao primeiro">
+            <div *ngFor="let material of materiais" class="botao">
                 <div class="header">
-                    <img src="img/quimica.png" alt="Background" class="background-img">
-                    <a class="assunto">Estequiometria</a>
-                    <a class="area">Quimica</a>
+                    <img src="{{ material.imagem }}" alt="" class="background-img">
+                    <a class="assunto">{{ material.assunto }}</a>
+                    <a class="area">{{ material.area }}</a>
                 </div>
                 <div class="content">
                     <a class="descricao">Ver suas atividades</a>
@@ -23,8 +21,76 @@
                     <img src="img/delete.svg" alt="">
                 </div>
             </div>
-            
+            <div *ngFor="let material of materiais" class="botao">
+                <div class="header">
+                    <img src="{{ material.imagem }}" alt="" class="background-img">
+                    <a class="assunto">{{ material.assunto }}</a>
+                    <a class="area">{{ material.area }}</a>
+                </div>
+                <div class="content">
+                    <a class="descricao">Ver suas atividades</a>
+                </div>
+                <div class="footer">
+                    <img src="img/edit.svg" alt="">
+                    <img src="img/delete.svg" alt="">
+                </div>
+            </div>
+            <div *ngFor="let material of materiais" class="botao">
+                <div class="header">
+                    <img src="{{ material.imagem }}" alt="" class="background-img">
+                    <a class="assunto">{{ material.assunto }}</a>
+                    <a class="area">{{ material.area }}</a>
+                </div>
+                <div class="content">
+                    <a class="descricao">Ver suas atividades</a>
+                </div>
+                <div class="footer">
+                    <img src="img/edit.svg" alt="">
+                    <img src="img/delete.svg" alt="">
+                </div>
+            </div>
+            <div *ngFor="let material of materiais" class="botao">
+                <div class="header">
+                    <img src="{{ material.imagem }}" alt="" class="background-img">
+                    <a class="assunto">{{ material.assunto }}</a>
+                    <a class="area">{{ material.area }}</a>
+                </div>
+                <div class="content">
+                    <a class="descricao">Ver suas atividades</a>
+                </div>
+                <div class="footer">
+                    <img src="img/edit.svg" alt="">
+                    <img src="img/delete.svg" alt="">
+                </div>
+            </div>
+            <div *ngFor="let material of materiais" class="botao">
+                <div class="header">
+                    <img src="{{ material.imagem }}" alt="" class="background-img">
+                    <a class="assunto">{{ material.assunto }}</a>
+                    <a class="area">{{ material.area }}</a>
+                </div>
+                <div class="content">
+                    <a class="descricao">Ver suas atividades</a>
+                </div>
+                <div class="footer">
+                    <img src="img/edit.svg" alt="">
+                    <img src="img/delete.svg" alt="">
+                </div>
+            </div>
+            <div *ngFor="let material of materiais" class="botao">
+                <div class="header">
+                    <img src="{{ material.imagem }}" alt="" class="background-img">
+                    <a class="assunto">{{ material.assunto }}</a>
+                    <a class="area">{{ material.area }}</a>
+                </div>
+                <div class="content">
+                    <a class="descricao">Ver suas atividades</a>
+                </div>
+                <div class="footer">
+                    <img src="img/edit.svg" alt="">
+                    <img src="img/delete.svg" alt="">
+                </div>
+            </div>
         </section>
     </main>
-    </app-menu-pesquisa>
-    
+</app-menu-pesquisa>

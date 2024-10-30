@@ -8,6 +8,7 @@ import { ConfigComponent } from './pages/config/config.component';
 import { BarraDePesquisaComponent } from './components/barra-de-pesquisa/barra-de-pesquisa.component';
 import { AgendadorComponent } from './components/agendador/agendador.component';
 import { CriarMaterialComponent } from './pages/criar-material/criar-material.component';
+import { AtividadeComponent } from './pages/atividade/atividade.component';
 
 export const routes: Routes = [
     {path: "login", component: LoginComponent},
@@ -15,6 +16,7 @@ export const routes: Routes = [
     {path:"home",component: HomeComponent},
     {path:"materiais",component: MateriasComponent},
     {path:"config",component: ConfigComponent},
-    {path:"agenda", component:AgendadorComponent}
+    {path:"agenda", component:AgendadorComponent},
+    {path:"atividades", component:AtividadeComponent}
 
 ];
