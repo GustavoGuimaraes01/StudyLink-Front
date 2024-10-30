@@ -89,8 +89,6 @@
     pointer-events: none; 
 }
 
-
-
 .cards .botao .content {
     padding: 15px;
     flex-grow: 1;
@@ -119,8 +117,6 @@
     cursor: pointer;
     margin-right: 8px;
 }
-
-
 
 .adicionarMateria {
     height: 250px;

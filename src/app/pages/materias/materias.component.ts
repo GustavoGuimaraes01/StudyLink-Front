@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './materias.component.css',
 })
 export class MateriasComponent {
+  selectedMaterialId: number | null = null;
 
   
   materiais = [
