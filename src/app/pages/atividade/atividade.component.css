@@ -28,7 +28,7 @@
     background-color: #607d8b;
     padding: 20px;
     border-radius: 8px;
-    color: #ffffff;
+    color: var(--branco);
 }
 
 .header-image {

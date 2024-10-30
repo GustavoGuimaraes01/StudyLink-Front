@@ -17,6 +17,7 @@ export const routes: Routes = [
     {path:"materiais",component: MateriasComponent},
     {path:"config",component: ConfigComponent},
     {path:"agenda", component:AgendadorComponent},
-    {path:"atividades", component:AtividadeComponent}
+    {path:"atividades", component:AtividadeComponent},
+    {path:"p", component:BarraDePesquisaComponent},
 
 ];
