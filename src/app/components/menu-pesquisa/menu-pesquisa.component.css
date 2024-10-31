@@ -45,16 +45,19 @@
 /*barra de pesquisa*/
 .barpesquisa {
   flex: 1;
+  position: fixed;
   display: flex;
+  align-items: center;
   justify-content: center;
   background-color: transparent;
-  padding-left: 16px;
+  left: 50%;
+  transform: translate(-50%);
 }
 
 .pesquisa {
   display: flex;
   align-items: center;
-  max-width: 700px;
+  min-width: 500px;
   width: 100%; 
   background-color: transparent;
   border: 1px solid var(--cinza-claro);
@@ -72,8 +75,6 @@
   align-items: center;
 }
 
-.pesquisarBotao img{
-}
 
 .pesquisa input {
   flex: 1; 
@@ -88,7 +89,7 @@
   
 }
 .pesquisa input::placeholder {
-  color: var(--cinza-claro); /* Substitua pela cor desejada */
-  opacity: 1; /* Opcional: ajusta a opacidade do placeholder */
+  color: var(--cinza-claro); 
+  opacity: 1; 
 }
 
