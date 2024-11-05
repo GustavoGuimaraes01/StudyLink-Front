@@ -1,0 +1,153 @@
+.criar-material {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--branco); 
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1001;
+  width: 800px;
+  height: 650px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bntFechar {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  top: 15px;
+  right: 20px;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+}
+
+.criar-material h2 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+
+.carregarImage {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  border: 2px dashed var(--cinzaccc);
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background-color: #f9f9f9;
+  overflow: hidden;
+}
+
+.labelImage {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--cinza666);
+  font-size: 1rem;
+  text-align: center;
+}
+
+.imagemBanner {
+  display: none;
+}
+
+
+.visualizarImage {
+  width: 100%;
+  height: 200px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.inputimage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.removeImage {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  background: transparent;
+}
+
+.inputs input[type="text"],
+.inputs select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--cinzaccc);
+  border-radius: 4px;
+  font-size: 1rem;
+  outline-color: var(--cinza666);
+}
+.inputs select{
+  opacity: 1.2;
+  color: var(--cinza666);
+}
+
+
+.cancelar,
+.salvar {
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.cancelar {
+  background-color: var(--cinzaccc);
+  color: var(--branco);
+  margin-right: 10px;
+}
+
+.cancelar:hover{
+  background-color: var(--azul-principal);
+  transform: scale(1.1);
+}
+
+.salvar {
+  background-color: var(--azul-principal);
+  color: var(--branco);
+}
+
+.salvar:hover{
+  transform: scale(1.1);
+}
+
+.criar-material div:last-child {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: auto;
+  width: 100%;
+}

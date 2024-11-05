@@ -1,0 +1,19 @@
+.menu {
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); 
+  z-index: 1; 
+}  
+
+.conteudoPrincipal {
+  flex-grow: 1;
+  padding: 20px; 
+  margin-top: 80px; 
+  position: relative; 
+  overflow: hidden; 
+}
+
+
+@media (max-width: 768px) {
+  app-menu-pesquisa {
+    width: 200px; 
+  }
+}

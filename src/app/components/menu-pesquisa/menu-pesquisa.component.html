@@ -1,38 +1,40 @@
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=home" />
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=home"
+/>
 
-<mat-sidenav-container class="barraL" style="height: 100vh;">
-  <mat-sidenav #sidenav mode="side" class="sidenav" [opened]="false">
-    <mat-nav-list>
-      <mat-list-item routerLink="/home">
-        <mat-icon aria-hidden="false" aria-label="Home icon">home</mat-icon>Home
+<mat-sidenav-container class="container" style="height: 100vh;">
+  <mat-sidenav #sidenav mode="side" class="sidenav" style="border-radius: 0;" [opened]="true">
+    <mat-nav-list class="nav-list">
+      <mat-list-item routerLink="/home" [class.active]="currentRoute === '/home'" class="list-item">
+        <mat-icon aria-hidden="false" aria-label="Home icon">home</mat-icon>Inicio
       </mat-list-item>
-      <mat-list-item routerLink="/tarefas">
-        <mat-icon aria-hidden="false" aria-label="Tarefas icon">task</mat-icon>Tarefas
+      <mat-list-item routerLink="/materiais" [class.active]="currentRoute === '/materiais'" class="list-item">
+        <mat-icon aria-hidden="false" aria-label="Materiais icon" style="justify-content: center;">library_books</mat-icon>Material
       </mat-list-item>
-      <mat-list-item routerLink="/materiais">
-        <mat-icon aria-hidden="false" aria-label="Materiais icon">library_books</mat-icon>Materiais
-      </mat-list-item>
-      <mat-list-item routerLink="/config">
+      <mat-list-item routerLink="/config" [class.active]="currentRoute === '/config'" class="list-item">
         <mat-icon aria-hidden="false" aria-label="Config icon">settings</mat-icon>Config
       </mat-list-item>
     </mat-nav-list>
   </mat-sidenav>
 
-  <mat-sidenav-content>
-    <mat-toolbar class="barra" style="position: fixed; top: 0; left: 0; right: 0; z-index: 1;">
+  <mat-toolbar class="barra">
+    <div class="logo">
       <button mat-icon-button (click)="sidenav.toggle()">
         <mat-icon>menu</mat-icon>
       </button>
-      <span>Study<b>link</b></span>
-    </mat-toolbar>
-
-    <div class="conteudo" style="margin-top: 64px;">
-      <router-outlet>
-          <app-agendador>
-            
-          </app-agendador>
-
-      </router-outlet>
+      <span>Study<b>Link</b></span>
     </div>
-  </mat-sidenav-content>
+
+    <div class="barpesquisa">
+      <div class="pesquisa">
+        <button class="pesquisarBotao">
+          <img src="img/iconPesquisa.svg" alt="Pesquisar">
+        </button>
+        <input type="text" placeholder="Pesquisar:" />
+      </div>
+    </div>
+  </mat-toolbar>
+
+  <ng-content select=".conteudoPrincipal"></ng-content>
 </mat-sidenav-container>

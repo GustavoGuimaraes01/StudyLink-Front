@@ -1,2 +1,30 @@
-<app-menu-pesquisa></app-menu-pesquisa>
+<app-menu-pesquisa class="menu">
+    <main class="conteudoPrincipal">
+        <h1 class="titulo">Organize seus materiais de estudos</h1>
+        <section class="cards">
+            <button class="adicionarMateria" (click)="openCriarMaterial()">+ Adicionar Material</button>
 
+                 <app-criar-material *ngIf="isCriarMaterialOpen" [(isOpen)]="isCriarMaterialOpen">
+            </app-criar-material>
+
+            <div *ngFor="let material of materiais" class="botao">
+                <div class="header">
+                    <img src="{{ material.imagem }}" alt="" class="background-img">
+                    <a class="assunto">{{ material.assunto }}</a>
+                    <a class="area">{{ material.area }}</a>
+                </div>
+                <div class="content">
+                    <a class="descricao">Ver suas atividades</a>
+                </div>
+                <div class="footer">
+                    <button>
+                        <img src="img/edit.svg" alt="">
+                    </button>
+                    <button>
+                        <img src="img/delete.svg" alt="">
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+</app-menu-pesquisa>

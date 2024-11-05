@@ -15,9 +15,14 @@
 :root{
     --azul-principal: #318CE7;
     --branco: #fff;
+    --branco-escuro: #fafafa;
+    --fundo-addMaterial: #f0f4ff;
     --cinza-claro: #D9D9D9;
+    --cinzaccc: #ccc;
+    --cinza666: #666;
+    --cinza: #555;
     --cinza-escuro: #333;
-    --cor-preto: #000;
+    --preto: #000;
 
 }
 
