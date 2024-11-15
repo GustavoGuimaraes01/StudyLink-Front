@@ -15,24 +15,31 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [RouterModule, MatIconModule, MatButtonModule, MatToolbarModule, MatSidenavModule, MatListModule, AgendadorComponent, CommonModule],
   templateUrl: './menu-pesquisa.component.html',
-  styleUrls: ['./menu-pesquisa.component.css'] 
-
+  styleUrls: ['./menu-pesquisa.component.css']
 })
 export class MenuPesquisaComponent implements OnInit {
-  currentRoute: string = '';
   isMinimized: boolean = false;
 
   constructor(private router: Router) {}
 
   ngOnInit() {
+
+    const savedState = localStorage.getItem('sidenavState');
+    if (savedState !== null) {
+      this.isMinimized = JSON.parse(savedState);
+    }
+
+
     this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe((event: NavigationEnd) => {
-      this.currentRoute = (event as NavigationEnd).url;
+      filter((event) => event instanceof NavigationEnd)
+    ).subscribe(() => {
+
     });
   }
 
   toggleSidenav() {
+
     this.isMinimized = !this.isMinimized;
+    localStorage.setItem('sidenavState', JSON.stringify(this.isMinimized));
   }
 }
