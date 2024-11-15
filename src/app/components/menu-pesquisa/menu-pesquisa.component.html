@@ -6,16 +6,25 @@
 <mat-sidenav-container class="container" style="height: 100vh;">
   <mat-sidenav #sidenav mode="side" class="sidenav" [class.minimized]="isMinimized" [opened]="true">
     <mat-nav-list>
-      <mat-list-item routerLink="/home" [class.active]="currentRoute === '/home'" class="list-item">
-        <mat-icon>home</mat-icon>
+      <mat-list-item 
+        routerLink="/home" 
+        routerLinkActive="active" 
+        class="list-item">
+        <mat-icon class="material-symbols-outlined">home_outlined</mat-icon>
         <span *ngIf="!isMinimized">Inicio</span>
       </mat-list-item>
-      <mat-list-item routerLink="/materiais" [class.active]="currentRoute === '/materiais'" class="list-item">
-        <mat-icon>library_books</mat-icon>
+      <mat-list-item 
+        routerLink="/materiais" 
+        routerLinkActive="active" 
+        class="list-item">
+        <mat-icon class="material-symbols-outlined">library_books_outlined</mat-icon>
         <span *ngIf="!isMinimized">Material</span>
       </mat-list-item>
-      <mat-list-item routerLink="/config" [class.active]="currentRoute === '/config'" class="list-item">
-        <mat-icon>settings</mat-icon>
+      <mat-list-item 
+        routerLink="/config" 
+        routerLinkActive="active" 
+        class="list-item">
+        <mat-icon class="material-symbols-outlined">settings_outlined</mat-icon>
         <span *ngIf="!isMinimized">Config</span>
       </mat-list-item>
     </mat-nav-list>
@@ -24,7 +33,7 @@
   <mat-toolbar class="barra">
     <div class="logo">
       <button mat-icon-button (click)="toggleSidenav()">
-        <mat-icon>menu</mat-icon>
+        <mat-icon class="material-symbols-outlined">menu</mat-icon>
       </button>
       <span>Study<b>Link</b></span>
     </div>
