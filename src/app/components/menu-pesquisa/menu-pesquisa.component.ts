@@ -8,17 +8,19 @@ import { MatListModule } from '@angular/material/list';
 import { AgendadorComponent } from "../agendador/agendador.component";
 import { NavigationEnd } from '@angular/router'; 
 import { filter } from 'rxjs/operators'; 
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-menu-pesquisa',
   standalone: true,
-  imports: [RouterModule, MatIconModule, MatButtonModule, MatToolbarModule, MatSidenavModule, MatListModule, AgendadorComponent],
+  imports: [RouterModule, MatIconModule, MatButtonModule, MatToolbarModule, MatSidenavModule, MatListModule, AgendadorComponent, CommonModule],
   templateUrl: './menu-pesquisa.component.html',
   styleUrls: ['./menu-pesquisa.component.css'] 
 
 })
 export class MenuPesquisaComponent implements OnInit {
   currentRoute: string = '';
+  isMinimized: boolean = false;
 
   constructor(private router: Router) {}
 
@@ -26,7 +28,11 @@ export class MenuPesquisaComponent implements OnInit {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: NavigationEnd) => {
-      this.currentRoute = event.url; 
+      this.currentRoute = (event as NavigationEnd).url;
     });
+  }
+
+  toggleSidenav() {
+    this.isMinimized = !this.isMinimized;
   }
 }
