@@ -1,6 +1,64 @@
-<app-menu-pesquisa class="menu">
-    <main class="conteudoPrincipal">
-        
+<body class="conteudoPrincipal">
+  <!-- Barra superior com a logo -->
+  <mat-toolbar class="barra">
+    <div class="logo">
+      <span>Study<b>Link</b></span>
+    </div>
+  </mat-toolbar>
 
+  <div class="container">
+    <!-- Menu lateral principal -->
+    <aside class="menu-lateral">
+      <div class="topoLista">
+        <img src="img/setaVoltar.svg" alt="">
+        <h2>Materiais</h2>
+      </div>
+      <ul>
+        <li>
+          <a href="#">
+            <img src="img/pastaAzul.svg" alt="" class="icon-pasta">
+            Estequiometria
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="img/pastaAzul.svg" alt="" class="icon-pasta">
+            Calorimetria
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="img/pastaAzul.svg" alt="" class="icon-pasta">
+            Quimica Organica
+          </a>
+        </li>
+      </ul>
+    </aside>
+
+    <!-- Menu lateral secundário -->
+    <aside class="menu-lateral-secundario" #menuSecundario>
+      <div class="topoAtividades">
+        <h2>Estequiometria</h2>
+        <img src="img/delete666.svg" alt="">
+        <img src="img/pesquisa666.svg" alt="">
+      </div>
+      <div class="cardAtividades">
+        <span class="tituloAtividades">Como calcular</span>
+        <span class="ultimaAlteracao">18:00</span>
+      </div>
+      <div class="cardAtividades">
+        <span class="tituloAtividades">Como calcular</span>
+        <span class="ultimaAlteracao">18:00</span>
+      </div>
+
+      <!-- Barra de redimensionamento -->
+      <div class="resize-bar" (mousedown)="onResizeStart($event, menuSecundario)"></div>
+    </aside>
+
+    <!-- Área de conteúdo -->
+    <main class="conteudo-principal">
+      <h1>Bem-vindo(a) às suas atividades</h1>
+      <p>Selecione uma atividade no menu para começar.</p>
     </main>
-</app-menu-pesquisa>
+  </div>
+</body>

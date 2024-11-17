@@ -1,19 +1,200 @@
-
-.menu {
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); 
-    z-index: 1;
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
 }
 
-.conteudoPrincipal {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    z-index: 7;
-    width: 800px;
-    margin-top: 70px;
-    left: 50%;
-    transform: translate(-50%);
+.container {
+  display: flex;
+  height: calc(100vh - 64px);
+  margin-top: 64px;
+  overflow: hidden;
 }
+
+.menu-lateral {
+  width: 200px;
+  background-color: var(--cinza-claro);
+  padding: 20px;
+  border-right: 1px solid #ddd;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.topoLista {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.topoLista img {
+  width: 24px;
+  height: auto;
+  cursor: pointer;
+}
+
+.topoLista h2 {
+  font-size: 1.2em;
+  font-weight: 500;
+  color: var(--cinza666);
+  margin: 0;
+}
+
+.menu-lateral ul {
+  padding: 0;
+  margin: 0;
+}
+
+.menu-lateral ul li {
+  list-style: none;
+  padding: 8px 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.menu-lateral ul li a {
+  text-decoration: none;
+  color: var(--cinza666);
+  font-weight: 600;
+  font-size: 0.9em;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.menu-lateral ul li a .icon-pasta {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+.menu-lateral-secundario {
+  width: 250px;
+  background-color: var(--branco);
+  padding: 20px;
+  border-right: 1px solid #ddd;
+  box-sizing: border-box;
+  overflow-y: auto;
+  position: relative;
+}
+
+.resize-bar {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  cursor: ew-resize;
+  background-color: #ddd;
+}
+
+.topoAtividades {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.topoAtividades h2 {
+  font-size: 1.2em;
+  font-weight: 500;
+  color: var(--cinza666);
+  margin: 0;
+  flex-grow: 1;
+  text-align: center;
+}
+
+.topoAtividades img {
+  width: 24px;
+  height: auto;
+  cursor: pointer;
+  margin-left: auto;
+}
+
+.cardAtividades {
+  width: 100%;
+  background-color: var(--branco);
+  padding: 15px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 90px;
+}
+
+.cardAtividades:hover {
+  background-color: var(--cinza-claro);
+}
+
+.tituloAtividades {
+  color: var(--cinza666);
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.ultimaAlteracao {
+  font-size: 0.9em;
+  color: #757575;
+  margin-top: auto;
+}
+
+.barra {
+  background-color: var(--preto);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  color: var(--branco);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.barra span {
+  color: var(--azul-principal);
+  margin-left: 10px;
+}
+
+.barra span b {
+  color: var(--branco);
+}
+
+.barra .logo {
+  display: flex;
+  align-items: center;
+}
+
+.conteudo-principal {
+  flex: 1;
+  padding: 20px;
+  background-color: var(--branco);
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.conteudo-principal h1 {
+  font-size: 1.8em;
+  margin-bottom: 10px;
+}
+
+.conteudo-principal p {
+  font-size: 1em;
+  color: #555;
+}
+
 
