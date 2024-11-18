@@ -9,6 +9,7 @@ import { ConfigComponent } from './pages/config/config.component';
 import { AgendadorComponent } from './components/agendador/agendador.component';
 import { CriarMaterialComponent } from './pages/criar-material/criar-material.component';
 import { AtividadeComponent } from './pages/atividade/atividade.component';
+import { RichTextComponent } from './components/rich-text/rich-text.component';
 
 export const routes: Routes = [
     {path: "login", component: LoginComponent},
@@ -18,5 +19,6 @@ export const routes: Routes = [
     {path:"config",component: ConfigComponent},
     {path:"agenda", component:AgendadorComponent},
     {path:"atividades", component:AtividadeComponent},
+    {path:"r", component:RichTextComponent},
 
 ];

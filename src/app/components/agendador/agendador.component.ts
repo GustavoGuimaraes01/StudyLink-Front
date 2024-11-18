@@ -13,6 +13,8 @@ import ptNumberingSystem from '@syncfusion/ej2-cldr-data/supplemental/numberingS
 registerLicense('Ngo9BigBOggjHTQxAR8/V1NDaF1cX2hIfEx3Qnxbf1x0ZFRMZF1bRnBPMyBoS35RckRiWHhccHZTQmRYWUFz');
 
 
+
+
 // O loadCldr carrega os dados no formato que o Brasil utiliza
 loadCldr(ptNumberData, ptTimeZoneData, ptGregorian, ptNumberingSystem);
 

@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { ScheduleModule, RecurrenceEditorModule } from '@syncfusion/ej2-angular-schedule';
 import { RouterOutlet } from '@angular/router';
-import { registerLicense } from '@syncfusion/ej2-base';
 
 @Component({
   selector: 'app-root',
