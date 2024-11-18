@@ -1,108 +1,61 @@
-import { Component } from '@angular/core';
-import { RichTextEditorModule, ToolbarService, LinkService, ImageService, HtmlEditorService, QuickToolbarService, TableService } from '@syncfusion/ej2-angular-richtexteditor';
-import { registerLicense } from '@syncfusion/ej2-base';
+import { Component, ViewEncapsulation } from '@angular/core';
+import Quill from 'quill';
+import { QuillModule } from 'ngx-quill';
 
-// Registrar a licença do Syncfusion
-registerLicense('Ngo9BigBOggjHTQxAR8/V1NDaF1cX2hIfEx3Qnxbf1x0ZFRMZF1bRnBPMyBoS35RckRiWHhccHZTQmRYWUFz');
-
-// Carregar os dados CLDR para o Brasil (pt-BR)
-import { loadCldr } from '@syncfusion/ej2-base';
-import ptNumberData from '@syncfusion/ej2-cldr-data/main/pt/numbers.json';
-import ptTimeZoneData from '@syncfusion/ej2-cldr-data/main/pt/timeZoneNames.json';
-import ptGregorian from '@syncfusion/ej2-cldr-data/main/pt/ca-gregorian.json';
-import ptNumberingSystem from '@syncfusion/ej2-cldr-data/supplemental/numberingSystems.json';
-import { L10n } from '@syncfusion/ej2-base';
-
-// Carregar os dados CLDR para o Brasil
-loadCldr(ptNumberData, ptTimeZoneData, ptGregorian, ptNumberingSystem);
-
-// Carregar as traduções para os componentes do Syncfusion
-L10n.load({
-  'pt': {
-    'richTextEditor': {
-      'link': 'Link',
-      'image': 'Imagem',
-      'table': 'Tabela',
-      'insertLink': 'Inserir Link',
-      'editLink': 'Editar Link',
-      'unlink': 'Remover Link',
-      'createTable': 'Criar Tabela',
-      'insertImage': 'Inserir Imagem',
-      'align': 'Alinhar',
-      'undo': 'Desfazer',
-      'redo': 'Refazer',
-      'bold': 'Negrito',
-      'italic': 'Itálico',
-      'underline': 'Sublinhado',
-      'fontColor': 'Cor da Fonte',
-      'backgroundColor': 'Cor de Fundo',
-      'clearFormatting': 'Limpar Formatação',
-      'addImage': 'Adicionar Imagem',
-      'selectImage': 'Selecionar Imagem',
-      'openLink': 'Abrir Link',
-      'removeImage': 'Remover Imagem'
-    }
-  }
-});
+// Adicione o estilo do Quill
+import 'quill/dist/quill.snow.css';
 
 @Component({
   selector: 'app-rich-text',
-  standalone: true,
-  imports: [RichTextEditorModule],
-  providers: [ToolbarService, LinkService, ImageService, HtmlEditorService, QuickToolbarService, TableService],
   template: `
     <div class="rich-text-container">
-      <ejs-richtexteditor 
-        [toolbarSettings]="toolbarSettings"
-        [quickToolbarSettings]="quickToolbarSettings"
-        enableResize="true"
-        height="100%"
-        width="100%"
-        locale="pt"
-        placeholder="Comece a digitar..."
-        cssClass="notion-editor">
-      </ejs-richtexteditor>
+      <div id="editor"></div>
+      
     </div>
   `,
-  styles: [`
-    :host {
-      display: block;
-      height: 100vh;
-      width: 100vw;
-      overflow: hidden;
-    }
-    .rich-text-container {
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      padding: 2rem;
-      background-color: #fafafa;
-      box-sizing: border-box;
-    }
-    .notion-editor .e-content {
-      font-family: 'Poppins', sans-serif;
-      font-size: 16px;
-      line-height: 1.8;
-    }
-    .notion-editor .e-toolbar {
-      border-bottom: 1px solid #ddd;
-    }
-  `]
+  styleUrls: ['./rich-text.component.css'],  
+  encapsulation: ViewEncapsulation.None, 
 })
 export class RichTextComponent {
-  public toolbarSettings = {
-    items: [
-      'Bold', 'Italic', 'Underline', 'StrikeThrough', '|',
-      'FontName', 'FontSize', 'FontColor', 'BackgroundColor', '|',
-      'Formats', 'Alignments', 'OrderedList', 'UnorderedList', '|',
-      'Indent', 'Outdent', '|',
-      'CreateLink', 'Image', 'CreateTable', '|',
-      'ClearFormat', 'SourceCode', '|', 'Undo', 'Redo'
-    ]
-  };
+  private editor: any;
+  private isFirstLine: boolean = true;
 
-  public quickToolbarSettings = {
-    image: ['Replace', 'Align', 'Caption', 'Remove', 'InsertLink', 'OpenImageLink', '-', 'EditImage', 'AltText', 'Dimension'],
-    link: ['Open', 'Edit', 'UnLink']
-  };
+  ngOnInit() {
+    // Inicializando o Quill
+    const toolbarOptions = [
+      [{ 'header': '1' }, { 'header': '2' }, { 'font': [] }],
+      [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+      ['bold', 'italic', 'underline', 'strike'],
+      [{ 'align': [] }],
+      ['link', 'image'],
+      ['blockquote', 'code-block']
+    ];
+
+    this.editor = new Quill('#editor', {
+      theme: 'snow',
+      modules: {
+        toolbar: toolbarOptions
+      },
+      placeholder: 'Comece a digitar...',
+      bounds: '#editor',
+    });
+
+    // Detecta quando o usuário começa a digitar
+    this.editor.on('text-change', (delta: any, oldDelta: any, source: string) => {
+      if (this.isFirstLine) {
+        // Detecta o texto na primeira linha
+        const firstLineText = this.editor.getText(0, this.editor.getLength()).trim();
+
+        // Verifica se a primeira linha não está vazia
+        if (firstLineText !== '') {
+          // Aplica o título e centraliza somente a primeira linha
+          this.editor.formatText(0, firstLineText.length, 'header', 1);  // Header 1
+          this.editor.formatText(0, firstLineText.length, 'align', 'center'); // Centraliza o texto
+
+          // Impede que o título seja aplicado novamente
+          this.isFirstLine = false;
+        }
+      }
+    });
+  }
 }

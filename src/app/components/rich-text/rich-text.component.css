@@ -1,0 +1,55 @@
+
+:host {
+    display: block;
+    height: 100vh; /* Altura da tela inteira */
+    width: 708px;  /* Largura total da tela */
+    overflow: hidden;
+  }
+  
+  .rich-text-container {
+    height: 100%; /* Garantir que o container ocupe toda a altura */
+    width: 100%;  /* Garantir que o container ocupe toda a largura */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 2rem;
+    background-color: #fafafa;
+    box-sizing: border-box;
+    align-items: center; /* Centraliza horizontalmente o editor */
+  }
+  
+  #editor {
+    width: 750px;          /* Definindo a largura fixa de 750px */
+    max-width: 100%;       /* Garante que o editor não ultrapasse a largura da tela */
+    height: 100vh;         /* Altura máxima da tela */
+    padding: 0;            /* Remove o padding interno */
+    border: none;          /* Remove a borda */
+    outline: none;         /* Remove o contorno */
+    box-shadow: none;      /* Remove qualquer sombra */
+  }
+  
+  /* Personalização para centralizar a toolbar e remover a borda */
+  .ql-toolbar {
+    display: flex !important;
+    justify-content: center !important; /* Centraliza os itens horizontalmente */
+    align-items: center !important;     /* Centraliza os itens verticalmente */
+    width: 100% !important;             /* Garante que a toolbar ocupe a largura total */
+    border: none !important;           /* Remove a borda da toolbar */
+    padding: 10px 0 !important;         /* Adiciona um pouco de espaçamento */
+    box-shadow: none !important;        /* Remove qualquer sombra aplicada */
+  }
+  
+  /* Garante que os itens da toolbar fiquem igualmente distribuídos */
+  .ql-toolbar .ql-formats {
+    display: flex !important;
+    justify-content: center !important; /* Alinha os itens da toolbar no centro */
+    gap: 10px !important;               /* Espaçamento entre os itens */
+  }
+  
+ 
+  .ql-editor h1 {
+    text-align: center;          /* Centraliza o título */
+    margin-top: 0;               /* Remove a margem superior, se necessário */
+    margin-bottom: 20px;         /* Ajuste a margem inferior conforme necessário */
+  }
+  
