@@ -28,9 +28,20 @@ export class RichTextComponent {
       modules: {
         toolbar: toolbarOptions,
       },
-      placeholder: 'Digite aqui...',
+      placeholder: 'Titulo...',
       bounds: '#editor',
     });
 
+    const quillEditor = document.querySelector('.ql-editor');
+    quillEditor?.addEventListener('input', () => {
+      const firstChild = quillEditor.firstChild;
+
+      if (firstChild && firstChild.nodeType === Node.ELEMENT_NODE) {
+        const firstChildTag = (firstChild as HTMLElement).tagName;
+        if (firstChildTag !== 'H1') {
+          this.editor.formatLine(0, 1, 'header', 1);
+        }
+      }
+    });
   }
 }
