@@ -6,6 +6,7 @@ import 'quill/dist/quill.snow.css';
 
 @Component({
   selector: 'app-rich-text',
+  standalone: true,
   templateUrl: `./rich-text.component.html`,
   styleUrls: ['./rich-text.component.css'],
   encapsulation: ViewEncapsulation.None,
@@ -28,20 +29,24 @@ export class RichTextComponent {
       modules: {
         toolbar: toolbarOptions,
       },
-      placeholder: 'Titulo...',
+      placeholder: 'Título...',
       bounds: '#editor',
     });
 
     const quillEditor = document.querySelector('.ql-editor');
-    quillEditor?.addEventListener('input', () => {
-      const firstChild = quillEditor.firstChild;
 
-      if (firstChild && firstChild.nodeType === Node.ELEMENT_NODE) {
-        const firstChildTag = (firstChild as HTMLElement).tagName;
-        if (firstChildTag !== 'H1') {
-          this.editor.formatLine(0, 1, 'header', 1);
+    if (quillEditor) {
+      quillEditor.addEventListener('input', () => {
+        const firstChild = quillEditor.firstChild;
+
+        if (firstChild && firstChild.nodeType === Node.ELEMENT_NODE) {
+          const firstChildTag = (firstChild as HTMLElement).tagName;
+          // Se a primeira linha não for um título (H1), formate-a como um H1
+          if (firstChildTag !== 'H1') {
+            this.editor.formatLine(0, 1, 'header', 1); // Garante que a primeira linha seja H1
+          }
         }
-      }
-    });
+      });
+    }
   }
 }
