@@ -1,55 +1,63 @@
-
 :host {
     display: block;
-    height: 100vh; /* Altura da tela inteira */
-    width: 708px;  /* Largura total da tela */
+    height: 100vh;
+    width: 708px;
     overflow: hidden;
   }
   
   .rich-text-container {
-    height: 100%; /* Garantir que o container ocupe toda a altura */
-    width: 100%;  /* Garantir que o container ocupe toda a largura */
+    height: 100%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     padding: 2rem;
     background-color: #fafafa;
     box-sizing: border-box;
-    align-items: center; /* Centraliza horizontalmente o editor */
+    align-items: center;
+  }
+  
+  #title-input {
+    width: 100%;
+    max-width: 750px;
+    font-size: 1.5rem;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    outline: none;
+  }
+  
+  #title-input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
   }
   
   #editor {
-    width: 750px;          /* Definindo a largura fixa de 750px */
-    max-width: 100%;       /* Garante que o editor não ultrapasse a largura da tela */
-    height: 100vh;         /* Altura máxima da tela */
-    padding: 0;            /* Remove o padding interno */
-    border: none;          /* Remove a borda */
-    outline: none;         /* Remove o contorno */
-    box-shadow: none;      /* Remove qualquer sombra */
+    width: 750px;
+    max-width: 100%;
+    height: calc(100vh - 6rem);
+    padding: 0;
+    border: none;
+    outline: none;
+    box-shadow: none;
   }
   
-  /* Personalização para centralizar a toolbar e remover a borda */
   .ql-toolbar {
     display: flex !important;
-    justify-content: center !important; /* Centraliza os itens horizontalmente */
-    align-items: center !important;     /* Centraliza os itens verticalmente */
-    width: 100% !important;             /* Garante que a toolbar ocupe a largura total */
-    border: none !important;           /* Remove a borda da toolbar */
-    padding: 10px 0 !important;         /* Adiciona um pouco de espaçamento */
-    box-shadow: none !important;        /* Remove qualquer sombra aplicada */
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+    border: none !important;
+    padding: 10px 0 !important;
+    box-shadow: none !important;
+    margin-bottom: 1rem;
   }
   
-  /* Garante que os itens da toolbar fiquem igualmente distribuídos */
   .ql-toolbar .ql-formats {
     display: flex !important;
-    justify-content: center !important; /* Alinha os itens da toolbar no centro */
-    gap: 10px !important;               /* Espaçamento entre os itens */
-  }
-  
- 
-  .ql-editor h1 {
-    text-align: center;          /* Centraliza o título */
-    margin-top: 0;               /* Remove a margem superior, se necessário */
-    margin-bottom: 20px;         /* Ajuste a margem inferior conforme necessário */
+    justify-content: center !important;
+    gap: 10px !important;
   }
   
