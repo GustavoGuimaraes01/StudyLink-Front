@@ -38,7 +38,7 @@ L10n.load({
       'confirmation': 'Confirmação',
       'deleteContent': 'Tem certeza de que deseja excluir esta tarefa?',
       'deleteMultipleContent': 'Tem certeza de que deseja excluir essas tarefas?',
-      'moreDetails': 'Mais detalhes', // Tradução para 'moreDetails'
+      'moreDetails': 'Mais detalhes', 
       'edit': 'Editar',
       'add': 'Adicionar',
       'recurrence': 'Recorrência',
@@ -48,13 +48,10 @@ L10n.load({
       'description': 'Descrição',
       'time': 'Horário',
       'eventTooltip': 'Dica de evento',
-      'addTitle': 'Adicionar título', // Tradução para 'addTitle'
+      'addTitle': 'Adicionar título',
       'save': 'Salvar',
       'delete': "Deletar",
       'cancel':'Cancelar'
-
-
-
     }
   }
 });
@@ -93,6 +90,13 @@ export class AgendadorComponent {
     }
   };
 
+  // Método para salvar evento no localStorage
+  saveEventToLocalStorage(event: any): void {
+    const events = JSON.parse(localStorage.getItem('events') || '[]');
+    events.push(event);
+    localStorage.setItem('events', JSON.stringify(events));
+  }
+
   // Evento para abrir o Popup
   onPopupOpen(args: PopupOpenEventArgs): void {
     const popupElement = args.element;
@@ -101,15 +105,16 @@ export class AgendadorComponent {
     // Verificar o tamanho da janela (se a janela for pequena, não exibir o campo "Prioridade")
     const isSmallWindow = window.innerWidth <= 600; // Ajuste o limite de largura conforme necessário
   
+    // Declara a variável priorityDropDown
+    let priorityDropDown: HTMLElement | null = popupElement.querySelector('.e-dropdownlist-container');
+  
     // Remover o campo "Prioridade" se a janela for pequena
     if (isSmallWindow) {
-      const priorityDropDown = popupElement.querySelector('.e-dropdownlist-container');
       if (priorityDropDown) {
         priorityDropDown.remove();  // Remove o campo de "Prioridade"
       }
     } else {
       // Adicionar o campo de Prioridade apenas se a janela for grande
-      let priorityDropDown = popupElement.querySelector('.e-dropdownlist-container');
       if (!priorityDropDown) {
         priorityDropDown = document.createElement('div');
         priorityDropDown.classList.add('e-dropdownlist-container');
@@ -165,10 +170,22 @@ export class AgendadorComponent {
     if (timeZoneRow) {
       (timeZoneRow as HTMLElement).style.display = 'none';
     }
+  
+    // Captura e salva a prioridade do evento no momento de salvar
+    const saveButton = popupElement.querySelector('.e-save-btn') as HTMLButtonElement;
+    if (saveButton && priorityDropDown) {
+      saveButton.addEventListener('click', () => {
+        // Verificar se priorityDropDown não é null antes de acessar o select
+        const prioritySelect = priorityDropDown?.querySelector('select') as HTMLSelectElement;
+        const selectedPriority = prioritySelect?.value; // Usar optional chaining
+  
+        // Salvar a prioridade no evento
+        if (eventData && selectedPriority) {
+          eventData['Priority'] = selectedPriority;
+        }
+      });
+    }
   }
-  
-  
-  
 
   // Exemplo de um evento com a propriedade "Priority"
   public addNewEvent(): void {
@@ -179,6 +196,13 @@ export class AgendadorComponent {
       EndTime: new Date('2024-11-19T12:00:00'),
       Priority: 'Alta' // Aqui definimos a prioridade
     };
+  
+    // Salve o evento no localStorage ou outro armazenamento, conforme necessário
+    localStorage.setItem('evento', JSON.stringify(newEvent));
+
+
+    console.log('Evento salvo:', localStorage.getItem('evento'));
+   
 
     // Adicionar o evento ao calendário
     // (Utilize o método correspondente para adicionar o evento ao Schedule)
