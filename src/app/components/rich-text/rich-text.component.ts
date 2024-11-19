@@ -17,7 +17,7 @@ export class RichTextComponent {
   ngOnInit() {
     const toolbarOptions = [
       [
-        { header: [1, 2, 3, 4, 5, 6] }, 
+        { header: [1, 2, 3, 4, 5] }, 
         { font: [] }  // Fonte
       ],
       [{ list: 'ordered' }, { list: 'bullet' }],

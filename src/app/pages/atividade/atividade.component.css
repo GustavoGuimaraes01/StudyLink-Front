@@ -111,7 +111,7 @@ html, body {
 
 /* Menu lateral secundário */
 .menu-lateral-secundario {
-  width: 250px;
+  width: 280px;
   background-color: var(--branco);
   padding: 20px;
   border-right: 1px solid #ddd;
@@ -195,3 +195,5 @@ html, body {
   overflow-y: auto;
   box-sizing: border-box;
 }
+
+

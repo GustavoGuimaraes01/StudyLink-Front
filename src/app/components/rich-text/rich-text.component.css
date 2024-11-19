@@ -2,11 +2,11 @@
   display: block;
   height: 100vh;
   width: 708px;
-  overflow: auto; /* Adiciona o scroll ao contêiner */
+  overflow: auto; 
 }
 
 .rich-text-container {
-  height: auto; /* Permite que o editor ajuste sua altura automaticamente */
+  height: auto; 
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -14,25 +14,26 @@
   background-color: var(--branco);
   box-sizing: border-box;
   align-items: center;
-  /* Remover o overflow do contêiner para garantir que o scroll seja no host */
+  
 }
 
 #editor {
-  width: 100%; /* Ajuste o tamanho do editor conforme necessário */
+  width: 100%; 
   max-width: 750px;
-  height: auto; /* Permite que o editor se ajuste ao conteúdo */
+  height: auto; 
   padding: 0;
   border: none;
   outline: none;
   box-shadow: none;
-  overflow: hidden; /* Remove qualquer scroll dentro do editor */
+  overflow: hidden; 
 }
 
 .ql-toolbar {
   display: flex !important;
   justify-content: center !important;
   align-items: center !important;
-  width: 100% !important;
+  flex-direction: row;
+  width: 90% !important;
   border: none !important;
   box-shadow: none !important;
 }
@@ -63,4 +64,33 @@
 
 .ql-editor:focus::before {
   content: '';
+}
+
+.ql-editor {
+  font-size: 16px !important;
+  line-height: 1.5 !important;
+}
+
+.ql-toolbar {
+  font-size: 16px !important;
+}
+
+.ql-editor h1 {
+  font-size: 32px !important; 
+}
+
+.ql-editor h2 {
+  font-size: 28px !important; 
+}
+
+.ql-editor h3 {
+  font-size: 24px !important; 
+}
+
+.ql-editor h4 {
+  font-size: 18px !important; 
+}
+
+.ql-editor h5 {
+  font-size: 16px !important; 
 }
