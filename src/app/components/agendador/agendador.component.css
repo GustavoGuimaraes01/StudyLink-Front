@@ -69,3 +69,68 @@
     padding: 0 4px;
     width: fit-content;
 }
+
+
+
+.e-dropdownlist-container {
+    width: 50%; /* Igual à largura dos containers do formulário */
+    color: rgba(0, 0, 0, .54);
+    font-size: 13px; /* Tamanho de fonte para manter o padrão */
+    font-weight: normal; /* Peso da fonte igual ao dos campos */
+    line-height: normal; /* Alinha a altura da linha com o restante */
+}
+.e-dropdownlist-container {
+    width: 50%; /* Manter a mesma largura que os outros containers */
+    color: rgba(0, 0, 0, .54);
+}
+
+.e-dropdownlist-container label {
+    font-size: 13px; /* Fonte igual aos outros campos */
+    font-weight: normal; /* Peso normal da fonte */
+    line-height: normal; /* Alinha a linha com os outros campos */
+    color: rgba(0, 0, 0, .54);
+    margin-bottom: 2px; /* Reduzir a margem inferior para alinhar mais para cima */
+}
+
+.e-dropdownlist-container select {
+    padding: 3.8px;
+    border: none;
+    border-bottom: 1px solid #ccc; /* Borda inferior como padrão */
+    border-radius: 0; /* Remover bordas arredondadas */
+    width: 100%; /* Largura 100% do contêiner */
+    font-size: 13px; /* Tamanho de fonte igual ao do título */
+    color: rgba(0, 0, 0, .87); /* Cor do texto */
+}
+
+/* Efeito de foco: borda inferior azul quando selecionado */
+.e-dropdownlist-container select:focus {
+    border-bottom: 2px solid var(--azul-principal); /* Borda azul */
+    outline: none; /* Remove o contorno padrão */
+}
+
+/* Ajustes no layout do popup */
+.e-schedule .e-schedule-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+
+
+
+
+.e-input-group:not(.e-float-icon-left):not(.e-float-input)::before, .e-input-group:not(.e-float-icon-left):not(.e-float-input)::after, .e-input-group.e-float-icon-left:not(.e-float-input) .e-input-in-wrap::before, .e-input-group.e-float-icon-left:not(.e-float-input) .e-input-in-wrap::after, .e-input-group.e-control-wrapper:not(.e-float-icon-left):not(.e-float-input)::before, .e-input-group.e-control-wrapper:not(.e-float-icon-left):not(.e-float-input)::after, .e-input-group.e-control-wrapper.e-float-icon-left:not(.e-float-input) .e-input-in-wrap::before, .e-input-group.e-control-wrapper.e-float-icon-left:not(.e-float-input) .e-input-in-wrap::after, .e-float-input.e-input-group:not(.e-float-icon-left) .e-float-line::before, .e-float-input.e-input-group:not(.e-float-icon-left) .e-float-line::after, .e-float-input.e-input-group.e-float-icon-left .e-input-in-wrap .e-float-line::before, .e-float-input.e-input-group.e-float-icon-left .e-input-in-wrap .e-float-line::after, .e-float-input.e-control-wrapper.e-input-group:not(.e-float-icon-left) .e-float-line::before, .e-float-input.e-control-wrapper.e-input-group:not(.e-float-icon-left) .e-float-line::after, .e-float-input.e-control-wrapper.e-input-group.e-float-icon-left .e-input-in-wrap .e-float-line::before, .e-float-input.e-control-wrapper.e-input-group.e-float-icon-left .e-input-in-wrap .e-float-line::after, .e-filled.e-input-group.e-float-icon-left:not(.e-float-input)::before, .e-filled.e-input-group.e-float-icon-left:not(.e-float-input)::after, .e-filled.e-input-group.e-control-wrapper.e-float-icon-left:not(.e-float-input)::before, .e-filled.e-input-group.e-control-wrapper.e-float-icon-left:not(.e-float-input)::after, .e-filled.e-float-input.e-input-group.e-float-icon-left .e-float-line::before, .e-filled.e-float-input.e-input-group.e-float-icon-left .e-float-line::after, .e-filled.e-float-input.e-control-wrapper.e-input-group.e-float-icon-left .e-float-line::before, .e-filled.e-float-input.e-control-wrapper.e-input-group.e-float-icon-left .e-float-line::after {
+    background: var(--azul-principal);
+}
+
+input.e-input::selection, textarea.e-input::selection, .e-input-group input.e-input::selection, .e-input-group.e-control-wrapper input.e-input::selection, .e-float-input input::selection, .e-float-input.e-control-wrapper input::selection, .e-input-group textarea.e-input::selection, .e-input-group.e-control-wrapper textarea.e-input::selection, .e-float-input textarea::selection, .e-float-input.e-control-wrapper textarea::selection, .e-float-input.e-small textarea::selection, .e-float-input textarea::selection {
+    background: var(--azul-principal);
+    color: #fff;
+}
+
+
+
+
+.e-float-input:not(.e-error) input:focus ~ label.e-float-text, .e-float-input.e-small:not(.e-error) input:focus ~ label.e-float-text, .e-small .e-float-input:not(.e-error) input:focus ~ label.e-float-text, .e-float-input:not(.e-error) input[readonly]:focus ~ label.e-label-top.e-float-text, .e-float-input.e-control-wrapper:not(.e-error) input[readonly]:focus ~ label.e-label-top.e-float-text, .e-float-input.e-small:not(.e-error) input[readonly]:focus ~ label.e-float-text, .e-small .e-float-input:not(.e-error) input[readonly]:focus ~ label.e-float-text.e-label-top, .e-float-input.e-control-wrapper.e-small:not(.e-error) input[readonly]:focus ~ label.e-float-text, .e-small .e-float-input.e-control-wrapper:not(.e-error) input[readonly]:focus ~ label.e-float-text.e-label-top, .e-float-input:not(.e-error).e-input-focus input[readonly] ~ label.e-label-top.e-float-text, .e-float-input.e-control-wrapper:not(.e-error).e-input-focus input[readonly] ~ label.e-label-top.e-float-text, .e-float-input.e-small:not(.e-error).e-input-focus input[readonly] ~ label.e-float-text, .e-small .e-float-input:not(.e-error).e-input-focus input[readonly] ~ label.e-float-text.e-label-top, .e-float-input.e-control-wrapper.e-small:not(.e-error).e-input-focus input[readonly] ~ label.e-float-text, .e-small .e-float-input.e-control-wrapper:not(.e-error).e-input-focus input[readonly] ~ label.e-float-text.e-label-top, .e-float-input:not(.e-error) textarea[readonly]:focus ~ label.e-label-top.e-float-text, .e-float-input.e-control-wrapper:not(.e-error) textarea[readonly]:focus ~ label.e-label-top.e-float-text, .e-float-input.e-small:not(.e-error) textarea[readonly]:focus ~ label.e-float-text, .e-small .e-float-input:not(.e-error) textarea[readonly]:focus ~ label.e-float-text.e-label-top, .e-small .e-float-input.e-control-wrapper:not(.e-error) textarea[readonly]:focus ~ label.e-float-text.e-label-top, .e-float-input:not(.e-error).e-input-focus textarea[readonly] ~ label.e-label-top.e-float-text, .e-float-input.e-control-wrapper:not(.e-error).e-input-focus textarea[readonly] ~ label.e-label-top.e-float-text, .e-float-input.e-small:not(.e-error).e-input-focus textarea[readonly] ~ label.e-float-text, .e-small .e-float-input:not(.e-error).e-input-focus textarea[readonly] ~ label.e-float-text.e-label-top, .e-small .e-float-input.e-control-wrapper:not(.e-error).e-input-focus textarea[readonly] ~ label.e-float-text.e-label-top, .e-float-input:not(.e-error) textarea:focus ~ label.e-float-text, .e-float-input.e-small:not(.e-error) textarea:focus ~ label.e-float-text, .e-small .e-float-input:not(.e-error) textarea:focus ~ label.e-float-text, .e-float-input.e-control-wrapper:not(.e-error) input:focus ~ label.e-float-text, .e-float-input.e-control-wrapper.e-small:not(.e-error) input:focus ~ label.e-float-text, .e-small .e-float-input.e-control-wrapper:not(.e-error) input:focus ~ label.e-float-text, .e-float-input.e-control-wrapper:not(.e-error) textarea:focus ~ label.e-float-text, .e-float-input.e-control-wrapper.e-small:not(.e-error) textarea:focus ~ label.e-float-text, .e-small .e-float-input.e-control-wrapper:not(.e-error) textarea:focus ~ label.e-float-text, .e-float-input:not(.e-error).e-input-focus input ~ label.e-float-text, .e-float-input.e-small:not(.e-error).e-input-focus input ~ label.e-float-text, .e-small .e-float-input:not(.e-error).e-input-focus input ~ label.e-float-text, .e-float-input.e-control-wrapper:not(.e-error).e-input-focus input ~ label.e-float-text, .e-float-input.e-control-wrapper.e-small:not(.e-error).e-input-focus input ~ label.e-float-text, .e-small .e-float-input.e-control-wrapper:not(.e-error).e-input-focus input ~ label.e-float-text{
+    color: var(--azul-principal);
+}
