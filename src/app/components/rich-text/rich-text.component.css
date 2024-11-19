@@ -1,73 +1,66 @@
 :host {
-    display: block;
-    height: 100vh;
-    width: 708px;
-    overflow: hidden;
-  }
-  
-  .rich-text-container {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    padding: 2rem;
-    background-color: #fafafa;
-    box-sizing: border-box;
-    align-items: center;
-  }
-  
-  
-  #editor {
-    width: 750px;
-    max-width: 100%;
-    height: calc(100vh - 6rem);
-    padding: 0;
-    border: none;
-    outline: none;
-    box-shadow: none;
-  }
-  
-  .ql-toolbar {
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    width: 100% !important;
-    border: none !important;
-    padding: 10px 0 !important;
-    box-shadow: none !important;
-    margin-bottom: 1rem;
+  display: block;
+  height: 100vh;
+  width: 708px;
+  overflow: auto; /* Adiciona o scroll ao contêiner */
 }
 
-  
-  .ql-toolbar .ql-formats {
-    display: flex !important;
-    justify-content: center !important;
-    gap: 10px !important;
-  }
-  
-  .ql-editor > *:first-child {
-    font-size: 2.5rem; 
-    margin-bottom: 1rem;
-    text-align: center; 
-  }
-  
-  
-  
-  .ql-editor::before {
-    content: 'Titulo...'; 
-    color: #999; /* Cor do placeholder */
-    font-size: 1.5rem;
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    padding: 10px;
-    pointer-events: none;
-    text-align: center; 
-  }
-  
-  .ql-editor:focus::before {
-    content: ''; /* Remove o placeholder ao focar */
-  }
-  
+.rich-text-container {
+  height: auto; /* Permite que o editor ajuste sua altura automaticamente */
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background-color: var(--branco);
+  box-sizing: border-box;
+  align-items: center;
+  /* Remover o overflow do contêiner para garantir que o scroll seja no host */
+}
+
+#editor {
+  width: 100%; /* Ajuste o tamanho do editor conforme necessário */
+  max-width: 750px;
+  height: auto; /* Permite que o editor se ajuste ao conteúdo */
+  padding: 0;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  overflow: hidden; /* Remove qualquer scroll dentro do editor */
+}
+
+.ql-toolbar {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 100% !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.ql-toolbar .ql-formats {
+  display: flex !important;
+  justify-content: center !important;
+  gap: 10px !important;
+}
+
+.ql-editor > *:first-child {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.ql-editor::before {
+  color: #999;
+  font-size: 1.5rem;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 10px;
+  pointer-events: none;
+  text-align: center;
+}
+
+.ql-editor:focus::before {
+  content: '';
+}

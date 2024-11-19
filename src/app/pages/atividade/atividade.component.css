@@ -1,3 +1,4 @@
+/* Reset básico */
 html, body {
   height: 100%;
   margin: 0;
@@ -5,13 +6,45 @@ html, body {
   overflow: hidden;
 }
 
+/* Barra superior */
+.barra {
+  background-color: var(--preto);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  color: var(--branco);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.barra span {
+  color: var(--azul-principal);
+  margin-left: 10px;
+}
+
+.barra span b {
+  color: var(--branco);
+}
+
+.barra .logo {
+  display: flex;
+  align-items: center;
+}
+
+/* Layout principal */
 .container {
   display: flex;
-  height: calc(100vh - 64px);
-  margin-top: 64px;
+  height: calc(100vh - 64px); /* Altura total menos a barra superior */
+  margin-top: 64px; /* Compensação para a barra */
   overflow: hidden;
 }
 
+/* Menu lateral principal */
 .menu-lateral {
   width: 200px;
   background-color: var(--cinza-claro);
@@ -19,6 +52,7 @@ html, body {
   border-right: 1px solid #ddd;
   box-sizing: border-box;
   overflow-y: auto;
+  height: 100%;
 }
 
 .topoLista {
@@ -75,6 +109,7 @@ html, body {
   object-fit: contain;
 }
 
+/* Menu lateral secundário */
 .menu-lateral-secundario {
   width: 250px;
   background-color: var(--branco);
@@ -83,6 +118,7 @@ html, body {
   box-sizing: border-box;
   overflow-y: auto;
   position: relative;
+  height: 100%;
 }
 
 .resize-bar {
@@ -150,51 +186,12 @@ html, body {
   margin-top: auto;
 }
 
-.barra {
-  background-color: var(--preto);
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 10;
-  height: 64px;
-  display: flex;
-  align-items: center;
-  padding: 0 16px;
-  color: var(--branco);
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.barra span {
-  color: var(--azul-principal);
-  margin-left: 10px;
-}
-
-.barra span b {
-  color: var(--branco);
-}
-
-.barra .logo {
-  display: flex;
-  align-items: center;
-}
-
 .conteudo-principal {
   flex: 1;
-  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
   background-color: var(--branco);
   overflow-y: auto;
   box-sizing: border-box;
 }
-
-.conteudo-principal h1 {
-  font-size: 1.8em;
-  margin-bottom: 10px;
-}
-
-.conteudo-principal p {
-  font-size: 1em;
-  color: #555;
-}
-
-
