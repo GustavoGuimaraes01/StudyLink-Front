@@ -11,12 +11,18 @@ export class LoginServiceService {
 
   constructor(private httpClient: HttpClient ) { }
 
-    login(email: string, senha: string){
-      return this.httpClient.post<loginResponse>(this.apiUrl, {email, senha}).pipe(tap((value)=> {
-        sessionStorage.setItem("auth-token",value.token)
-        sessionStorage.setItem("nome_usuario",value.email)
-      }))
-    }
+  login(email: string, senha: string) {
+    return this.httpClient.post<loginResponse>(this.apiUrl, { email, senha }).pipe(
+      tap((value) => {
+        console.log(value)
+        sessionStorage.setItem("auth-token", value.token);
+        sessionStorage.setItem("email", value.email);
+        sessionStorage.setItem("nome_usuario", value.nome_usuario);
+
+      })
+    );
+  }
+  
 
   
 }

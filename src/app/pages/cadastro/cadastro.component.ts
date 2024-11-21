@@ -3,6 +3,7 @@ import { LayoutLoginComponent } from '../../components/layout-login/layout-login
 import { FormControl, FormGroup, ReactiveFormsModule, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 import { CadastroService } from '../../services/cadastro.service';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -16,7 +17,11 @@ import { CommonModule } from '@angular/common';
 export class CadastroComponent {
   cadastroForm!: FormGroup;
 
-  constructor(private cadastroService: CadastroService, private toastr: ToastrService) {
+  constructor(
+    private cadastroService: CadastroService, 
+    private toastr: ToastrService,
+    private router: Router // Injeta o Router
+  ) {
     this.cadastroForm = new FormGroup({
       nome_usuario: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required, Validators.email]),
@@ -52,6 +57,8 @@ export class CadastroComponent {
           timeOut: 3000,
           progressBar: true,
         });
+        this.cadastroForm.reset();
+        this.router.navigate(['/login']);
       },
       error: () => {
         this.toastr.error("Não foi possível realizar o cadastro!", "Erro", {

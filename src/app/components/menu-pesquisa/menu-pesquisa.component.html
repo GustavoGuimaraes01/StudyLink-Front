@@ -30,7 +30,7 @@
       </button>
       <span>Study<b>Link</b></span>
     </div>
-
+  
     <div class="barpesquisa">
       <div class="pesquisa">
         <button class="pesquisarBotao">
@@ -39,7 +39,33 @@
         <input type="text" placeholder="Pesquisar" />
       </div>
     </div>
+  
+    <div class="user-inicial" (click)="toggleMenu()">
+      {{ nomeUsuario[0].toUpperCase() }}
+    </div>
   </mat-toolbar>
 
+  <div *ngIf="isMenuOpen" class="dropdown-menu">
+    <ul>
+      <li>
+        <mat-icon>account_circle</mat-icon> {{ nomeUsuario }} <!-- Ícone de usuário -->
+      </li>
+      <li>
+        <mat-icon>mail</mat-icon> {{ email }} <!-- Ícone de e-mail -->
+      </li>
+      <li>
+        <mat-icon>info</mat-icon> Sobre <!-- Ícone de informação -->
+      </li>
+      <li>
+        <button (click)="logout()">
+          <mat-icon>exit_to_app</mat-icon> Sair <!-- Ícone de logout -->
+        </button>
+      </li>
+    </ul>
+  </div>
+  
+
+  
+  
   <ng-content select=".conteudoPrincipal"></ng-content>
 </mat-sidenav-container>
