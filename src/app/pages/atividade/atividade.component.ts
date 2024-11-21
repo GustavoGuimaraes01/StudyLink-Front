@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { MenuPesquisaComponent } from "../../components/menu-pesquisa/menu-pesquisa.component";
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { RichTextComponent } from '../../components/rich-text/rich-text.component';
+import { BarraComponent } from "../../components/barra/barra.component";
 
 @Component({
   selector: 'app-atividade',
   standalone: true,
-  imports: [MenuPesquisaComponent, MatToolbarModule, MatIconModule, RichTextComponent],
+  imports: [MatToolbarModule, MatIconModule, RichTextComponent, BarraComponent],
   templateUrl: './atividade.component.html',
   styleUrls: ['./atividade.component.css']
 })
