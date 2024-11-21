@@ -1,3 +1,12 @@
+/* Reset básico */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+/* Barra superior */
 .barra {
   background-color: var(--preto);
   position: fixed;
@@ -25,13 +34,13 @@
 .barra .logo {
   display: flex;
   align-items: center;
-  font-weight: bold;
 }
 
+/* Layout principal */
 .container {
   display: flex;
-  height: calc(100vh - 64px); /* Ajuste da altura para ocupar toda a tela */
-  margin-top: 64px;
+  height: calc(100vh - 64px); /* Altura total menos a barra superior */
+  margin-top: 64px; /* Compensação para a barra */
   overflow: hidden;
 }
 
@@ -98,6 +107,7 @@
   width: 18px;
   height: 18px;
   object-fit: contain;
+  margin-right: 4px;
 }
 
 /* Menu lateral secundário */
@@ -177,15 +187,13 @@
   margin-top: auto;
 }
 
-/* Área de conteúdo */
 .conteudo-principal {
   flex: 1;
   display: flex;
   flex-direction: column;
   padding: 10px;
-
-
   background-color: var(--branco);
   overflow-y: auto;
   box-sizing: border-box;
 }
+

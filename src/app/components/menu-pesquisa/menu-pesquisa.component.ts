@@ -35,7 +35,7 @@ export class MenuPesquisaComponent implements OnInit {
     this.email = emailSalvo ? emailSalvo : 'não cadastrado';
 
     const nomeSalvo = sessionStorage.getItem("nome_usuario");
-     this.nomeUsuario = nomeSalvo ? nomeSalvo : 'Visitante';
+     this.nomeUsuario = nomeSalvo ? nomeSalvo : '?';
 
     const savedState = localStorage.getItem('sidenavState');
     if (savedState !== null) {

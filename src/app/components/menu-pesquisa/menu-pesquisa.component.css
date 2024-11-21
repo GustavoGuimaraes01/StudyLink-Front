@@ -199,14 +199,14 @@
 }
 
 .dropdown-menu mat-icon {
-  font-size: 18px; /* Tamanho do ícone */
+  font-size: 18px; 
   margin-right: 10px;
   color: var(--cinza-escuro);
   padding: 5px 0;
 }
 
 .dropdown-menu ul li {
-  font-size: 14px; /* Tamanho do texto */
+  font-size: 14px; 
 }
 
 .dropdown-menu button {
