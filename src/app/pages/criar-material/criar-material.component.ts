@@ -9,12 +9,12 @@ import { CommonModule } from '@angular/common'
   styleUrls: ['./criar-material.component.css']
 })
 export class CriarMaterialComponent {
-  @Input() isOpen = false; // Recebe o estado do componente pai
-  @Output() isOpenChange = new EventEmitter<boolean>(); // Emite eventos para o componente pai
+  @Input() isOpen = false; 
+  @Output() isOpenChange = new EventEmitter<boolean>(); 
 
   close() {
     this.isOpen = false;
-    this.isOpenChange.emit(this.isOpen); // Atualiza o estado no componente pai
+    this.isOpenChange.emit(this.isOpen); 
   }
 
   selectedImage: string | ArrayBuffer | null = null;
