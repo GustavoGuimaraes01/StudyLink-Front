@@ -55,7 +55,7 @@
 
 
 .campo input.ng-touched.ng-invalid {
-    border: 1px solid #ff4d4d; /
+    border: 1px solid #ff4d4d; 
 }
 
 button {
