@@ -1,16 +1,42 @@
 .login-form {
     display: flex;
     flex-direction: column;
-    width: 320px; 
+    width: 320px;
     margin: 0 auto;
 }
 
 .campo {
-    margin-bottom: 10px;
+    margin-bottom: 15px;
+    position: relative; 
 }
-.campo small{
- color: red;
- margin-left: 20px;
+
+.error-message small {
+    display: block;
+    color: #ff4d4d; 
+    font-size: 14px;
+    font-weight: 500;
+    margin-top: 5px;
+    opacity: 0;
+    padding-left: 5px;
+    position: absolute; 
+    top: -35px; 
+    left: 0;
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px); 
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0); 
+    }
+}
+
+.campo input.ng-touched.ng-invalid + .error-message small {
+    animation: fadeIn 0.4s ease-out forwards; 
 }
 
 .borda {
@@ -27,35 +53,38 @@
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
+.campo input.ng-touched.ng-invalid {
+    border: 1px solid #ff4d4d; 
+}
+
 .esqueceu_senha {
     display: flex;
     align-items: center;
-    justify-content: space-between; 
+    justify-content: space-between;
     font-size: 14px;
     margin-bottom: 20px;
-    gap: 10px; 
+    gap: 10px;
 }
 
 .esqueceu_senha p {
-    margin: 0; 
+    margin: 0;
 }
 
 .esqueceu_senha a {
     text-decoration: none;
     color: var(--azul-principal);
-    margin-left: auto; 
+    margin-left: auto;
 }
 
 .checkbox {
     cursor: pointer;
 }
 
-
 .nao_tem_conta {
     display: flex;
     align-items: center;
-    justify-content: flex-start; 
-    gap: 10px; 
+    justify-content: flex-start;
+    gap: 10px;
     font-size: 14px;
     margin-top: 20px;
 }
@@ -67,16 +96,15 @@
 .nao_tem_conta a {
     text-decoration: none;
     color: var(--azul-principal);
-    margin-right: auto; 
+    margin-right: auto;
 }
-
 
 .divisoria {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 320px;
-    margin: 20px 0; 
+    margin: 20px 0;
 }
 
 .linha {
@@ -89,18 +117,17 @@
 .divisoria span {
     padding: 0 10px;
     font-size: 12px;
-
 }
 
 .continuarGoogle {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 320px; 
+    width: 320px;
     padding: 10px;
     border: 1px solid rgba(0, 0, 0, 0.5);
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 10px; 
+    border-radius: 10px;
     background-color: white;
     cursor: pointer;
 }
@@ -108,7 +135,7 @@
 .continuarGoogle img {
     width: 20px;
     height: 20px;
-    margin-right: 10px; 
+    margin-right: 10px;
 }
 
 .continuarGoogle span {

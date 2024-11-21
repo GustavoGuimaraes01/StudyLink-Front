@@ -18,8 +18,8 @@ body {
   .logo {
     height: 45px;
     width: 150px;
-    margin-top: 35px;  /* Adiciona margem no topo */
-    margin-left: 20px; /* Ajuste opcional para a margem à esquerda */
+    margin-top: 35px;  
+    margin-left: 20px; 
     
   }
   
@@ -66,7 +66,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex: 1; /* Faz com que essa seção ocupe o espaço restante da tela */
+    flex: 1; 
     text-align: center;
     padding: 20px;
   }

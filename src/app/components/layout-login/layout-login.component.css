@@ -49,9 +49,9 @@ main{
     h3{
         font-size: 18px;
         font-weight: 400;
-        color: var(--cor-preto);
+        color: var(--cinza666);
         width: 279px;
-        height: 49;
+        margin-bottom: 30px;
     }
 
 }

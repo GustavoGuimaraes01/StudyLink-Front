@@ -30,6 +30,7 @@ export class LoginComponent {
       this.toastr.warning("Por favor, preencha os campos corretamente!", "Atenção", {
         timeOut: 3000,
         progressBar: true,
+        
       });
       return;
     }
