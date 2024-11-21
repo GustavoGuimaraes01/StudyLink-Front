@@ -39,9 +39,10 @@
     <aside class="menu-lateral-secundario" #menuSecundario>
       <div class="topoAtividades">
         <h2>Estequiometria</h2>
-        <img src="img/delete666.svg" alt="">
-        <img src="img/pesquisa666.svg" alt="">
+        <span class="material-icons">delete</span>
+        <span class="material-icons">add</span>
       </div>
+      
       <div class="cardAtividades">
         <span class="tituloAtividades">Como calcular</span>
         <span class="ultimaAlteracao">18:00</span>
@@ -51,11 +52,9 @@
         <span class="ultimaAlteracao">18:00</span>
       </div>
 
-      <!-- Barra de redimensionamento -->
       <div class="resize-bar" (mousedown)="onResizeStart($event, menuSecundario)"></div>
     </aside>
 
-    <!-- Área de conteúdo -->
      <main class="conteudo-principal">
       
       <app-rich-text ></app-rich-text>

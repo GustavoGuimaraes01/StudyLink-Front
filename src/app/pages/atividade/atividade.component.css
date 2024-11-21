@@ -1,4 +1,3 @@
-/* Reset básico */
 html, body {
   height: 100%;
   margin: 0;
@@ -6,7 +5,6 @@ html, body {
   overflow: hidden;
 }
 
-/* Barra superior */
 .barra {
   background-color: var(--preto);
   position: fixed;
@@ -36,23 +34,24 @@ html, body {
   align-items: center;
 }
 
-/* Layout principal */
 .container {
   display: flex;
-  height: calc(100vh - 64px); /* Altura total menos a barra superior */
-  margin-top: 64px; /* Compensação para a barra */
+  height: calc(100vh - 64px);
+  margin-top: 64px;
   overflow: hidden;
 }
 
-/* Menu lateral principal */
 .menu-lateral {
-  width: 200px;
+  width: 220px;
   background-color: var(--cinza-claro);
   padding: 20px;
   border-right: 1px solid #ddd;
   box-sizing: border-box;
   overflow-y: auto;
   height: 100%;
+  position: relative;
+  z-index: 1;
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
 }
 
 .topoLista {
@@ -110,7 +109,6 @@ html, body {
   margin-right: 4px;
 }
 
-/* Menu lateral secundário */
 .menu-lateral-secundario {
   width: 280px;
   background-color: var(--branco);
@@ -149,12 +147,14 @@ html, body {
   text-align: center;
 }
 
-.topoAtividades img {
-  width: 24px;
-  height: auto;
+.topoAtividades i, .topoAtividades .material-icons {
+  font-size: 24px; 
+  color: var(--cinza666); 
   cursor: pointer;
-  margin-left: auto;
+  margin-left: 8px; 
+  transition: color 0.3s ease;
 }
+
 
 .cardAtividades {
   width: 100%;
@@ -169,6 +169,7 @@ html, body {
   flex-direction: column;
   justify-content: space-between;
   height: 90px;
+  box-shadow: 1px 2px 0px rgba(0, 0, 0, 0.1);
 }
 
 .cardAtividades:hover {
@@ -183,7 +184,7 @@ html, body {
 
 .ultimaAlteracao {
   font-size: 0.9em;
-  color: #757575;
+  color: var(--cinza666);
   margin-top: auto;
 }
 
@@ -196,4 +197,3 @@ html, body {
   overflow-y: auto;
   box-sizing: border-box;
 }
-
