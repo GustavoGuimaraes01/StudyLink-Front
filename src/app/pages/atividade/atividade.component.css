@@ -1,13 +1,4 @@
-/* Reset básico */
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-}
-
-/* Barra superior */
-app-barra {
+.barra {
   background-color: var(--preto);
   position: fixed;
   top: 0;
@@ -22,25 +13,25 @@ app-barra {
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-app-barra span {
+.barra span {
   color: var(--azul-principal);
   margin-left: 10px;
 }
 
-app-barra span b {
+.barra span b {
   color: var(--branco);
 }
 
-app-barra .logo {
+.barra .logo {
   display: flex;
   align-items: center;
   font-weight: bold;
 }
 
-/* Layout principal */
 .container {
   display: flex;
-  height: 100vh; /* Ajuste da altura para ocupar toda a tela */
+  height: calc(100vh - 64px); /* Ajuste da altura para ocupar toda a tela */
+  margin-top: 64px;
   overflow: hidden;
 }
 
@@ -192,7 +183,6 @@ app-barra .logo {
   display: flex;
   flex-direction: column;
   padding: 10px;
-  padding-top: 64px; /* Compensação para a altura da barra */
   background-color: var(--branco);
   overflow-y: auto;
   box-sizing: border-box;
