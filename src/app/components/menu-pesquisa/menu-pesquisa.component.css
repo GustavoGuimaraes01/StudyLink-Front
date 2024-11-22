@@ -127,6 +127,7 @@
   align-items: center;
 }
 
+
 .pesquisa input {
   flex: 1;
   padding: 0 10px;
@@ -137,6 +138,26 @@
   font-size: 14px;
   background-color: transparent;
   color: var(--cinza-claro);
+}
+
+.pesquisa.hidden {
+  width: auto; /* Ajusta a largura para o conteúdo */
+  display: flex; /* Garante o alinhamento correto */
+  border: none;
+}
+
+.pesquisa.hidden input {
+  display: none; /* Oculta apenas o campo de entrada */
+}
+
+.pesquisarBotao {
+  padding: 0;
+  margin: 0;
+}
+
+.pesquisa.expanded input {
+  display: block;
+  width: 200px; /* Largura da barra de pesquisa quando expandida */
 }
 
 .pesquisa input::placeholder {
@@ -222,6 +243,72 @@
   background-color: var(--cinza-claro);
 }
 
+@media screen and (min-width: 768px) {
+  .pesquisa {
+    width: 550px; /* Para telas maiores, a largura é fixa */
+  }
+}
+
+@media screen and (min-width: 650px) {
+  .pesquisa input {
+    display: none;
+    border: none;
+    width: none;
+  }
+
+  .pesquisa.hidden input {
+    display: none;
+    width: none;
+  }
+
+  .pesquisa.expanded input {
+    display: none;
+  }
+}
+
+
+@media screen and (max-width: 650px) {
+  .pesquisa input {
+    border: none;
+    width: 100%;
+  }
+
+  .pesquisa.hidden input {
+    display: none;
+  }
+
+  .pesquisa.expanded input {
+    width: 100%;
+    background-color: var(--preto);
+    color: var(--branco);
+    position: absolute;
+    right: 0;
+    z-index: 100;
+  }
+
+  .pesquisa button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    z-index: 101; /* Coloca o botão acima da pesquisa */
+  }
+
+  .seta-voltar {
+    color: var(--branco); 
+    font-size: 24px; 
+    z-index: 101; 
+  }
+
+  .seta-voltar:hover {
+    color: var(--azul-principal); /* Cor da seta ao passar o mouse */
+  }
+
+  /* Ícone de pesquisa */
+  .pesquisarBotao img {
+    width: 24px; /* Ajuste o tamanho do ícone conforme necessário */
+  }
+}
 
 
 
