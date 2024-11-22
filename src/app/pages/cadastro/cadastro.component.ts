@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { LayoutLoginComponent } from '../../components/layout-login/layout-login.component';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
-import { CadastroService } from '../../services/cadastro.service';
+import { CadastroService } from '../../services/usuarios/cadastro.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';

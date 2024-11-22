@@ -1,11 +1,11 @@
+<!-- criar-material.component.html -->
 <section *ngIf="isOpen" class="criar-material">
     <button (click)="close()">
         <img class="bntFechar" src="img/close.svg" alt="Fechar">
     </button>
-    <h2>Criar Material</h2>
+    <h2>{{ materialParaEditar ? 'Editar Material' : 'Criar Material' }}</h2>
 
     <div class="inputs">
-        <!-- Campo de upload de imagem -->
         <div class="carregarImage" *ngIf="!selectedImage">
             <label for="imagemBanner" class="labelImage">
                 <span>Clique para adicionar uma imagem</span>
@@ -17,17 +17,18 @@
             <button class="removeImage" (click)="removeImage()"><img src="img/closered.svg" alt=""></button>
         </div>
 
-        <input type="text" placeholder="Assunto" class="Assuntoinput">
-        <input type="text" placeholder="Área do conhecimento" class="AreaInput">
-        
-        <select id="listaSuspensa" name="opcoes">
+        <input type="text" placeholder="Assunto" class="Assuntoinput" [(ngModel)]="material.titulo">
+        <input type="text" placeholder="Área do conhecimento" class="AreaInput" [(ngModel)]="material.area_conhecimento">
+
+        <select id="listaSuspensa" name="opcoes" [(ngModel)]="material.visibilidade">
             <option value="publica">Pública</option>
             <option value="privada">Privada</option>
         </select>
+        
     </div>
 
     <div>
-        <button class="cancelar"  (click)="close()">Cancelar</button>
-        <button class="salvar">Salvar</button>
+        <button class="cancelar" (click)="close()">Cancelar</button>
+        <button class="salvar" (click)="salvar()">Salvar</button>
     </div>
 </section>

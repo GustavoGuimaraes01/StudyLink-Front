@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { tap } from 'rxjs';
-import { Cadastro } from '../components/types/cadastro';
+import { Cadastro } from '../../components/types/cadastro';
 
 @Injectable({
   providedIn: 'root'

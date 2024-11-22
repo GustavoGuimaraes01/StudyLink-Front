@@ -3,7 +3,7 @@ import { LayoutLoginComponent } from '../../components/layout-login/layout-login
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { LoginServiceService } from '../../services/login-service.service';
+import { LoginServiceService } from '../../services/usuarios/login-service.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
