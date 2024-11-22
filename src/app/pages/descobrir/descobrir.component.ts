@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { MaterialService, MaterialReadDTO } from '../../services/materiais/materiais.service';
 import { MenuPesquisaComponent } from "../../components/menu-pesquisa/menu-pesquisa.component";
 import { CommonModule } from '@angular/common';
 
@@ -7,8 +8,26 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [MenuPesquisaComponent, CommonModule],
   templateUrl: './descobrir.component.html',
-  styleUrl: './descobrir.component.css'
+  styleUrls: ['./descobrir.component.css']
 })
-export class DescobrirComponent {
+export class DescobrirComponent implements OnInit {
 
+  materiais: MaterialReadDTO[] = [];
+
+  constructor(private materialService: MaterialService) {}
+
+  ngOnInit(): void {
+    this.carregarMateriaisPublicos();
+  }
+
+  carregarMateriaisPublicos(): void {
+    this.materialService.listarMateriaisPublicos().subscribe(
+      (materiais) => {
+        this.materiais = materiais;
+      },
+      (error) => {
+        console.error('Erro ao carregar materiais públicos:', error);
+      }
+    );
+  }
 }

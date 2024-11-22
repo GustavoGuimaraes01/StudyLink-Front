@@ -2,7 +2,7 @@ import { Component, ChangeDetectorRef } from '@angular/core';
 import { MenuPesquisaComponent } from '../../components/menu-pesquisa/menu-pesquisa.component';
 import { CriarMaterialComponent } from '../criar-material/criar-material.component';
 import { CommonModule } from '@angular/common';
-import { MaterialService, Material } from'../../services/materiais/materiais.service';
+import { MaterialService, Material } from  '../../services/materiais/materiais.service';
 
 @Component({
   selector: 'app-materias',
@@ -36,7 +36,7 @@ export class MateriasComponent {
       });
     } else {
     
-      this.materialService.listarTodosMateriais().subscribe({
+      this.materialService.listarMateriais().subscribe({
         next: (materiais) => {
           this.materiais = materiais;
           this.cdr.detectChanges();

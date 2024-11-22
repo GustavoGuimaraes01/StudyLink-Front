@@ -1,6 +1,19 @@
-<app-menu-pesquisa>
+<app-menu-pesquisa class="menu">
     <main class="conteudoPrincipal">
-        <h1 class="titulo">Os melhores materiais de estudos</h1>
-
+      <h1 class="titulo">Os melhores materiais de estudos</h1>
+  
+      <section class="cards">
+        <div *ngFor="let material of materiais" class="botao">
+          <div class="header">
+            <img [src]="material.imagemBanner" alt="" class="background-img">
+            <a class="assunto">{{ material.titulo }}</a>
+            <a class="area">{{ material.areaConhecimento }}</a>
+          </div>
+          <div class="content">
+            <a class="descricao">Ver suas atividades</a>
+          </div>
+        </div>
+      </section>
     </main>
-</app-menu-pesquisa>
+  </app-menu-pesquisa>
+  

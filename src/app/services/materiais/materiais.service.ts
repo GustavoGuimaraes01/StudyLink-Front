@@ -53,10 +53,24 @@ export class MaterialService {
     });
   }
 
+
+  listarMateriaisPublicos(): Observable<MaterialReadDTO[]> {
+    const url = `${this.apiUrl}/materiais/descobrir`; 
+    return this.http.get<MaterialReadDTO[]>(url, { headers: this.getHeaders() })
+      .pipe(
+        catchError((error) => {
+          console.error('Erro ao listar materiais públicos:', error);
+          return throwError(() => new Error('Erro ao listar materiais públicos.'));
+        })
+      );
+  }
+  
+
+
   pesquisarMateriais(titulo?: string): Observable<MaterialSearchDTO[]> {
     const url = titulo 
       ? `${this.apiUrl}/materiais/pesquisar?titulo=${encodeURIComponent(titulo)}`
-      : `${this.apiUrl}/materiais/pesquisar`;  // Altere para a rota de pesquisa
+      : `${this.apiUrl}/materiais/pesquisar`;  
     return this.http.get<MaterialSearchDTO[]>(url, { headers: this.getHeaders() })
       .pipe(
         catchError((error) => {
@@ -66,7 +80,7 @@ export class MaterialService {
       );
   }
 
-  listarTodosMateriais(): Observable<MaterialReadDTO[]> {
+  listarMateriais(): Observable<MaterialReadDTO[]> {
     const url = `${this.apiUrl}/materiais`; 
     return this.http.get<MaterialReadDTO[]>(url, { headers: this.getHeaders() })
       .pipe(
