@@ -4,32 +4,32 @@ import { catchError, Observable, throwError } from 'rxjs';
 
 export interface Material {
   id?: number;
-  imagem_banner: string;
+  imagemBanner: string;
   titulo: string;
-  area_conhecimento: string;
+  areaConhecimento: string;
   visibilidade: string;
 }
 
 export interface MaterialCreateDTO {
-  imagem_banner: string;
+  imagemBanner: string;
   titulo: string;
-  area_conhecimento: string;
+  areaConhecimento: string;
   visibilidade: string;
 }
 
 export interface MaterialReadDTO {
   id?: number;
-  imagem_banner: string;
+  imagemBanner: string;
   titulo: string;
-  area_conhecimento: string;
+  areaConhecimento: string;
   visibilidade: string;
 }
 
 export interface MaterialSearchDTO {
   id?: number;
-  imagem_banner: string;
+  imagemBanner: string;
   titulo: string;
-  area_conhecimento: string;
+  areaConhecimento: string;
   visibilidade: string;
 }
 
@@ -43,18 +43,16 @@ export class MaterialService {
 
   private getHeaders(): HttpHeaders {
     const token = sessionStorage.getItem('auth-token');
-    console.log('Token recuperado:', token); // Adicione este log
   
     if (!token) {
       throw new Error('Token não encontrado no sessionStorage');
     }
     return new HttpHeaders({
-        'Authorization': `Bearer ${token}`,
+      'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json',
     });
   }
 
-  // Método para pesquisar materiais por título
   pesquisarMateriais(titulo?: string): Observable<MaterialSearchDTO[]> {
     const url = titulo 
       ? `${this.apiUrl}/materiais/pesquisar?titulo=${encodeURIComponent(titulo)}`
@@ -80,6 +78,7 @@ export class MaterialService {
   }
 
   criarMaterial(material: MaterialCreateDTO): Observable<MaterialReadDTO> {
+    console.log('Enviando material para API:', material);
     return this.http.post<MaterialReadDTO>(`${this.apiUrl}/materiais/add`, material, {      
       headers: this.getHeaders()
     });
@@ -93,7 +92,8 @@ export class MaterialService {
 
   deletarMaterial(id: number): Observable<string> {
     return this.http.delete<string>(`${this.apiUrl}/materiais/${id}`, {
-      headers: this.getHeaders()
+      headers: this.getHeaders(),
+      responseType: 'text' as 'json'
     });
   }
 }

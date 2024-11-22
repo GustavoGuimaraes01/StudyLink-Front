@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { MenuPesquisaComponent } from '../../components/menu-pesquisa/menu-pesquisa.component';
 import { CriarMaterialComponent } from '../criar-material/criar-material.component';
 import { CommonModule } from '@angular/common';
@@ -18,7 +18,7 @@ export class MateriasComponent {
   materialParaEditar: Material | null = null;
   searchTerm: string = ''; 
 
-  constructor(private materialService: MaterialService) {
+  constructor(private materialService: MaterialService, private cdr: ChangeDetectorRef) {
     this.carregarMateriais(); 
   }
 
@@ -28,6 +28,7 @@ export class MateriasComponent {
       this.materialService.pesquisarMateriais(this.searchTerm).subscribe({
         next: (materiais) => {
           this.materiais = materiais;
+          this.cdr.detectChanges();
         },
         error: (error) => {
           console.error('Erro ao pesquisar materiais:', error);
@@ -38,6 +39,7 @@ export class MateriasComponent {
       this.materialService.listarTodosMateriais().subscribe({
         next: (materiais) => {
           this.materiais = materiais;
+          this.cdr.detectChanges();
         },
         error: (error) => {
           console.error('Erro ao carregar materiais:', error);
@@ -62,6 +64,7 @@ export class MateriasComponent {
       this.materialService.deletarMaterial(id).subscribe({
         next: () => {
           this.carregarMateriais();
+          this.cdr.detectChanges();
         },
         error: (error) => {
           console.error('Erro ao deletar material:', error);

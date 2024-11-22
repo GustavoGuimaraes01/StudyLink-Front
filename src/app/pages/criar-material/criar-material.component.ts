@@ -18,9 +18,9 @@ export class CriarMaterialComponent implements OnInit {
   @Output() materialSalvo = new EventEmitter<void>();
 
   material: Material = {
-    imagem_banner: '',
+    imagemBanner: '',
     titulo: '',
-    area_conhecimento: '',
+    areaConhecimento: '',
     visibilidade: 'PUBLICO'
   };
 
@@ -31,7 +31,7 @@ export class CriarMaterialComponent implements OnInit {
   ngOnInit() {
     if (this.materialParaEditar) {
       this.material = { ...this.materialParaEditar };
-      this.selectedImage = this.materialParaEditar.imagem_banner;
+      this.selectedImage = this.materialParaEditar.imagemBanner;
     }
   }
 
@@ -48,7 +48,7 @@ export class CriarMaterialComponent implements OnInit {
       reader.onload = () => {
         this.selectedImage = reader.result;
         if (typeof this.selectedImage === 'string') {
-          this.material.imagem_banner = this.selectedImage;
+          this.material.imagemBanner = this.selectedImage;
         }
       };
       reader.readAsDataURL(file);
@@ -57,50 +57,52 @@ export class CriarMaterialComponent implements OnInit {
 
   removeImage(): void {
     this.selectedImage = null;
-    this.material.imagem_banner = '';
+    this.material.imagemBanner = '';
   }
 
-  salvar() {
-    if (this.validarFormulario()) {
-      if (this.materialParaEditar?.id) {
-        // Atualizar material existente
-        this.materialService.atualizarMaterial(this.materialParaEditar.id, this.material).subscribe({
-          next: () => {
-            this.materialSalvo.emit();
-            this.close();
-          },
-          error: (error) => {
-            console.error('Erro ao atualizar material:', error);
-          }
-        });
-      } else {
-        // Criar novo material
-        this.materialService.criarMaterial(this.material).subscribe({
-          next: () => {
-            this.materialSalvo.emit();
-            this.close();
-          },
-          error: (error) => {
-            console.error('Erro ao criar material:', error);
+ // criar-material.component.ts
+ salvar() {
+  if (this.validarFormulario()) {
+    if (this.materialParaEditar?.id) {
+      this.materialService.atualizarMaterial(this.materialParaEditar.id, this.material).subscribe({
+        next: () => {
+          this.materialSalvo.emit();
+          this.close();
+        },
+        error: (error) => {
+          console.error('Erro ao atualizar material:', error);
+        }
+      });
+    } else {
+      // Criar novo material
+      this.materialService.criarMaterial(this.material).subscribe({
+        next: () => {
+          this.materialSalvo.emit();
+          this.close();
+        },
+        error: (error) => {
+          console.error('Erro ao criar material:', error);
 
-          }
-        });
-      }
+        }
+      });
     }
   }
+}
+
 
   private validarFormulario(): boolean {
     return !!(this.material.titulo && 
-              this.material.area_conhecimento && 
-              this.material.imagem_banner);
+              this.material.areaConhecimento && 
+              this.material.imagemBanner && 
+              this.material.visibilidade);
   }
-
+  
   private resetForm() {
     this.material = {
-      imagem_banner: '',
+      imagemBanner: '',
       titulo: '',
-      area_conhecimento: '',
-      visibilidade: 'publica'
+      areaConhecimento: '',
+      visibilidade: 'PUBLICO'
     };
     this.selectedImage = null;
   }
