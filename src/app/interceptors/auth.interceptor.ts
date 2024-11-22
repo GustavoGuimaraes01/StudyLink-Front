@@ -1,38 +1,28 @@
 import { Injectable } from '@angular/core';
-import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpResponse } from '@angular/common/http';
-import { Observable, tap } from 'rxjs';
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { catchError, Observable, throwError } from 'rxjs';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
+  constructor() {}
+
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const authToken = sessionStorage.getItem('auth-token');
-    console.log('Interceptando requisição para:', request.url);
-    console.log('Token encontrado:', authToken);
-
-    if (authToken) {
-      request = request.clone({
-        setHeaders: {
-          Authorization: `Bearer ${authToken}`,
-          'Content-Type': 'application/json'
-        }
+    const token = sessionStorage.getItem('auth-token');
+    
+    if (token) {
+      console.log('Enviando requisição com token');
+      const cloned = request.clone({
+        headers: request.headers.set('Authorization', `Bearer ${token}`)
       });
-      console.log('Headers após clone:', request.headers.keys());
-    }
-
-    return next.handle(request).pipe(
-      tap({
-        next: (event) => {
-          if (event instanceof HttpResponse) {
-            console.log('Resposta recebida:', event.status);
-          }
-        },
-        error: (error) => {
+      
+      return next.handle(cloned).pipe(
+        catchError(error => {
           console.error('Erro na requisição:', error);
-          if (error.status === 403) {
-            console.error('Erro de autorização - verifique se o token é válido');
-          }
-        }
-      })
-    );
+          return throwError(() => error);
+        })
+      );
+    }
+    
+    return next.handle(request);
   }
 }

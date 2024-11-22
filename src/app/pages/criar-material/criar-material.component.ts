@@ -21,7 +21,7 @@ export class CriarMaterialComponent implements OnInit {
     imagem_banner: '',
     titulo: '',
     area_conhecimento: '',
-    visibilidade: 'publica'
+    visibilidade: 'PUBLICO'
   };
 
   selectedImage: string | ArrayBuffer | null = null;
