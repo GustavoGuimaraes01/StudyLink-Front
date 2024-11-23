@@ -2,7 +2,6 @@
   height: 100%;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   display: flex;
-  
 }
 
 .barra {
@@ -17,7 +16,7 @@
   justify-content: space-between;
   padding: 0 16px;
   height: 64px;
-  flex-wrap: wrap; /* Permite que os itens quebrem linha em telas menores */
+  flex-wrap: wrap;
 }
 
 .barra span {
@@ -33,6 +32,7 @@
   display: flex;
   align-items: center; 
   font-weight: bold;
+  z-index: 10; /* Garante que o logo fique acima da barra de pesquisa */
 }
 
 .barra .logo mat-icon {
@@ -47,7 +47,6 @@
   transition: width 0.3s;
   padding-top: 15px;
 }
-
 
 .sidenav.minimized {
   width: 80px;
@@ -117,6 +116,7 @@
   border-radius: 4px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   height: 32px;
+  transition: all 0.3s ease;
 }
 
 .pesquisarBotao {
@@ -127,7 +127,6 @@
   display: flex;
   align-items: center;
 }
-
 
 .pesquisa input {
   flex: 1;
@@ -178,8 +177,10 @@
   font-size: 18px;
   text-transform: uppercase;
   cursor: pointer;
-  margin-right: 16px; 
+  margin-right: 16px;
+  z-index: 10; 
 }
+
 .dropdown-menu {
   position: absolute;
   top: 50px; 
@@ -214,7 +215,6 @@
   padding: 15px 0;
   display: flex;
   align-items: center;
-  justify-content: center;
   justify-content: flex-start;
   box-sizing: border-box;
 }
@@ -243,23 +243,128 @@
   background-color: var(--cinza-claro);
 }
 
+/* Telas acima de 1000px */
 @media screen and (min-width: 1000px) {
   .pesquisa {
+    display: flex;
     max-width: 550px;
+    background-color: transparent;
+    border: 1px solid var(--cinza-claro);
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    align-items: center;
+    padding: 0 8px;
+  }
+
+  .pesquisarBotao-fixed {
+    display: none; 
+  }
+
+  .barpesquisa {
+    flex: 1;
+    justify-content: center; 
+  }
+
+  .pesquisa input {
+    display: block;
+    flex: 1;
+    height: 32px;
+    background-color: transparent;
+    border: none;
+    font-size: 14px;
+    padding: 0 8px;
+    color: var(--cinza-claro);
   }
 }
 
-@media screen and (max-width: 950px) {
+@media screen and (max-width: 1000px) {
   .pesquisa {
     width: 450px;
   }
+
+  .pesquisarBotao-fixed {
+    display: none; /* Ativo para telas médias */
+    margin-right: 8px;
+  }
+
+  .barpesquisa {
+    flex: 1;
+    justify-content: center; /* Centralizado */
+  }
+
+  .pesquisa input {
+    width: 80%; /* Limita o tamanho em telas médias */
+  }
 }
 
-@media screen and (max-width: 790px) {
+/* Telas entre 790px e 950px */
+@media screen and (max-width: 950px) {
   .pesquisa {
     width: 350px;
   }
+
+  .pesquisarBotao-fixed {
+    display: none;
+  }
+
+  .pesquisa input {
+    width: 75%;
+  }
 }
+
+/* Telas pequenas (entre 650px e 790px) */
+@media screen and (max-width: 790px) {
+  .pesquisa {
+    width: 300px;
+    background-color: transparent;
+    border: 1px solid var(--cinza-claro);
+    border-radius: 4px;
+  }
+  .barpesquisa{
+    justify-content: center;
+  }
+
+  .pesquisarBotao-fixed {
+    display: none;
+  }
+
+  .pesquisa input {
+    flex: 1;
+    height: 32px;
+  }
+}
+
+/* Telas maiores que 650px */
+@media screen and (min-width: 650px) {
+  .pesquisarBotao {
+    display: none; 
+  }
+
+  .pesquisarBotao-fixed {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--branco);
+    margin: 0; /* Remova margem padrão */
+    transform: translateX(-4px); /* Ajuste fino para alinhar com a seta */
+  }
+  
+  .pesquisarBotao-fixed mat-icon {
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+    line-height: 1;
+    margin: 0; /* Remova qualquer margem adicional */
+    vertical-align: middle;
+  }
+  
+}
+
+
 
 @media screen and (max-width: 650px) {
   .sidenav {
@@ -271,100 +376,114 @@
     box-shadow: 3px 0 6px rgba(0,0,0,.24);
   }
 
-  .barpesquisa {
-    flex: none;
-    display: flex;
-    align-items: center; 
-    justify-content: center; 
-    margin-right: -50% !important; 
-    background-color: transparent;
-  }
+.pesquisarBotao-fixed {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--branco);
+  margin-right: 0 !important ;
 
-  .pesquisa input {
-    display: none;
-  }
-
-  .pesquisa.hidden input {
-    display: none;
-  }
-
-  .pesquisa.expanded input {
-    display: none;
-  }
 }
 
-@media screen and (max-width: 495px) {
+.pesquisarBotao-fixed mat-icon {
+  font-size: 24px;
+  width: 24px;
+  height: 24px;
+}
+
   .barpesquisa {
-    margin-right: -45% !important;
+    position: relative;
+    flex: 0;
+    display: flex;
+    justify-content: center;
+    margin-left: 45% !important;
+
+  }
+
+  .pesquisa {
+    display: none; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 64px;
+    background-color: var(--preto);
+    z-index: 1000;
+    align-items: center;
+    padding: 0 16px;
+    border: none;
+    border-radius: 0;
+
+  }
+
+  .pesquisa.active {
+    display: flex;
+    animation: slideIn 0.3s forwards;
+  }
+
+  @keyframes slideIn {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(0);
+    }
   }
 
   .pesquisa input {
+    flex: 1;
+    height: 40px;
+    background: transparent;
     border: none;
-    width: 100%;
-  }
-
-  .pesquisa.expanded input {
-    width: 100%;
-    background-color: var(--preto);
     color: var(--branco);
-    position: absolute;
-    right: 0;
-    z-index: 100;
+    font-size: 16px;
+    padding: 0 16px;
+    margin-left: 8px;
   }
 
-  .pesquisa button {
-    background: none;
+  .pesquisa input::placeholder {
+    color: var(--cinza-claro);
+  }
+
+  .pesquisarBotao {
+    background: transparent;
     border: none;
+    padding: 8px;
     cursor: pointer;
-    position: relative;
-    z-index: 101; 
-    margin-right: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .seta-voltar {
-    color: var(--branco); 
-    font-size: 24px;
-    left: 5px; 
-    z-index: 101; 
+    color: var(--branco);
   }
 
-  .seta-voltar:hover {
-    color: var(--azul-principal); 
+  .pesquisa .pesquisarBotao {
+    margin-left: -8px;
   }
 
-  .pesquisarBotao img {
-    width: 24px; 
-  }
-}
-
-@media screen and (max-width: 450px) {
-  .barpesquisa {
-    margin-right: -35% !important; 
   }
 
-  .user-inicial{
-    margin-left: 30px !important;
+  @media screen and (max-width: 550px) {
+    .barpesquisa {
+      margin-left: 40% !important;
+    }
+
   }
+  @media screen and (max-width: 470px) {
+    .barpesquisa {
+      margin-left: 30% !important;
+    }
 
-  .pesquisa button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    position: relative;
-    z-index: 101;
-    margin-right: 3px;
   }
-}
+  @media screen and (max-width: 410px) {
+    .barpesquisa {
+      margin-left: 25% !important;
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
+  }

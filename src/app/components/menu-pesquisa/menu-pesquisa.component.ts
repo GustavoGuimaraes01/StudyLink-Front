@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild, ElementRef } from '@angular/core';
 import { Router, NavigationEnd, RouterModule } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { MatIconModule } from '@angular/material/icon';
@@ -26,13 +26,15 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./menu-pesquisa.component.css']
 })
 export class MenuPesquisaComponent implements OnInit {
+  @ViewChild('searchInput') searchInput: ElementRef | undefined;
   sidenavMode: 'over' | 'side' = 'side';
   sidenavOpened = true;
-  nomeUsuario: string = ""; 
-  isListaOpen: boolean = false;  
-  email: string = '';  
-  isSearchHidden = true; 
-  isSearchExpanded = false; 
+  nomeUsuario: string = "";
+  isListaOpen: boolean = false;
+  email: string = '';
+  isSearchHidden = true;
+  isSearchExpanded = false;
+  isSearchActive: boolean = false;
 
   constructor(private router: Router) {}
 
@@ -42,17 +44,20 @@ export class MenuPesquisaComponent implements OnInit {
 
   toggleSearch() {
     const screenWidth = window.innerWidth;
-    if (screenWidth <= 768) {
-      if (this.isSearchExpanded) {
+    if (screenWidth <= 650) {
+      if (this.isSearchActive) {
         this.isSearchExpanded = false;
         setTimeout(() => {
           this.isSearchHidden = true;
+          this.isSearchActive = false;
         }, 300);
       } else {
         this.isSearchHidden = false;
+        this.isSearchExpanded = true;
+        this.isSearchActive = true;
         setTimeout(() => {
-          this.isSearchExpanded = true;
-        }, 10);
+          this.searchInput?.nativeElement?.focus();
+        }, 100);
       }
     }
   }
@@ -60,12 +65,9 @@ export class MenuPesquisaComponent implements OnInit {
   ngOnInit() {
     const emailSalvo = sessionStorage.getItem("email");
     this.email = emailSalvo ? emailSalvo : 'não cadastrado';
-
     const nomeSalvo = sessionStorage.getItem("nome_usuario");
     this.nomeUsuario = nomeSalvo ? nomeSalvo : '?';
-
     this.checkScreenSize();
-
     this.router.events.pipe(
       filter((event) => event instanceof NavigationEnd)
     ).subscribe(() => {
@@ -89,12 +91,11 @@ export class MenuPesquisaComponent implements OnInit {
     } else {
       this.sidenavMode = 'side';
       this.sidenavOpened = true;
-      this.isSearchHidden = false;  
-      this.isSearchExpanded = true; 
+      this.isSearchHidden = false;
+      this.isSearchExpanded = false;
+      this.isSearchActive = false;
     }
   }
-
- 
 
   toggleSidenav() {
     this.sidenavOpened = !this.sidenavOpened;
