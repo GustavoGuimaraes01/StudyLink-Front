@@ -28,15 +28,15 @@ import { CommonModule } from '@angular/common';
 export class MenuPesquisaComponent implements OnInit {
   isMinimized: boolean = false;
   nomeUsuario: string = ""; 
-  isMenuOpen: boolean = false;  
+  isListaOpen: boolean = false;  
   email: string = '';  
   isSearchHidden = true; 
   isSearchExpanded = false; 
 
   constructor(private router: Router) {}
 
-  toggleMenu() {
-    this.isMenuOpen = !this.isMenuOpen;
+  toggleListaSuspensa() {
+    this.isListaOpen = !this.isListaOpen;
   }
 
   toggleSearch() {

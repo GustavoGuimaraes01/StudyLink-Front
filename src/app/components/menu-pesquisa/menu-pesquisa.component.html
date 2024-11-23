@@ -40,12 +40,12 @@
       </div>
     </div>
   
-    <div class="user-inicial" (click)="toggleMenu()">
+    <div class="user-inicial" (click)="toggleListaSuspensa()">
       {{ nomeUsuario[0].toUpperCase() }}
     </div>
   </mat-toolbar>
 
-  <div *ngIf="isMenuOpen" class="dropdown-menu">
+  <div *ngIf="isListaOpen" class="dropdown-menu">
     <ul>
       <li>
         <mat-icon>account_circle</mat-icon> {{ nomeUsuario }} <!-- Ícone de usuário -->
