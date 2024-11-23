@@ -35,6 +35,7 @@ export class MenuPesquisaComponent implements OnInit {
   isSearchHidden = true;
   isSearchExpanded = false;
   isSearchActive: boolean = false;
+  isScreenSmall: boolean = false;
 
   constructor(private router: Router) {}
 
@@ -84,7 +85,8 @@ export class MenuPesquisaComponent implements OnInit {
 
   checkScreenSize() {
     const screenWidth = window.innerWidth;
-    if (screenWidth <= 650) {
+    this.isScreenSmall = screenWidth <= 650;
+    if (this.isScreenSmall) {
       this.sidenavMode = 'over';
       this.sidenavOpened = false;
       this.isSearchHidden = true;

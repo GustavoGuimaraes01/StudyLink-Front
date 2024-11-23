@@ -24,14 +24,16 @@
         <span>Study<b>Link</b></span>
       </div>
       <div class="barpesquisa">
-        <button class="pesquisarBotao-fixed" (click)="toggleSearch()" *ngIf="!isSearchActive">
-          <mat-icon>search</mat-icon>
-        </button>
-        <div class="pesquisa" [class.active]="isSearchExpanded">
-          <button class="pesquisarBotao" (click)="toggleSearch()">
-            <mat-icon>arrow_back</mat-icon>
+        <div class="pesquisa-grupo">
+          <button class="pesquisarBotao-fixed" (click)="toggleSearch()" *ngIf="!isSearchExpanded">
+            <mat-icon>search</mat-icon>
           </button>
-          <input #searchInput type="text" placeholder="Pesquisar" />
+          <div class="pesquisa" [class.active]="isSearchExpanded">
+            <button class="pesquisarBotao" (click)="toggleSearch()">
+              <mat-icon class="seta-voltar">{{ isScreenSmall ? 'arrow_back' : 'search' }}</mat-icon>
+            </button>
+            <input #searchInput type="text" placeholder="Pesquisar" />
+          </div>
         </div>
       </div>
       <div class="user-inicial" (click)="toggleListaSuspensa()">

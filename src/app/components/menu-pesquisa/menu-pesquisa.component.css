@@ -246,15 +246,9 @@
 /* Telas acima de 1000px */
 @media screen and (min-width: 1000px) {
   .pesquisa {
-    display: flex;
-    max-width: 550px;
-    background-color: transparent;
-    border: 1px solid var(--cinza-claro);
-    border-radius: 4px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    align-items: center;
-    padding: 0 8px;
+    width: 500px; /* Aumenta a largura em telas maiores */
   }
+
 
   .pesquisarBotao-fixed {
     display: none; 
@@ -333,35 +327,42 @@
     height: 32px;
   }
 }
-
-/* Telas maiores que 650px */
 @media screen and (min-width: 650px) {
-  .pesquisarBotao {
-    display: none; 
+  .barpesquisa {
+    flex: 0 1 auto; /* Muda de flex: 1 para flex: 0 1 auto para não ocupar todo espaço */
+    display: flex;
+    justify-content: center;
+    width: auto; /* Permite que a largura seja baseada no conteúdo */
   }
 
-  .pesquisarBotao-fixed {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 8px;
+  .pesquisa {
     display: flex;
     align-items: center;
-    justify-content: center;
-    color: var(--branco);
-    margin: 0; /* Remova margem padrão */
-    transform: translateX(-4px); /* Ajuste fino para alinhar com a seta */
+    background-color: transparent;
+    border: 1px solid var(--cinza-claro);
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 0 8px;
+    height: 32px;
+    transition: all 0.3s ease;
   }
-  
-  .pesquisarBotao-fixed mat-icon {
-    font-size: 24px;
-    width: 24px;
-    height: 24px;
-    line-height: 1;
-    margin: 0; /* Remova qualquer margem adicional */
-    vertical-align: middle;
+
+  .pesquisa input {
+    flex: 1;
+    width: 100%; /* Garante que o input ocupe todo o espaço disponível */
+    height: 32px;
+    background-color: transparent;
+    border: none;
+    font-size: 14px;
+    padding: 0 8px;
+    color: var(--cinza-claro);
   }
-  
+
+  .pesquisa-grupo {
+    display: flex;
+    align-items: center;
+    width: auto; /* Ajusta a largura baseada no conteúdo */
+  }
 }
 
 
