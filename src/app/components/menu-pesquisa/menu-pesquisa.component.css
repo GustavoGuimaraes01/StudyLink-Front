@@ -17,6 +17,7 @@
   justify-content: space-between;
   padding: 0 16px;
   height: 64px;
+  flex-wrap: wrap; /* Permite que os itens quebrem linha em telas menores */
 }
 
 .barra span {
@@ -141,13 +142,13 @@
 }
 
 .pesquisa.hidden {
-  width: auto; /* Ajusta a largura para o conteúdo */
-  display: flex; /* Garante o alinhamento correto */
+  width: auto;
+  display: flex; 
   border: none;
 }
 
 .pesquisa.hidden input {
-  display: none; /* Oculta apenas o campo de entrada */
+  display: none;
 }
 
 .pesquisarBotao {
@@ -157,7 +158,7 @@
 
 .pesquisa.expanded input {
   display: block;
-  width: 200px; /* Largura da barra de pesquisa quando expandida */
+  width: 200px; 
 }
 
 .pesquisa input::placeholder {
@@ -179,7 +180,6 @@
   cursor: pointer;
   margin-right: 16px; 
 }
-/* Estilização do menu suspenso */
 .dropdown-menu {
   position: absolute;
   top: 50px; 
@@ -243,16 +243,39 @@
   background-color: var(--cinza-claro);
 }
 
-@media screen and (min-width: 768px) {
+
+@media screen and (min-width: 1000px) {
   .pesquisa {
-    width: 550px; /* Para telas maiores, a largura é fixa */
+    max-width: 550px; 
   }
 }
 
-@media screen and (min-width: 650px) {
+@media screen and (max-width: 950px) {
+  .pesquisa {
+    width: 450px;
+  }
+}
+@media screen and (max-width: 790px) {
+  .pesquisa {
+    width: 350px;
+  }
+}
+
+
+
+@media screen and (max-width: 650px) {
+
+  .barpesquisa {
+    flex: none;
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    margin-right: -50% !important; 
+    background-color: transparent;
+  }
+
   .pesquisa input {
     display: none;
-    border: none;
     width: none;
   }
 
@@ -267,7 +290,16 @@
 }
 
 
-@media screen and (max-width: 650px) {
+@media screen and (max-width: 495px) {
+
+  .barpesquisa {
+    flex: none; 
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    margin-right: -45% !important;
+    background-color: transparent;
+  }
   .pesquisa input {
     border: none;
     width: 100%;
@@ -291,13 +323,72 @@
     border: none;
     cursor: pointer;
     position: relative;
-    z-index: 101; /* Coloca o botão acima da pesquisa */
+    z-index: 101; 
+    margin-right: 3px;
   }
+
 
   .seta-voltar {
     color: var(--branco); 
-    font-size: 24px; 
+    font-size: 24px;
+    left: 5px; 
     z-index: 101; 
+  }
+
+  .seta-voltar:hover {
+    color: var(--azul-principal); 
+  }
+
+  .pesquisarBotao img {
+    width: 24px; 
+  }
+}
+@media screen and (max-width: 450px) {
+
+  .barpesquisa {
+    flex: none;
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    margin-right: -35% !important; 
+    background-color: transparent;
+  }
+  .pesquisa input {
+    border: none;
+    width: 100%;
+  }
+
+  .pesquisa.hidden input {
+    display: none;
+  }
+
+  .pesquisa.expanded input {
+    width: 100%;
+    background-color: var(--preto);
+    color: var(--branco);
+    position: absolute;
+    right: 0;
+    z-index: 100;
+  }
+  .user-inicial{
+    margin-left: 30px !important;
+  }
+
+  .pesquisa button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    z-index: 101; /* Coloca o botão acima da pesquisa */
+    margin-right: 3px;
+  }
+
+  /* Estilo da seta */
+  .seta-voltar {
+    color: var(--branco); /* Cor da seta */
+    font-size: 24px; /* Tamanho da seta */
+    left: 5px; /* Distância da direita */
+    z-index: 101; /* Para garantir que a seta fique acima da pesquisa */
   }
 
   .seta-voltar:hover {
@@ -309,6 +400,8 @@
     width: 24px; /* Ajuste o tamanho do ícone conforme necessário */
   }
 }
+
+
 
 
 

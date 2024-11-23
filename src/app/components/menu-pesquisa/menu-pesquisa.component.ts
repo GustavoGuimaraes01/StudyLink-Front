@@ -86,7 +86,7 @@ export class MenuPesquisaComponent implements OnInit {
 
   checkScreenSize() {
     const screenWidth = window.innerWidth;
-    if (screenWidth > 768) {
+    if (screenWidth > 650) {
       this.isSearchHidden = false;  // Garante que a barra de pesquisa não fique oculta
       this.isSearchExpanded = true; // Garante que a pesquisa fique expandida
     } else {
