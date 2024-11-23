@@ -151,3 +151,55 @@
   margin-top: auto;
   width: 100%;
 }
+
+@media (max-width: 790px) {
+  .criar-material {
+    width: 100%;
+    max-width: 90%;
+    height: auto;
+    max-height: 90%;
+    padding: 15px;
+  }
+
+  .criar-material h2 {
+    font-size: 1.5rem;
+  }
+
+  .inputs {
+    gap: 15px;
+  }
+
+  .carregarImage,
+  .visualizarImage {
+    height: 150px;
+  }
+
+  .cancelar,
+  .salvar {
+    font-size: 0.9rem;
+    padding: 8px 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .criar-material {
+    width: 95%;
+    padding: 10px;
+  }
+
+  .criar-material h2 {
+    font-size: 1.2rem;
+  }
+
+  .carregarImage,
+  .visualizarImage {
+    height: 120px;
+  }
+
+  .cancelar,
+  .salvar {
+    font-size: 0.8rem;
+    padding: 6px 12px;
+    margin-top: 7px;
+  }
+}

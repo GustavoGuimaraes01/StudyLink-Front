@@ -243,10 +243,9 @@
   background-color: var(--cinza-claro);
 }
 
-
 @media screen and (min-width: 1000px) {
   .pesquisa {
-    max-width: 550px; 
+    max-width: 550px;
   }
 }
 
@@ -255,14 +254,12 @@
     width: 450px;
   }
 }
-@media screen and (max-width: 790px) {
 
+@media screen and (max-width: 790px) {
   .pesquisa {
     width: 350px;
   }
 }
-
-
 
 @media screen and (max-width: 650px) {
   .sidenav {
@@ -285,12 +282,10 @@
 
   .pesquisa input {
     display: none;
-    width: none;
   }
 
   .pesquisa.hidden input {
     display: none;
-    width: none;
   }
 
   .pesquisa.expanded input {
@@ -298,24 +293,14 @@
   }
 }
 
-
 @media screen and (max-width: 495px) {
-
   .barpesquisa {
-    flex: none; 
-    display: flex;
-    align-items: center;
-    justify-content: center; 
     margin-right: -45% !important;
-    background-color: transparent;
   }
+
   .pesquisa input {
     border: none;
     width: 100%;
-  }
-
-  .pesquisa.hidden input {
-    display: none;
   }
 
   .pesquisa.expanded input {
@@ -335,7 +320,6 @@
     z-index: 101; 
     margin-right: 3px;
   }
-
 
   .seta-voltar {
     color: var(--branco); 
@@ -352,33 +336,12 @@
     width: 24px; 
   }
 }
+
 @media screen and (max-width: 450px) {
-
   .barpesquisa {
-    flex: none;
-    display: flex;
-    align-items: center; 
-    justify-content: center; 
     margin-right: -35% !important; 
-    background-color: transparent;
-  }
-  .pesquisa input {
-    border: none;
-    width: 100%;
   }
 
-  .pesquisa.hidden input {
-    display: none;
-  }
-
-  .pesquisa.expanded input {
-    width: 100%;
-    background-color: var(--preto);
-    color: var(--branco);
-    position: absolute;
-    right: 0;
-    z-index: 100;
-  }
   .user-inicial{
     margin-left: 30px !important;
   }
@@ -388,12 +351,11 @@
     border: none;
     cursor: pointer;
     position: relative;
-    z-index: 101; /* Coloca o botão acima da pesquisa */
+    z-index: 101;
     margin-right: 3px;
   }
-
-  
 }
+
 
 
 
