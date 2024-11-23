@@ -1,71 +1,63 @@
-<link
-  rel="stylesheet"
-  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
-/>
-
-<mat-sidenav-container class="container" style="height: 100vh;">
-  <mat-sidenav *ngIf="true" #sidenav mode="side" class="sidenav" [class.minimized]="isMinimized" [opened]="true">
+<mat-sidenav-container class="container">
+  <mat-sidenav #sidenav [mode]="sidenavMode" class="sidenav" [opened]="sidenavOpened">
     <mat-nav-list>
       <mat-list-item routerLink="/home" routerLinkActive="active" class="list-item">
         <mat-icon class="material-symbols-outlined">home_outlined</mat-icon>
-        <span *ngIf="!isMinimized">Inicio</span>
+        <span>Inicio</span>
       </mat-list-item>
       <mat-list-item routerLink="/materiais" routerLinkActive="active" class="list-item">
         <mat-icon class="material-symbols-outlined">library_books_outlined</mat-icon>
-        <span *ngIf="!isMinimized">Material</span>
+        <span>Material</span>
       </mat-list-item>
       <mat-list-item routerLink="/descobrir" routerLinkActive="active" class="list-item">
         <mat-icon class="material-symbols-outlined">insights</mat-icon>
-        <span *ngIf="!isMinimized">Descobrir</span>
+        <span>Descobrir</span>
       </mat-list-item>
     </mat-nav-list>
   </mat-sidenav>
 
-  
-
-  <mat-toolbar class="barra">
-    <div class="logo">
-      <button mat-icon-button (click)="toggleSidenav()">
-        <mat-icon class="material-symbols-outlined">menu</mat-icon>
-      </button>
-      <span>Study<b>Link</b></span>
-    </div>
-  
-    <div class="barpesquisa">
-      <div class="pesquisa" [class.hidden]="isSearchHidden" [class.expanded]="isSearchExpanded">
-        <button class="pesquisarBotao" (click)="toggleSearch()">
-          <img src="img/iconPesquisa.svg" alt="Pesquisar">
+  <mat-sidenav-content>
+    <mat-toolbar class="barra">
+      <div class="logo">
+        <button mat-icon-button (click)="toggleSidenav()">
+          <mat-icon class="material-symbols-outlined">menu</mat-icon>
         </button>
-        <input type="text" placeholder="Pesquisar" />
+        <span>Study<b>Link</b></span>
       </div>
-    </div>
-  
-    <div class="user-inicial" (click)="toggleListaSuspensa()">
-      {{ nomeUsuario[0].toUpperCase() }}
-    </div>
-  </mat-toolbar>
 
-  <div *ngIf="isListaOpen" class="dropdown-menu">
-    <ul>
-      <li>
-        <mat-icon>account_circle</mat-icon> {{ nomeUsuario }} <!-- Ícone de usuário -->
-      </li>
-      <li>
-        <mat-icon>mail</mat-icon> {{ email }} <!-- Ícone de e-mail -->
-      </li>
-      <li>
-        <mat-icon>info</mat-icon> Sobre <!-- Ícone de informação -->
-      </li>
-      <li>
-        <button (click)="logout()">
-          <mat-icon>exit_to_app</mat-icon> Sair <!-- Ícone de logout -->
-        </button>
-      </li>
-    </ul>
-  </div>
-  
+      <div class="barpesquisa">
+        <div class="pesquisa" [class.hidden]="isSearchHidden" [class.expanded]="isSearchExpanded">
+          <button class="pesquisarBotao" (click)="toggleSearch()">
+            <img src="img/iconPesquisa.svg" alt="Pesquisar">
+          </button>
+          <input type="text" placeholder="Pesquisar" />
+        </div>
+      </div>
 
-  
-  
-  <ng-content select=".conteudoPrincipal"></ng-content>
+      <div class="user-inicial" (click)="toggleListaSuspensa()">
+        {{ nomeUsuario[0].toUpperCase() }}
+      </div>
+    </mat-toolbar>
+
+    <div *ngIf="isListaOpen" class="dropdown-menu">
+      <ul>
+        <li>
+          <mat-icon>account_circle</mat-icon> {{ nomeUsuario }}
+        </li>
+        <li>
+          <mat-icon>mail</mat-icon> {{ email }}
+        </li>
+        <li>
+          <mat-icon>info</mat-icon> Sobre
+        </li>
+        <li>
+          <button (click)="logout()">
+            <mat-icon>exit_to_app</mat-icon> Sair
+          </button>
+        </li>
+      </ul>
+    </div>
+
+    <ng-content select=".conteudoPrincipal"></ng-content>
+  </mat-sidenav-content>
 </mat-sidenav-container>

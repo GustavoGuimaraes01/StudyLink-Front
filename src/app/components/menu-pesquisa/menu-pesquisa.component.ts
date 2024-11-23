@@ -26,7 +26,8 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./menu-pesquisa.component.css']
 })
 export class MenuPesquisaComponent implements OnInit {
-  isMinimized: boolean = false;
+  sidenavMode: 'over' | 'side' = 'side';
+  sidenavOpened = true;
   nomeUsuario: string = ""; 
   isListaOpen: boolean = false;  
   email: string = '';  
@@ -43,60 +44,60 @@ export class MenuPesquisaComponent implements OnInit {
     const screenWidth = window.innerWidth;
     if (screenWidth <= 768) {
       if (this.isSearchExpanded) {
-        this.isSearchExpanded = false; // Recolhe a pesquisa
+        this.isSearchExpanded = false;
         setTimeout(() => {
-          this.isSearchHidden = true; // Esconde a pesquisa após a transição
+          this.isSearchHidden = true;
         }, 300);
       } else {
-        this.isSearchHidden = false; // Exibe a pesquisa
+        this.isSearchHidden = false;
         setTimeout(() => {
-          this.isSearchExpanded = true; // Expande a pesquisa
+          this.isSearchExpanded = true;
         }, 10);
       }
     }
   }
 
   ngOnInit() {
-    // Recupera informações do usuário
     const emailSalvo = sessionStorage.getItem("email");
     this.email = emailSalvo ? emailSalvo : 'não cadastrado';
 
     const nomeSalvo = sessionStorage.getItem("nome_usuario");
     this.nomeUsuario = nomeSalvo ? nomeSalvo : '?';
 
-    // Recupera estado do sidenav
-    const savedState = localStorage.getItem('sidenavState');
-    if (savedState !== null) {
-      this.isMinimized = JSON.parse(savedState);
-    }
-
-    // Verifica o tamanho inicial da tela
     this.checkScreenSize();
 
-    // Observa eventos de navegação
     this.router.events.pipe(
       filter((event) => event instanceof NavigationEnd)
-    ).subscribe(() => { });
+    ).subscribe(() => {
+      if (this.sidenavMode === 'over') {
+        this.sidenavOpened = false;
+      }
+    });
   }
 
   @HostListener('window:resize', ['$event'])
-  onResize(event: Event) {
+  onResize() {
     this.checkScreenSize();
   }
 
   checkScreenSize() {
     const screenWidth = window.innerWidth;
-    if (screenWidth > 650) {
-      this.isSearchHidden = false;  // Garante que a barra de pesquisa não fique oculta
-      this.isSearchExpanded = true; // Garante que a pesquisa fique expandida
+    if (screenWidth <= 650) {
+      this.sidenavMode = 'over';
+      this.sidenavOpened = false;
+      this.isSearchHidden = true;
     } else {
-      this.isSearchHidden = true;   // Garante que a pesquisa fique oculta em telas pequenas
+      this.sidenavMode = 'side';
+      this.sidenavOpened = true;
+      this.isSearchHidden = false;  
+      this.isSearchExpanded = true; 
     }
   }
 
+ 
+
   toggleSidenav() {
-    this.isMinimized = !this.isMinimized;
-    localStorage.setItem('sidenavState', JSON.stringify(this.isMinimized));
+    this.sidenavOpened = !this.sidenavOpened;
   }
 
   logout() {

@@ -264,6 +264,14 @@
 
 
 @media screen and (max-width: 650px) {
+  .sidenav {
+    position: fixed;
+    box-shadow: 2px 0 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .mat-sidenav[mode="over"] {
+    box-shadow: 3px 0 6px rgba(0,0,0,.24);
+  }
 
   .barpesquisa {
     flex: none;
