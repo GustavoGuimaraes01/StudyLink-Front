@@ -32,7 +32,12 @@
             <button class="pesquisarBotao" (click)="toggleSearch()">
               <mat-icon class="seta-voltar">{{ isScreenSmall ? 'arrow_back' : 'search' }}</mat-icon>
             </button>
-            <input #searchInput type="text" placeholder="Pesquisar" />
+            <input
+            #searchInput 
+            type="text" 
+            placeholder="Pesquisar material por título ou área..."
+            [value]="termoPesquisa"
+            (input)="onSearchInput($event)"/>
           </div>
         </div>
       </div>

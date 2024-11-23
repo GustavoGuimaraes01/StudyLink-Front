@@ -1,19 +1,39 @@
 <app-menu-pesquisa class="menu">
-    <main class="conteudoPrincipal">
-      <h1 class="titulo">Os melhores materiais de estudos</h1>
-  
-      <section class="cards">
-        <div *ngFor="let material of materiais" class="botao">
-          <div class="header">
-            <img [src]="material.imagemBanner" alt="" class="background-img">
-            <a class="assunto">{{ material.titulo }}</a>
-            <a class="area">{{ material.areaConhecimento }}</a>
-          </div>
-          <div class="content">
-            <a class="descricao">Ver suas atividades</a>
-          </div>
+  <main class="conteudoPrincipal">
+    <h1 class="titulo">Os melhores materiais de estudos</h1>
+
+    <!-- Loading spinner -->
+    <div *ngIf="isLoading" class="loading-container">
+      <div class="spinner"></div>
+      <p>Carregando materiais...</p>
+    </div>
+
+    <!-- Mensagem de erro -->
+    <div *ngIf="mensagemErro" class="erro-container">
+      <p class="mensagem-erro">{{ mensagemErro }}</p>
+    </div>
+
+    <!-- Mensagem quando não há resultados -->
+    <div *ngIf="!isLoading && !mensagemErro && materiais.length === 0" class="sem-resultados">
+      <p>Nenhum material encontrado.</p>
+    </div>
+
+    <!-- Lista de materiais -->
+    <section class="cards" *ngIf="!isLoading && materiais.length > 0">
+      <div *ngFor="let material of materiais" class="botao">
+        <div class="header">
+        <img 
+        [src]="material.imagemBanner" 
+        [alt]="material.titulo" 
+        class="background-img" 
+        (error)="handleImageError($event)" />
+          <a class="assunto">{{ material.titulo }}</a>
+          <a class="area">{{ material.areaConhecimento }}</a>
         </div>
-      </section>
-    </main>
-  </app-menu-pesquisa>
-  
+        <div class="content">
+          <a class="descricao">Ver suas atividades</a>
+        </div>
+      </div>
+    </section>
+  </main>
+</app-menu-pesquisa>

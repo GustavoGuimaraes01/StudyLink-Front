@@ -67,15 +67,16 @@ export class MaterialService {
   
 
 
-  pesquisarMateriais(titulo?: string): Observable<MaterialSearchDTO[]> {
-    const url = titulo 
-      ? `${this.apiUrl}/materiais/pesquisar?titulo=${encodeURIComponent(titulo)}`
+  pesquisarMateriais(termoPesquisa?: string): Observable<MaterialSearchDTO[]> {
+    const url = termoPesquisa 
+      ? `${this.apiUrl}/materiais/pesquisar?termoPesquisa=${encodeURIComponent(termoPesquisa)}`
       : `${this.apiUrl}/materiais/pesquisar`;  
+    
     return this.http.get<MaterialSearchDTO[]>(url, { headers: this.getHeaders() })
       .pipe(
         catchError((error) => {
           console.error('Erro ao pesquisar materiais:', error);
-          return throwError(() => new Error('Erro ao buscar materiais.'));
+          return throwError(() => new Error('Erro ao buscar materiais. Por favor, tente novamente mais tarde.'));
         })
       );
   }

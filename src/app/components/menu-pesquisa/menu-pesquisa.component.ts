@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 import { Router, NavigationEnd, RouterModule } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { MatIconModule } from '@angular/material/icon';
@@ -8,6 +8,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { AgendadorComponent } from "../agendador/agendador.component";
 import { CommonModule } from '@angular/common';
+import { Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
   selector: 'app-menu-pesquisa',
@@ -25,11 +27,16 @@ import { CommonModule } from '@angular/common';
   templateUrl: './menu-pesquisa.component.html',
   styleUrls: ['./menu-pesquisa.component.css']
 })
+
 export class MenuPesquisaComponent implements OnInit {
   @ViewChild('searchInput') searchInput: ElementRef | undefined;
+  @Output() pesquisaRealizada = new EventEmitter<string>();
+
+  private searchTerms = new Subject<string>();
+  termoPesquisa: string = ''; // Salva o termo de pesquisa localmente
   sidenavMode: 'over' | 'side' = 'side';
   sidenavOpened = true;
-  nomeUsuario: string = "";
+  nomeUsuario: string = '';
   isListaOpen: boolean = false;
   email: string = '';
   isSearchHidden = true;
@@ -38,6 +45,52 @@ export class MenuPesquisaComponent implements OnInit {
   isScreenSmall: boolean = false;
 
   constructor(private router: Router) {}
+
+  ngOnInit() {
+    const emailSalvo = sessionStorage.getItem('email');
+    this.email = emailSalvo ? emailSalvo : 'não cadastrado';
+    const nomeSalvo = sessionStorage.getItem('nome_usuario');
+    this.nomeUsuario = nomeSalvo ? nomeSalvo : '?';
+    this.checkScreenSize();
+
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe(() => {
+        if (this.sidenavMode === 'over') {
+          this.sidenavOpened = false;
+        }
+      });
+
+    this.searchTerms
+      .pipe(debounceTime(300), distinctUntilChanged())
+      .subscribe((term) => {
+        this.termoPesquisa = term;
+      });
+  }
+
+  realizarPesquisa(termo: string): void {
+    if (this.router.url.includes('http://localhost:4200/descobrir')) {
+      this.pesquisaRealizada.emit(termo); 
+    } else {
+      this.router.navigate(['/descobrir'], { queryParams: { pesquisa: termo } }); 
+    }
+  }
+
+  onSearchInput(event: Event): void {
+    const termo = (event.target as HTMLInputElement).value;
+    this.searchTerms.next(termo); 
+  }
+
+  @HostListener('keydown.enter', ['$event'])
+  onKeydownEnter(event: KeyboardEvent) {
+    const input = event.target as HTMLInputElement;
+    if (input.tagName.toLowerCase() === 'input') {
+      const termo = input.value.trim();
+      if (termo) {
+        this.realizarPesquisa(termo); 
+      }
+    }
+  }
 
   toggleListaSuspensa() {
     this.isListaOpen = !this.isListaOpen;
@@ -61,21 +114,6 @@ export class MenuPesquisaComponent implements OnInit {
         }, 100);
       }
     }
-  }
-
-  ngOnInit() {
-    const emailSalvo = sessionStorage.getItem("email");
-    this.email = emailSalvo ? emailSalvo : 'não cadastrado';
-    const nomeSalvo = sessionStorage.getItem("nome_usuario");
-    this.nomeUsuario = nomeSalvo ? nomeSalvo : '?';
-    this.checkScreenSize();
-    this.router.events.pipe(
-      filter((event) => event instanceof NavigationEnd)
-    ).subscribe(() => {
-      if (this.sidenavMode === 'over') {
-        this.sidenavOpened = false;
-      }
-    });
   }
 
   @HostListener('window:resize', ['$event'])
@@ -104,8 +142,8 @@ export class MenuPesquisaComponent implements OnInit {
   }
 
   logout() {
-    sessionStorage.removeItem("nome_usuario");
-    sessionStorage.removeItem("email_usuario");
+    sessionStorage.removeItem('nome_usuario');
+    sessionStorage.removeItem('email_usuario');
     this.router.navigate(['/login']);
   }
 }
