@@ -256,6 +256,7 @@
   }
 }
 @media screen and (max-width: 790px) {
+
   .pesquisa {
     width: 350px;
   }
@@ -391,22 +392,7 @@
     margin-right: 3px;
   }
 
-  /* Estilo da seta */
-  .seta-voltar {
-    color: var(--branco); /* Cor da seta */
-    font-size: 24px; /* Tamanho da seta */
-    left: 5px; /* Distância da direita */
-    z-index: 101; /* Para garantir que a seta fique acima da pesquisa */
-  }
-
-  .seta-voltar:hover {
-    color: var(--azul-principal); /* Cor da seta ao passar o mouse */
-  }
-
-  /* Ícone de pesquisa */
-  .pesquisarBotao img {
-    width: 24px; /* Ajuste o tamanho do ícone conforme necessário */
-  }
+  
 }
 
 
