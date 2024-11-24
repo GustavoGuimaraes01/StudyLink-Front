@@ -6,7 +6,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
-import { AgendadorComponent } from "../agendador/agendador.component";
 import { CommonModule } from '@angular/common';
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
@@ -21,7 +20,6 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
     MatToolbarModule,
     MatSidenavModule,
     MatListModule,
-    AgendadorComponent,
     CommonModule
   ],
   templateUrl: './menu-pesquisa.component.html',

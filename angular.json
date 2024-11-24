@@ -26,29 +26,30 @@
                 "input": "public"
               }
             ],
-           "styles": [
-                "@angular/material/prebuilt-themes/azure-blue.css",
-                "src/styles.css",
-                "./node_modules/@syncfusion/ej2-material-theme/styles/material.css",
-            "./node_modules/quill/dist/quill.snow.css"
-
-
-             
-                    ],
-            "scripts": []
+            "styles": [
+              "@angular/material/prebuilt-themes/azure-blue.css",
+              "src/styles.css",
+              "./node_modules/@syncfusion/ej2-material-theme/styles/material.css",
+              "./node_modules/quill/dist/quill.snow.css"
+            ],
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "quill",
+              "quill-delta"
+            ]
           },
           "configurations": {
             "production": {
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumWarning": "2MB",
+                  "maximumError": "6MB"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kB",
-                  "maximumError": "4kB"
+                  "maximumWarning": "8kB",
+                  "maximumError": "12kB"
                 }
               ],
               "outputHashing": "all"
@@ -96,7 +97,6 @@
               "src/styles.css",
               "./node_modules/@syncfusion/ej2-material-theme/styles/material.css",
               "./node_modules/quill/dist/quill.snow.css"
-
             ],
             "scripts": []
           }

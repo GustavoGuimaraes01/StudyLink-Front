@@ -6,7 +6,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideToastr } from 'ngx-toastr';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthInterceptor } from '../app/interceptors/auth.interceptor'; // Ajuste o caminho conforme necessário
+import { AuthInterceptor } from '../app/interceptors/auth.interceptor'; 
 
 export const appConfig: ApplicationConfig = {
   providers: [
