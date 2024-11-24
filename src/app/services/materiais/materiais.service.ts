@@ -39,7 +39,7 @@ export interface MaterialSearchDTO {
   providedIn: 'root'
 })
 export class MateriaisService {
-  private apiUrl = `${environment.apiBaseUrl}`;
+  private apiUrl = `${environment.apiBaseUrl}materiais`;
 
   constructor(private http: HttpClient) {}
 
