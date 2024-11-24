@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
+import { environment } from '../../../environments/environment';
+import { MATERIAL_ENDPOINTS } from './endpoints';
 
 export interface Material {
   id?: number;
@@ -36,8 +38,8 @@ export interface MaterialSearchDTO {
 @Injectable({
   providedIn: 'root'
 })
-export class MaterialService {
-  private apiUrl = 'http://localhost:8084/api'; 
+export class MateriaisService {
+  private apiUrl = `${environment.apiBaseUrl}`;
 
   constructor(private http: HttpClient) {}
 
@@ -53,9 +55,8 @@ export class MaterialService {
     });
   }
 
-
   listarMateriaisPublicos(): Observable<MaterialReadDTO[]> {
-    const url = `${this.apiUrl}/materiais/descobrir`; 
+    const url = `${this.apiUrl}${MATERIAL_ENDPOINTS.descobrir}`;
     return this.http.get<MaterialReadDTO[]>(url, { headers: this.getHeaders() })
       .pipe(
         catchError((error) => {
@@ -64,14 +65,12 @@ export class MaterialService {
         })
       );
   }
-  
-
 
   pesquisarMateriais(termoPesquisa?: string): Observable<MaterialSearchDTO[]> {
     const url = termoPesquisa 
-      ? `${this.apiUrl}/materiais/pesquisar?termoPesquisa=${encodeURIComponent(termoPesquisa)}`
-      : `${this.apiUrl}/materiais/pesquisar`;  
-    
+      ? `${this.apiUrl}${MATERIAL_ENDPOINTS.pesquisar}?termoPesquisa=${encodeURIComponent(termoPesquisa)}`
+      : `${this.apiUrl}${MATERIAL_ENDPOINTS.pesquisar}`;
+  
     return this.http.get<MaterialSearchDTO[]>(url, { headers: this.getHeaders() })
       .pipe(
         catchError((error) => {
@@ -82,7 +81,7 @@ export class MaterialService {
   }
 
   listarMateriais(): Observable<MaterialReadDTO[]> {
-    const url = `${this.apiUrl}/materiais`; 
+    const url = `${this.apiUrl}${MATERIAL_ENDPOINTS.listar}`;
     return this.http.get<MaterialReadDTO[]>(url, { headers: this.getHeaders() })
       .pipe(
         catchError((error) => {
@@ -93,20 +92,19 @@ export class MaterialService {
   }
 
   criarMaterial(material: MaterialCreateDTO): Observable<MaterialReadDTO> {
-    console.log('Enviando material para API:', material);
-    return this.http.post<MaterialReadDTO>(`${this.apiUrl}/materiais/add`, material, {      
+    return this.http.post<MaterialReadDTO>(`${this.apiUrl}${MATERIAL_ENDPOINTS.adicionar}`, material, {      
       headers: this.getHeaders()
     });
   }
 
   atualizarMaterial(id: number, material: Material): Observable<MaterialReadDTO> {
-    return this.http.put<MaterialReadDTO>(`${this.apiUrl}/materiais/${id}`, material, {
+    return this.http.put<MaterialReadDTO>(`${this.apiUrl}${MATERIAL_ENDPOINTS.atualizar(id)}`, material, {
       headers: this.getHeaders()
     });
   }
 
   deletarMaterial(id: number): Observable<string> {
-    return this.http.delete<string>(`${this.apiUrl}/materiais/${id}`, {
+    return this.http.delete<string>(`${this.apiUrl}${MATERIAL_ENDPOINTS.deletar(id)}`, {
       headers: this.getHeaders(),
       responseType: 'text' as 'json'
     });

@@ -1,13 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { tap } from 'rxjs';
-import { Cadastro } from '../../components/types/cadastro';
+import { Cadastro } from '../../types/cadastro';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CadastroService {
-  apiUrl: string = "http://localhost:8084/auth/register"; 
+  private apiUrl = `${environment.apiBaseUrl}cadastro`;
 
   constructor(private httpClient: HttpClient) { }
 

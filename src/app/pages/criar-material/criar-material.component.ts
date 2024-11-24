@@ -2,7 +2,7 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { MaterialService, Material } from '../../services/materiais/materiais.service';
+import { MateriaisService, Material } from '../../services/materiais/materiais.service';
 
 @Component({
   selector: 'app-criar-material',
@@ -26,7 +26,7 @@ export class CriarMaterialComponent implements OnInit {
 
   selectedImage: string | ArrayBuffer | null = null;
 
-  constructor(private materialService: MaterialService) {}
+  constructor(private materiaisService: MateriaisService) {}
 
   ngOnInit() {
     if (this.materialParaEditar) {
@@ -64,7 +64,7 @@ export class CriarMaterialComponent implements OnInit {
  salvar() {
   if (this.validarFormulario()) {
     if (this.materialParaEditar?.id) {
-      this.materialService.atualizarMaterial(this.materialParaEditar.id, this.material).subscribe({
+      this.materiaisService.atualizarMaterial(this.materialParaEditar.id, this.material).subscribe({
         next: () => {
           this.materialSalvo.emit();
           this.close();
@@ -75,7 +75,7 @@ export class CriarMaterialComponent implements OnInit {
       });
     } else {
       // Criar novo material
-      this.materialService.criarMaterial(this.material).subscribe({
+      this.materiaisService.criarMaterial(this.material).subscribe({
         next: () => {
           this.materialSalvo.emit();
           this.close();

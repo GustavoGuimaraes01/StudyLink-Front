@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MaterialService, MaterialReadDTO } from '../../services/materiais/materiais.service';
+import { MateriaisService, MaterialReadDTO } from '../../services/materiais/materiais.service';
 import { MenuPesquisaComponent } from "../../components/menu-pesquisa/menu-pesquisa.component";
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
@@ -17,7 +17,7 @@ export class DescobrirComponent implements OnInit {
   mensagemErro: string = '';
 
   constructor(
-    private materialService: MaterialService,
+    private materiaisService: MateriaisService,
     private route: ActivatedRoute
   ) {}
 
@@ -34,7 +34,7 @@ export class DescobrirComponent implements OnInit {
   }
 
   handleImageError(event: any): void {
-    event.target.src = 'assets/imagem-padrao.jpg'; 
+    event.target.src = 'img/students.svg'; 
   }
 
   realizarPesquisa(termo: string): void {
@@ -42,7 +42,7 @@ export class DescobrirComponent implements OnInit {
     this.mensagemErro = '';
     
     if (termo.trim()) {
-      this.materialService.pesquisarMateriais(termo).subscribe({
+      this.materiaisService.pesquisarMateriais(termo).subscribe({
         next: (materiais) => {
           this.materiais = materiais;
           this.isLoading = false;
@@ -62,7 +62,7 @@ export class DescobrirComponent implements OnInit {
     this.isLoading = true;
     this.mensagemErro = '';
     
-    this.materialService.listarMateriaisPublicos().subscribe({
+    this.materiaisService.listarMateriaisPublicos().subscribe({
       next: (materiais) => {
         this.materiais = materiais;
         this.isLoading = false;

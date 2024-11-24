@@ -2,7 +2,7 @@ import { Component, ChangeDetectorRef } from '@angular/core';
 import { MenuPesquisaComponent } from '../../components/menu-pesquisa/menu-pesquisa.component';
 import { CriarMaterialComponent } from '../criar-material/criar-material.component';
 import { CommonModule } from '@angular/common';
-import { MaterialService, Material } from  '../../services/materiais/materiais.service';
+import { MateriaisService, Material } from  '../../services/materiais/materiais.service';
 
 @Component({
   selector: 'app-materias',
@@ -18,14 +18,14 @@ export class MateriasComponent {
   materialParaEditar: Material | null = null;
   searchTerm: string = ''; 
 
-  constructor(private materialService: MaterialService, private cdr: ChangeDetectorRef) {
+  constructor(private materiaisService: MateriaisService, private cdr: ChangeDetectorRef) {
     this.carregarMateriais(); 
   }
 
   carregarMateriais() {
     if (this.searchTerm) {
     
-      this.materialService.pesquisarMateriais(this.searchTerm).subscribe({
+      this.materiaisService.pesquisarMateriais(this.searchTerm).subscribe({
         next: (materiais) => {
           this.materiais = materiais;
           this.cdr.detectChanges();
@@ -36,7 +36,7 @@ export class MateriasComponent {
       });
     } else {
     
-      this.materialService.listarMateriais().subscribe({
+      this.materiaisService.listarMateriais().subscribe({
         next: (materiais) => {
           this.materiais = materiais;
           this.cdr.detectChanges();
@@ -61,7 +61,7 @@ export class MateriasComponent {
 
   deletarMaterial(id: number) {
     if (confirm('Tem certeza que deseja deletar este material?')) {
-      this.materialService.deletarMaterial(id).subscribe({
+      this.materiaisService.deletarMaterial(id).subscribe({
         next: () => {
           this.carregarMateriais();
           this.cdr.detectChanges();
