@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { ScheduleModule, View, PopupOpenEventArgs, EventSettingsModel } from '@syncfusion/ej2-angular-schedule';
+import { ScheduleModule, View, PopupOpenEventArgs, EventSettingsModel, RecurrenceEditorModel } from '@syncfusion/ej2-angular-schedule';
 import { DayService, WeekService, MonthService, AgendaService } from '@syncfusion/ej2-angular-schedule';
 import { registerLicense, L10n } from '@syncfusion/ej2-base';
 import { loadCldr } from '@syncfusion/ej2-base';

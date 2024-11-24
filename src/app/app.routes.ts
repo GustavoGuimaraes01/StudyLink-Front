@@ -8,12 +8,12 @@ import { NaoEncontradaComponent } from './pages/nao-encontrada/nao-encontrada.co
 import { DescobrirComponent } from './pages/descobrir/descobrir.component';
 
 export const routes: Routes = [
-    {path: "login", component: LoginComponent},
-    {path:"cadastro", component: CadastroComponent}, 
-    {path:"home",component: HomeComponent},
-    {path:"materiais",component: MateriasComponent},
-    {path:"descobrir",component: DescobrirComponent},
-    {path:"atividades", component:AtividadeComponent},
-    {path:"v", component:NaoEncontradaComponent},
+    { path: "login", component: LoginComponent },
+  { path: "cadastro", component: CadastroComponent },
+  { path: "home", component: HomeComponent },
+  { path: "materiais", component: MateriasComponent },
+  { path: "descobrir", component: DescobrirComponent },
+  { path: "atividades", component: AtividadeComponent },  
+  { path: "v", component: NaoEncontradaComponent },
 
 ];
