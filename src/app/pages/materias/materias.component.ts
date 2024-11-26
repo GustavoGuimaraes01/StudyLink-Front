@@ -73,14 +73,12 @@ export class MateriasComponent {
     }
   }
 
-  // Método para lidar com a busca
   onBuscar() {
-    this.carregarMateriais(); // Recarregar os materiais ao fazer uma busca
+    this.carregarMateriais(); 
   }
 
-  // Método para limpar o termo de busca
   limparBusca() {
     this.searchTerm = '';
-    this.carregarMateriais(); // Carregar todos os materiais ao limpar a busca
+    this.carregarMateriais(); 
   }
 }

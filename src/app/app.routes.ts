@@ -8,12 +8,12 @@ import { NaoEncontradaComponent } from './pages/nao-encontrada/nao-encontrada.co
 import { DescobrirComponent } from './pages/descobrir/descobrir.component';
 
 export const routes: Routes = [
-    { path: "login", component: LoginComponent },
-  { path: "cadastro", component: CadastroComponent },
-  { path: "home", component: HomeComponent },
-  { path: "materiais", component: MateriasComponent },
-  { path: "descobrir", component: DescobrirComponent },
-  { path: "atividades", component: AtividadeComponent },  
-  { path: "v", component: NaoEncontradaComponent },
-
+  { path: "login", loadComponent: () => import('./pages/login/login.component').then(c => c.LoginComponent) },
+  { path: "cadastro", loadComponent: () => import('./pages/cadastro/cadastro.component').then(c => c.CadastroComponent) },
+  { path: "home", loadComponent: () => import('./pages/home/home.component').then(c => c.HomeComponent) },
+  { path: "materias", loadComponent: () => import('./pages/materias/materias.component').then(c => c.MateriasComponent) },
+  { path: "descobrir", loadComponent: () => import('./pages/descobrir/descobrir.component').then(c => c.DescobrirComponent) },
+  { path: "atividades", loadComponent: () => import('./pages/atividade/atividade.component').then(c => c.AtividadeComponent) },
+  { path: "**", loadComponent: () => import('./pages/nao-encontrada/nao-encontrada.component').then(c => c.NaoEncontradaComponent) }
+  
 ];
