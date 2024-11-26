@@ -5,17 +5,20 @@ import { CadastroService } from '../../services/usuarios/cadastro.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { MatIconButton } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-cadastro',
   standalone: true,
-  imports: [LayoutLoginComponent, ReactiveFormsModule, CommonModule],
+  imports: [LayoutLoginComponent, ReactiveFormsModule, CommonModule, MatIconButton, MatIconModule],
   providers: [CadastroService],
   templateUrl: './cadastro.component.html',
   styleUrls: ['./cadastro.component.css']
 })
 export class CadastroComponent {
   cadastroForm!: FormGroup;
+  isPasswordVisible: boolean = false;
 
   constructor(
     private cadastroService: CadastroService, 
@@ -28,6 +31,10 @@ export class CadastroComponent {
       senha: new FormControl('', [Validators.required, Validators.minLength(6)]),
       confirmarSenha: new FormControl('', [Validators.required])
     }, { validators: this.passwordsMatchValidator() });
+  }
+
+  togglePasswordVisibility(): void {
+    this.isPasswordVisible = !this.isPasswordVisible;
   }
 
   passwordsMatchValidator(): ValidatorFn {

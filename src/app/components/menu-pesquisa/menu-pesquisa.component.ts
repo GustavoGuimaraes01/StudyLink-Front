@@ -31,7 +31,7 @@ export class MenuPesquisaComponent implements OnInit {
   @Output() pesquisaRealizada = new EventEmitter<string>();
 
   private searchTerms = new Subject<string>();
-  termoPesquisa: string = ''; // Salva o termo de pesquisa localmente
+  termoPesquisa: string = ''; 
   sidenavMode: 'over' | 'side' = 'side';
   sidenavOpened = true;
   nomeUsuario: string = '';

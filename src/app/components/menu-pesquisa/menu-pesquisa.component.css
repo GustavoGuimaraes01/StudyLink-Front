@@ -1,18 +1,15 @@
-/* Variáveis reutilizadas para sombras */
 :root {
   --shadow-sm: 0 2px 5px rgba(0, 0, 0, 0.1);
   --shadow-md: 0 2px 5px rgba(0, 0, 0, 0.2);
   --shadow-lg: 2px 0 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Layout base */
 .container {
   height: 100%;
   display: flex;
   box-shadow: var(--shadow-md);
 }
 
-/* Barra superior */
 .barra {
   background-color: var(--preto);
   position: fixed;
@@ -37,7 +34,6 @@
 
 .barra .logo mat-icon { margin-right: 8px; }
 
-/* Navegação lateral */
 .sidenav {
   max-width: 250px;
   background-color: var(--branco);
@@ -47,8 +43,6 @@
   padding-top: 15px;
 }
 
-
-/* Itens da lista */
 .list-item {
   display: flex;
   align-items: center;
@@ -140,7 +134,6 @@
 .pesquisa.expanded input { display: block; width: 200px; }
 .pesquisa input::placeholder { color: var(--cinza-claro); }
 
-/* Perfil do usuário */
 .user-inicial {
   width: 30px;
   height: 30px;
