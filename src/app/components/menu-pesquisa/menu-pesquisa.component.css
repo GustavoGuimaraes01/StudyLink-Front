@@ -26,15 +26,18 @@
   flex-wrap: wrap;
 }
 
+.barra span b, .barra button { color: var(--branco); }
 
 .barra .logo {
   display: flex;
   align-items: center;
+  font-weight: bold;
   z-index: 10;
 }
 
 .barra .logo mat-icon { margin-right: 8px; }
 
+/* Navegação lateral */
 .sidenav {
   max-width: 250px;
   background-color: var(--branco);
@@ -45,6 +48,7 @@
 }
 
 
+/* Itens da lista */
 .list-item {
   display: flex;
   align-items: center;
@@ -136,6 +140,7 @@
 .pesquisa.expanded input { display: block; width: 200px; }
 .pesquisa input::placeholder { color: var(--cinza-claro); }
 
+/* Perfil do usuário */
 .user-inicial {
   width: 30px;
   height: 30px;
