@@ -7,7 +7,6 @@ export interface SchedulerEvent {
   RecurrenceRule?: string;  
   RecurrenceID?: string | number;
   RecurrenceException?: string;
-  editOccurrence?: 'EditOccurrence' | 'EditSeries';
 }
 
 export interface TarefaDTO {
@@ -19,7 +18,6 @@ export interface TarefaDTO {
   recurrenceRule?: string;  
   recurrenceID?: string | number;
   recurrenceException?: string;
-  editOccurrence?: 'EditOccurrence' | 'EditSeries';
 }
 
 

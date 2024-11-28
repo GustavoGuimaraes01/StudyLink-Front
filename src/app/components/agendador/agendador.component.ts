@@ -146,7 +146,19 @@ export class AgendadorComponent implements OnInit {
 
 
   onPopupOpen(args: PopupOpenEventArgs): void {
-    // Lógica customizada para quando o popup do evento é aberto
+    const popupElement = args.element;
+
+    //remove o campo fuso fuso horario 
+    const allDayTimeZoneRow = popupElement.querySelector('.e-all-day-time-zone-row');
+    if (allDayTimeZoneRow) {
+      (allDayTimeZoneRow as HTMLElement).style.display = 'none';
+    }
+
+    const locationRow = popupElement.querySelector('.e-location-container');
+    if (locationRow) {
+      (locationRow as HTMLElement).style.display = 'none';
+    }
+
   }
 
   criarTarefa(event: SchedulerEvent): void {
