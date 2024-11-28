@@ -89,7 +89,6 @@
     opacity: 0.8; 
     pointer-events: none; 
 }
-
 .cards .botao .content {
     padding: 15px;
     flex-grow: 1;
@@ -100,10 +99,20 @@
 }
 
 .cards .botao .content .descricao {
-    color: var(--cinza);
-    font-size: 14px;
-    cursor: pointer;
+    color: var(--cinzaccc);
+    font-weight: bold;
+    font-size: 12px;
+    display: flex;
+    align-items: center; 
+    gap: 5px; 
 }
+
+.descricao mat-icon {
+    font-size: 16px; 
+    color: var(--cinzaccc); 
+    padding: 3px;
+}
+
 
 .cards .botao .footer {
     display: flex;

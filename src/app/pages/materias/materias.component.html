@@ -19,8 +19,13 @@
                     <a class="area">{{ material.areaConhecimento }}</a>
                 </div>
                 <div class="content">
-                    <a class="descricao">Ver suas atividades</a>
-                </div>
+                    <div class="descricao">
+                      <mat-icon *ngIf="material.visibilidade === 'PUBLICO'">public</mat-icon>
+                      <mat-icon *ngIf="material.visibilidade === 'PRIVADO'">lock</mat-icon>
+                      {{ material.visibilidade }}
+                    </div>
+                  </div>
+                  
                 <div class="footer">
                     <button (click)="openCriarMaterial(material)">
                         <img src="img/edit.svg" alt="Editar">

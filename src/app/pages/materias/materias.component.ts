@@ -3,11 +3,12 @@ import { MenuPesquisaComponent } from '../../components/menu-pesquisa/menu-pesqu
 import { CriarMaterialComponent } from '../criar-material/criar-material.component';
 import { CommonModule } from '@angular/common';
 import { MateriaisService, Material } from  '../../services/materiais/materiais.service';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-materias',
   standalone: true,
-  imports: [MenuPesquisaComponent, CriarMaterialComponent, CommonModule],
+  imports: [MenuPesquisaComponent, CriarMaterialComponent, CommonModule, MatIconModule],
   templateUrl: './materias.component.html',
   styleUrls: ['./materias.component.css'],
 })
