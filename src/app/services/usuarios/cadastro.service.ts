@@ -8,7 +8,7 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root'
 })
 export class CadastroService {
-  private apiUrl = `${environment.apiBaseUrl}cadastro`;
+  private apiUrl = `${environment.apiBaseUrl}register`;
 
   constructor(private httpClient: HttpClient) { }
 

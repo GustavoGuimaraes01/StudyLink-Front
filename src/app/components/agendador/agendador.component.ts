@@ -1,17 +1,18 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { ScheduleModule, View, PopupOpenEventArgs, EventSettingsModel, RecurrenceEditorModel } from '@syncfusion/ej2-angular-schedule';
+import { ScheduleModule, View, PopupOpenEventArgs, EventSettingsModel } from '@syncfusion/ej2-angular-schedule';
 import { DayService, WeekService, MonthService, AgendaService } from '@syncfusion/ej2-angular-schedule';
 import { registerLicense, L10n } from '@syncfusion/ej2-base';
 import { loadCldr } from '@syncfusion/ej2-base';
+import { TarefaService } from '../../services/tarefas/tarefa.service';
+import { SchedulerEvent } from '../../types/tarefa';
+
 import ptNumberData from '@syncfusion/ej2-cldr-data/main/pt/numbers.json';
 import ptTimeZoneData from '@syncfusion/ej2-cldr-data/main/pt/timeZoneNames.json';
 import ptGregorian from '@syncfusion/ej2-cldr-data/main/pt/ca-gregorian.json';
 import ptNumberingSystem from '@syncfusion/ej2-cldr-data/supplemental/numberingSystems.json';
 
-// Chave da licença
 registerLicense('Ngo9BigBOggjHTQxAR8/V1NDaF1cX2hIfEx3Qnxbf1x0ZFRMZF1bRnBPMyBoS35RckRiWHhccHZTQmRYWUFz');
 
-// Carregamento de dados para o Brasil
 loadCldr(ptNumberData, ptTimeZoneData, ptGregorian, ptNumberingSystem);
 
 // Tradução para o português
@@ -60,15 +61,23 @@ L10n.load({
   selector: 'app-agendador',
   standalone: true,
   imports: [ScheduleModule],
-  providers: [DayService, WeekService, MonthService, AgendaService],
+  providers: [
+    DayService, 
+    WeekService, 
+    MonthService, 
+    AgendaService, 
+    TarefaService
+  ],
   template: `
     <ejs-schedule 
+      #scheduleObj
       height="100%" 
       width="100%" 
-      [selectedDate]="dataAtual" 
+      [selectedDate]="selectedDate" 
       locale="pt"
-      [views]="view"
+      [views]="views"
       [eventSettings]="eventSettings"
+      (actionComplete)="onActionComplete($event)"
       (popupOpen)="onPopupOpen($event)"
       class="agendador">
     </ejs-schedule>
@@ -76,135 +85,105 @@ L10n.load({
   styleUrls: ['./agendador.component.css'],
   encapsulation: ViewEncapsulation.None,
 })
-export class AgendadorComponent {
-  public dataAtual: Date = new Date();
+export class AgendadorComponent implements OnInit {
+  @ViewChild('scheduleObj') 
+  public scheduleObj!: ScheduleComponent;
 
-  public view: View[] = ['Day', 'Week', 'Month', 'Agenda'];
-
+  public selectedDate: Date = new Date();
+  public views: View[] = ['Day', 'Week', 'Month', 'Agenda'];
+  
   public eventSettings: EventSettingsModel = {
-    fields: {
-      id: 'Id',
-      subject: { name: 'Subject', title: 'Título da Tarefa' },
-      startTime: { name: 'StartTime', title: 'Início' },
-      endTime: { name: 'EndTime', title: 'Fim' }
-    }
+    dataSource: []
   };
 
-  // Método para salvar evento no localStorage
-  saveEventToLocalStorage(event: any): void {
-    const events = JSON.parse(localStorage.getItem('events') || '[]');
-    events.push(event);
-    localStorage.setItem('events', JSON.stringify(events));
+  constructor(private tarefaService: TarefaService) {}
+
+  ngOnInit() {
+    this.carregarTarefas();
   }
 
-  // Evento para abrir o Popup
-  onPopupOpen(args: PopupOpenEventArgs): void {
-    const popupElement = args.element;
-    const eventData = args.data as { [key: string]: any };
+  carregarTarefas() {
+    const startOfMonth = new Date(this.selectedDate.getFullYear(), this.selectedDate.getMonth(), 1);
+    const endOfMonth = new Date(this.selectedDate.getFullYear(), this.selectedDate.getMonth() + 1, 0);
   
-    // Verificar o tamanho da janela (se a janela for pequena, não exibir o campo "Prioridade")
-    const isSmallWindow = window.innerWidth <= 600; // Ajuste o limite de largura conforme necessário
-  
-    // Declara a variável priorityDropDown
-    let priorityDropDown: HTMLElement | null = popupElement.querySelector('.e-dropdownlist-container');
-  
-    // Remover o campo "Prioridade" se a janela for pequena
-    if (isSmallWindow) {
-      if (priorityDropDown) {
-        priorityDropDown.remove();  // Remove o campo de "Prioridade"
-      }
-    } else {
-      // Adicionar o campo de Prioridade apenas se a janela for grande
-      if (!priorityDropDown) {
-        priorityDropDown = document.createElement('div');
-        priorityDropDown.classList.add('e-dropdownlist-container');
-  
-        const priorityLabel = document.createElement('label');
-        priorityLabel.textContent = 'Prioridade:';
-        priorityDropDown.appendChild(priorityLabel);
-  
-        const prioritySelect = document.createElement('select');
-        const options = ['Baixa', 'Média', 'Alta'];
-        options.forEach(option => {
-          const optionElement = document.createElement('option');
-          optionElement.value = option;
-          optionElement.textContent = option;
-          prioritySelect.appendChild(optionElement);
-        });
-  
-        // Verificar se o evento já tem prioridade e definir no select
-        if (eventData && eventData['Priority']) {
-          prioritySelect.value = eventData['Priority'];
-        }
-  
-        priorityDropDown.appendChild(prioritySelect);
-      }
-  
-      // Verificar se o campo "Local" já foi substituído anteriormente
-      const locationContainer = popupElement.querySelector('.e-location-container');
-      const existingPriorityField = popupElement.querySelector('.e-dropdownlist-container');
-      
-      if (locationContainer && !existingPriorityField) {
-        locationContainer.replaceWith(priorityDropDown);  // Substitui o campo "Local" por "Prioridade"
-      } else if (!locationContainer) {
-        const eventForm = popupElement.querySelector('.e-schedule-form');
-        if (eventForm && !existingPriorityField) {
-          eventForm.appendChild(priorityDropDown);  // Adiciona o campo "Prioridade"
-        }
-      }
-    }
-  
-    // Ocultar o campo "Repetir"
-    const repeatField = popupElement.querySelector('.e-float-input.e-control-wrapper.e-input-group.e-ddl.e-lib.e-keyboard.e-valid-input');
-    if (repeatField) {
-      (repeatField as HTMLElement).style.display = 'none';
-    }
-  
-    // Ocultar os campos "Dia Inteiro" e "Fuso Horário"
-    const allDayTimeZoneRow = popupElement.querySelector('.e-all-day-time-zone-row');
-    if (allDayTimeZoneRow) {
-      (allDayTimeZoneRow as HTMLElement).style.display = 'none';
-    }
-  
-    const timeZoneRow = popupElement.querySelector('.e-time-zone-row');
-    if (timeZoneRow) {
-      (timeZoneRow as HTMLElement).style.display = 'none';
-    }
-  
-    // Captura e salva a prioridade do evento no momento de salvar
-    const saveButton = popupElement.querySelector('.e-save-btn') as HTMLButtonElement;
-    if (saveButton && priorityDropDown) {
-      saveButton.addEventListener('click', () => {
-        // Verificar se priorityDropDown não é null antes de acessar o select
-        const prioritySelect = priorityDropDown?.querySelector('select') as HTMLSelectElement;
-        const selectedPriority = prioritySelect?.value; // Usar optional chaining
-  
-        // Salvar a prioridade no evento
-        if (eventData && selectedPriority) {
-          eventData['Priority'] = selectedPriority;
+    this.tarefaService.getTarefas(startOfMonth, endOfMonth)
+      .subscribe({
+        next: (tarefas: SchedulerEvent[]) => {
+          // Antes de adicionar as tarefas no calendário, verificamos se não há duplicatas
+          this.eventSettings = {
+            dataSource: tarefas
+          };
+        },
+        error: (erro) => {
+          console.error('Erro ao carregar tarefas', erro);
         }
       });
+  }
+  
+
+  onActionComplete(args: ActionEventArgs): void {
+    if (Array.isArray(args.data) && args.data.length > 0) {
+      const tarefa = args.data[0] as SchedulerEvent; // Obtém a tarefa que foi manipulada
+  
+      // Verifica o tipo de requisição e chama o método apropriado
+      switch (args.requestType) {
+        case 'eventCreated':
+          this.criarTarefa(tarefa); // Chama o método para criar a tarefa
+          break;
+  
+        case 'eventChanged':
+          this.atualizarTarefa(tarefa); // Chama o método para atualizar a tarefa
+          break;
+  
+        case 'eventRemoved':
+          this.deletarTarefa(tarefa); // Chama o método para deletar a tarefa
+          break;
+  
+        default:
+          break;
+      }
     }
   }
-
-  // Exemplo de um evento com a propriedade "Priority"
-  public addNewEvent(): void {
-    const newEvent = {
-      Id: 1,
-      Subject: 'Estudar Angular',
-      StartTime: new Date('2024-11-19T10:00:00'),
-      EndTime: new Date('2024-11-19T12:00:00'),
-      Priority: 'Alta' // Aqui definimos a prioridade
-    };
   
-    // Salve o evento no localStorage ou outro armazenamento, conforme necessário
-    localStorage.setItem('evento', JSON.stringify(newEvent));
 
+  onPopupOpen(args: PopupOpenEventArgs): void {
+    // Lógica customizada para quando o popup do evento é aberto
+  }
 
-    console.log('Evento salvo:', localStorage.getItem('evento'));
-   
+  criarTarefa(event: SchedulerEvent): void {
+    this.tarefaService.criarTarefa(event).subscribe({
+      next: () => {
+        this.carregarTarefas(); // Recarrega as tarefas após a criação
+      },
+      error: (erro) => {
+        console.error('Erro ao criar tarefa', erro);
+      }
+    });
+  }
 
-    // Adicionar o evento ao calendário
-    // (Utilize o método correspondente para adicionar o evento ao Schedule)
+  atualizarTarefa(event: SchedulerEvent): void {
+    this.tarefaService.updateTarefa(event).subscribe({
+      next: () => {
+        this.carregarTarefas(); 
+      },
+      error: (erro) => {
+        console.error('Erro ao atualizar tarefa', erro);
+      }
+    });
+  }
+
+  deletarTarefa(event: SchedulerEvent): void {
+    if (event.Id) {
+      this.tarefaService.deletarTarefa(event.Id).subscribe({
+        next: () => {
+          this.carregarTarefas(); // Recarrega as tarefas após a exclusão
+        },
+        error: (erro) => {
+          console.error('Erro ao deletar tarefa', erro);
+        }
+      });
+    } else {
+      console.error('ID da tarefa não definido');
+    }
   }
 }

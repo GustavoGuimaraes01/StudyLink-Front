@@ -1,0 +1,46 @@
+export interface SchedulerEvent {
+  Id?:  string; 
+  Subject: string;
+  Description?: string;
+  StartTime: Date | string;
+  EndTime: Date | string;
+  RecurrenceRule?: string;  
+  RecurrenceID?: string | number;
+  RecurrenceException?: string;
+  editOccurrence?: 'EditOccurrence' | 'EditSeries';
+}
+
+export interface TarefaDTO {
+  id:  string;
+  titulo: string;
+  descricao: string;
+  dataInicio: string;
+  dataFim: string;
+  recurrenceRule?: string;  
+  recurrenceID?: string | number;
+  recurrenceException?: string;
+  editOccurrence?: 'EditOccurrence' | 'EditSeries';
+}
+
+
+export interface TarefaCreateDTO {
+  titulo: string;
+  descricao: string;
+  dataInicio: string;
+  dataFim: string; 
+  recurrenceRule?: string;  
+  recurrenceID?: string | number;
+  recurrenceException?: string;
+}
+
+
+export interface TarefaUpdateDTO {
+  id: string;
+  titulo: string;
+  descricao: string;
+  dataInicio: string;
+  dataFim: string;
+  recurrenceRule?: string;  
+  recurrenceID?: string | number;
+  recurrenceException?: string;
+}

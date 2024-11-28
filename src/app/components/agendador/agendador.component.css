@@ -115,10 +115,6 @@
     gap: 12px;
 }
 
-
-
-
-
 .e-input-group:not(.e-float-icon-left):not(.e-float-input)::before, .e-input-group:not(.e-float-icon-left):not(.e-float-input)::after, .e-input-group.e-float-icon-left:not(.e-float-input) .e-input-in-wrap::before, .e-input-group.e-float-icon-left:not(.e-float-input) .e-input-in-wrap::after, .e-input-group.e-control-wrapper:not(.e-float-icon-left):not(.e-float-input)::before, .e-input-group.e-control-wrapper:not(.e-float-icon-left):not(.e-float-input)::after, .e-input-group.e-control-wrapper.e-float-icon-left:not(.e-float-input) .e-input-in-wrap::before, .e-input-group.e-control-wrapper.e-float-icon-left:not(.e-float-input) .e-input-in-wrap::after, .e-float-input.e-input-group:not(.e-float-icon-left) .e-float-line::before, .e-float-input.e-input-group:not(.e-float-icon-left) .e-float-line::after, .e-float-input.e-input-group.e-float-icon-left .e-input-in-wrap .e-float-line::before, .e-float-input.e-input-group.e-float-icon-left .e-input-in-wrap .e-float-line::after, .e-float-input.e-control-wrapper.e-input-group:not(.e-float-icon-left) .e-float-line::before, .e-float-input.e-control-wrapper.e-input-group:not(.e-float-icon-left) .e-float-line::after, .e-float-input.e-control-wrapper.e-input-group.e-float-icon-left .e-input-in-wrap .e-float-line::before, .e-float-input.e-control-wrapper.e-input-group.e-float-icon-left .e-input-in-wrap .e-float-line::after, .e-filled.e-input-group.e-float-icon-left:not(.e-float-input)::before, .e-filled.e-input-group.e-float-icon-left:not(.e-float-input)::after, .e-filled.e-input-group.e-control-wrapper.e-float-icon-left:not(.e-float-input)::before, .e-filled.e-input-group.e-control-wrapper.e-float-icon-left:not(.e-float-input)::after, .e-filled.e-float-input.e-input-group.e-float-icon-left .e-float-line::before, .e-filled.e-float-input.e-input-group.e-float-icon-left .e-float-line::after, .e-filled.e-float-input.e-control-wrapper.e-input-group.e-float-icon-left .e-float-line::before, .e-filled.e-float-input.e-control-wrapper.e-input-group.e-float-icon-left .e-float-line::after {
     background: var(--azul-principal);
 }
@@ -128,17 +124,16 @@ input.e-input::selection, textarea.e-input::selection, .e-input-group input.e-in
     color: #fff;
 }
 
-
-
-
 .e-float-input:not(.e-error) input:focus ~ label.e-float-text, .e-float-input.e-small:not(.e-error) input:focus ~ label.e-float-text, .e-small .e-float-input:not(.e-error) input:focus ~ label.e-float-text, .e-float-input:not(.e-error) input[readonly]:focus ~ label.e-label-top.e-float-text, .e-float-input.e-control-wrapper:not(.e-error) input[readonly]:focus ~ label.e-label-top.e-float-text, .e-float-input.e-small:not(.e-error) input[readonly]:focus ~ label.e-float-text, .e-small .e-float-input:not(.e-error) input[readonly]:focus ~ label.e-float-text.e-label-top, .e-float-input.e-control-wrapper.e-small:not(.e-error) input[readonly]:focus ~ label.e-float-text, .e-small .e-float-input.e-control-wrapper:not(.e-error) input[readonly]:focus ~ label.e-float-text.e-label-top, .e-float-input:not(.e-error).e-input-focus input[readonly] ~ label.e-label-top.e-float-text, .e-float-input.e-control-wrapper:not(.e-error).e-input-focus input[readonly] ~ label.e-label-top.e-float-text, .e-float-input.e-small:not(.e-error).e-input-focus input[readonly] ~ label.e-float-text, .e-small .e-float-input:not(.e-error).e-input-focus input[readonly] ~ label.e-float-text.e-label-top, .e-float-input.e-control-wrapper.e-small:not(.e-error).e-input-focus input[readonly] ~ label.e-float-text, .e-small .e-float-input.e-control-wrapper:not(.e-error).e-input-focus input[readonly] ~ label.e-float-text.e-label-top, .e-float-input:not(.e-error) textarea[readonly]:focus ~ label.e-label-top.e-float-text, .e-float-input.e-control-wrapper:not(.e-error) textarea[readonly]:focus ~ label.e-label-top.e-float-text, .e-float-input.e-small:not(.e-error) textarea[readonly]:focus ~ label.e-float-text, .e-small .e-float-input:not(.e-error) textarea[readonly]:focus ~ label.e-float-text.e-label-top, .e-small .e-float-input.e-control-wrapper:not(.e-error) textarea[readonly]:focus ~ label.e-float-text.e-label-top, .e-float-input:not(.e-error).e-input-focus textarea[readonly] ~ label.e-label-top.e-float-text, .e-float-input.e-control-wrapper:not(.e-error).e-input-focus textarea[readonly] ~ label.e-label-top.e-float-text, .e-float-input.e-small:not(.e-error).e-input-focus textarea[readonly] ~ label.e-float-text, .e-small .e-float-input:not(.e-error).e-input-focus textarea[readonly] ~ label.e-float-text.e-label-top, .e-small .e-float-input.e-control-wrapper:not(.e-error).e-input-focus textarea[readonly] ~ label.e-float-text.e-label-top, .e-float-input:not(.e-error) textarea:focus ~ label.e-float-text, .e-float-input.e-small:not(.e-error) textarea:focus ~ label.e-float-text, .e-small .e-float-input:not(.e-error) textarea:focus ~ label.e-float-text, .e-float-input.e-control-wrapper:not(.e-error) input:focus ~ label.e-float-text, .e-float-input.e-control-wrapper.e-small:not(.e-error) input:focus ~ label.e-float-text, .e-small .e-float-input.e-control-wrapper:not(.e-error) input:focus ~ label.e-float-text, .e-float-input.e-control-wrapper:not(.e-error) textarea:focus ~ label.e-float-text, .e-float-input.e-control-wrapper.e-small:not(.e-error) textarea:focus ~ label.e-float-text, .e-small .e-float-input.e-control-wrapper:not(.e-error) textarea:focus ~ label.e-float-text, .e-float-input:not(.e-error).e-input-focus input ~ label.e-float-text, .e-float-input.e-small:not(.e-error).e-input-focus input ~ label.e-float-text, .e-small .e-float-input:not(.e-error).e-input-focus input ~ label.e-float-text, .e-float-input.e-control-wrapper:not(.e-error).e-input-focus input ~ label.e-float-text, .e-float-input.e-control-wrapper.e-small:not(.e-error).e-input-focus input ~ label.e-float-text, .e-small .e-float-input.e-control-wrapper:not(.e-error).e-input-focus input ~ label.e-float-text{
     color: var(--azul-principal);
 }
 
-
-
 .e-btn.e-flat.e-primary:focus, .e-css.e-btn.e-flat.e-primary:focus{
     background-color: var(--branco);
     color: var(--azul-principal);
+}
+
+.e-subject-container{
+    width: 100% !important;
 }
 
