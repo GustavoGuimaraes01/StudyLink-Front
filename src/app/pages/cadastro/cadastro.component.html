@@ -22,20 +22,45 @@
         </div>
 
         <div class="campo">
-            <input formControlName="senha" type="password" class="input" placeholder="Senha">
+            <div class="input-container">
+                <input 
+                    formControlName="senha" 
+                    [type]="isPasswordVisible ? 'text' : 'password'" 
+                    class="input" 
+                    placeholder="Senha">
+                <button 
+                    type="button" 
+                    class="toggle-password" 
+                    (click)="togglePasswordVisibility()">
+                    <mat-icon>{{ isPasswordVisible ? 'visibility' : 'visibility_off' }}</mat-icon>
+                </button>
+            </div>
             <div *ngIf="cadastroForm.get('senha')?.invalid && cadastroForm.get('senha')?.touched" class="error-message">
                 <small *ngIf="cadastroForm.get('senha')?.errors?.['required']">A senha é obrigatória.</small>
                 <small *ngIf="cadastroForm.get('senha')?.errors?.['minlength']">A senha deve ter no mínimo 6 caracteres.</small>
             </div>
         </div>
-
+        
         <div class="campo">
-            <input formControlName="confirmarSenha" type="password" class="input" placeholder="Confirmar senha">
+            <div class="input-container">
+                <input 
+                    formControlName="confirmarSenha" 
+                    [type]="isPasswordVisible ? 'text' : 'password'" 
+                    class="input" 
+                    placeholder="Confirmar senha">
+                <button 
+                    type="button" 
+                    class="toggle-password" 
+                    (click)="togglePasswordVisibility()">
+                    <mat-icon>{{ isPasswordVisible ? 'visibility' : 'visibility_off' }}</mat-icon>
+                </button>
+            </div>
             <div *ngIf="cadastroForm.get('confirmarSenha')?.invalid && cadastroForm.get('confirmarSenha')?.touched" class="error-message">
                 <small *ngIf="cadastroForm.get('confirmarSenha')?.errors?.['required']">A confirmação de senha é obrigatória.</small>
                 <small *ngIf="cadastroForm.hasError('mismatch') && cadastroForm.get('confirmarSenha')?.touched">As senhas não coincidem.</small>
             </div>
         </div>
+        
 
     </form>
 </app-layout-login>

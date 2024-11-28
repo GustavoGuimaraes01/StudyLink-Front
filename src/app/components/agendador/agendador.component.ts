@@ -15,7 +15,6 @@ registerLicense('Ngo9BigBOggjHTQxAR8/V1NDaF1cX2hIfEx3Qnxbf1x0ZFRMZF1bRnBPMyBoS35
 
 loadCldr(ptNumberData, ptTimeZoneData, ptGregorian, ptNumberingSystem);
 
-// Tradução para o português
 L10n.load({
   'pt': {
     'schedule': {
@@ -96,6 +95,7 @@ export class AgendadorComponent implements OnInit {
     dataSource: []
   };
 
+<<<<<<< HEAD
   constructor(private tarefaService: TarefaService) {}
 
   ngOnInit() {
@@ -116,6 +116,87 @@ export class AgendadorComponent implements OnInit {
         },
         error: (erro) => {
           console.error('Erro ao carregar tarefas', erro);
+=======
+  saveEventToLocalStorage(event: any): void {
+    const events = JSON.parse(localStorage.getItem('events') || '[]');
+    events.push(event);
+    localStorage.setItem('events', JSON.stringify(events));
+  }
+
+  onPopupOpen(args: PopupOpenEventArgs): void {
+    const popupElement = args.element;
+    const eventData = args.data as { [key: string]: any };
+  
+    
+    const isSmallWindow = window.innerWidth <= 600; 
+
+    let priorityDropDown: HTMLElement | null = popupElement.querySelector('.e-dropdownlist-container');
+  
+    if (isSmallWindow) {
+      if (priorityDropDown) {
+        priorityDropDown.remove();  
+      }
+    } else {
+      if (!priorityDropDown) {
+        priorityDropDown = document.createElement('div');
+        priorityDropDown.classList.add('e-dropdownlist-container');
+  
+        const priorityLabel = document.createElement('label');
+        priorityLabel.textContent = 'Prioridade:';
+        priorityDropDown.appendChild(priorityLabel);
+  
+        const prioritySelect = document.createElement('select');
+        const options = ['Baixa', 'Média', 'Alta'];
+        options.forEach(option => {
+          const optionElement = document.createElement('option');
+          optionElement.value = option;
+          optionElement.textContent = option;
+          prioritySelect.appendChild(optionElement);
+        });
+  
+        if (eventData && eventData['Priority']) {
+          prioritySelect.value = eventData['Priority'];
+        }
+  
+        priorityDropDown.appendChild(prioritySelect);
+      }
+  
+      const locationContainer = popupElement.querySelector('.e-location-container');
+      const existingPriorityField = popupElement.querySelector('.e-dropdownlist-container');
+      
+      if (locationContainer && !existingPriorityField) {
+      } else if (!locationContainer) {
+        const eventForm = popupElement.querySelector('.e-schedule-form');
+        if (eventForm && !existingPriorityField) {
+          eventForm.appendChild(priorityDropDown);  
+        }
+      }
+    }
+  
+    const repeatField = popupElement.querySelector('.e-float-input.e-control-wrapper.e-input-group.e-ddl.e-lib.e-keyboard.e-valid-input');
+    if (repeatField) {
+      (repeatField as HTMLElement).style.display = 'none';
+    }
+  
+    const allDayTimeZoneRow = popupElement.querySelector('.e-all-day-time-zone-row');
+    if (allDayTimeZoneRow) {
+      (allDayTimeZoneRow as HTMLElement).style.display = 'none';
+    }
+  
+    const timeZoneRow = popupElement.querySelector('.e-time-zone-row');
+    if (timeZoneRow) {
+      (timeZoneRow as HTMLElement).style.display = 'none';
+    }
+  
+    const saveButton = popupElement.querySelector('.e-save-btn') as HTMLButtonElement;
+    if (saveButton && priorityDropDown) {
+      saveButton.addEventListener('click', () => {
+        const prioritySelect = priorityDropDown?.querySelector('select') as HTMLSelectElement;
+        const selectedPriority = prioritySelect?.value; 
+
+        if (eventData && selectedPriority) {
+          eventData['Priority'] = selectedPriority;
+>>>>>>> d39b16a6e2598cb7baebce66b39d93bc20c7fc5f
         }
       });
   }
@@ -144,7 +225,21 @@ export class AgendadorComponent implements OnInit {
       }
     }
   }
+<<<<<<< HEAD
   
+=======
+
+  public addNewEvent(): void {
+    const newEvent = {
+      Id: 1,
+      Subject: 'Estudar Angular',
+      StartTime: new Date('2024-11-19T10:00:00'),
+      EndTime: new Date('2024-11-19T12:00:00'),
+      Priority: 'Alta' 
+    };
+  
+    localStorage.setItem('evento', JSON.stringify(newEvent));
+>>>>>>> d39b16a6e2598cb7baebce66b39d93bc20c7fc5f
 
   onPopupOpen(args: PopupOpenEventArgs): void {
     // Lógica customizada para quando o popup do evento é aberto
@@ -161,6 +256,7 @@ export class AgendadorComponent implements OnInit {
     });
   }
 
+<<<<<<< HEAD
   atualizarTarefa(event: SchedulerEvent): void {
     this.tarefaService.updateTarefa(event).subscribe({
       next: () => {
@@ -185,5 +281,7 @@ export class AgendadorComponent implements OnInit {
     } else {
       console.error('ID da tarefa não definido');
     }
+=======
+>>>>>>> d39b16a6e2598cb7baebce66b39d93bc20c7fc5f
   }
 }

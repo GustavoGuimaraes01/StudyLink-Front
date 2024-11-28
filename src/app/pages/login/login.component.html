@@ -14,12 +14,23 @@
         </div>
 
         <div class="campo">
-            <input formControlName="senha" type="password" class="borda" placeholder="Senha">
-            <div *ngIf="loginForm.get('senha')?.invalid && loginForm.get('senha')?.touched" class="error-message">
-                <small *ngIf="loginForm.get('senha')?.errors?.['required']">A senha é obrigatória.</small>
-                <small *ngIf="loginForm.get('senha')?.errors?.['minlength']">A senha deve ter no mínimo 6 caracteres.</small>
+            <div class="input-container">
+              <input 
+                formControlName="senha" 
+                [type]="isPasswordVisible ? 'text' : 'password'" 
+                class="borda" 
+                placeholder="Senha">
+              <button mat-icon-button type="button" (click)="togglePasswordVisibility()" class="toggle-password">
+                <mat-icon>{{ isPasswordVisible ? 'visibility' : 'visibility_off' }}</mat-icon>
+              </button>
             </div>
-        </div>
+            <div *ngIf="loginForm.get('senha')?.invalid && loginForm.get('senha')?.touched" class="error-message">
+              <small *ngIf="loginForm.get('senha')?.errors?.['required']">A senha é obrigatória.</small>
+              <small *ngIf="loginForm.get('senha')?.errors?.['minlength']">A senha deve ter no mínimo 6 caracteres.</small>
+            </div>
+          </div>
+          
+          
 
         <div class="esqueceu_senha">
             <input type="checkbox" class="checkbox">

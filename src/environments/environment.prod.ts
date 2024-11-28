@@ -1,5 +1,7 @@
+
 export const environment = {
     production: true,
-    apiBaseUrl: 'studylink-api.railway.internal'  
+    apiBaseUrl: 'https://study-link-front.vercel.app/'  
+    
   };
   
