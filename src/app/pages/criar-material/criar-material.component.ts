@@ -3,11 +3,17 @@ import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MateriaisService, Material } from '../../services/materiais/materiais.service';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatSelectionList } from '@angular/material/list';
+import { MatOption } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
+
 
 @Component({
   selector: 'app-criar-material',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, MatIconModule, MatFormField, MatLabel , MatOption, MatSelectModule], 
   templateUrl: './criar-material.component.html',
   styleUrls: ['./criar-material.component.css']
 })

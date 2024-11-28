@@ -20,10 +20,18 @@
         <input type="text" placeholder="Assunto" class="Assuntoinput" [(ngModel)]="material.titulo">
         <input type="text" placeholder="Área do conhecimento" class="AreaInput" [(ngModel)]="material.areaConhecimento">
 
-        <select id="listaSuspensa" name="opcoes" [(ngModel)]="material.visibilidade">
-            <option value="PUBLICO">Pública</option>
-            <option value="PRIVADO">Privada</option>
-        </select>
+        <mat-form-field appearance="outline">
+            <mat-label>Visibilidade</mat-label>
+            <mat-select [(value)]="material.visibilidade">
+              <mat-option value="PUBLICO">
+                <mat-icon>public</mat-icon> Pública
+              </mat-option>
+              <mat-option value="PRIVADO">
+                <mat-icon>lock</mat-icon> Privada
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          
         
     </div>
 
