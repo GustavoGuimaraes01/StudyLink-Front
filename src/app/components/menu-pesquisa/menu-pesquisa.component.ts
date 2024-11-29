@@ -141,7 +141,8 @@ export class MenuPesquisaComponent implements OnInit {
 
   logout() {
     sessionStorage.removeItem('nome_usuario');
-    sessionStorage.removeItem('email_usuario');
+    sessionStorage.removeItem('email');
+    sessionStorage.removeItem('auth-token');
     this.router.navigate(['/login']);
   }
 }
