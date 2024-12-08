@@ -59,7 +59,6 @@ export class MateriasComponent {
     this.selectedMaterialId = materialId; 
     this.router.navigate([`atividade/${materialId}`]);
   }
-  
 
   openCriarMaterial(material?: Material) {
     this.materialParaEditar = material || null;

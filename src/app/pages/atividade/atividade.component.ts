@@ -82,11 +82,14 @@ export class AtividadeComponent implements OnInit {
     const materialParaSelecionar = typeof material === 'number' 
       ? this.materiais.find(m => m.id === material)
       : material;
-
+  
     if (materialParaSelecionar) {
       this.materialAtual = materialParaSelecionar;
       this.materialId = materialParaSelecionar.id;
-
+  
+      // Atualiza a URL com o novo ID do material
+      this.router.navigate([`atividade/${this.materialId}`]);
+  
       this.carregarAtividades();
     }
   }
@@ -158,7 +161,7 @@ export class AtividadeComponent implements OnInit {
     }
   
     const novaAtividade: CriarAnotacaoDTO = { 
-      titulo: 'Nova Atividade',
+      titulo: 'Nova Anotacao',
       materialId: this.materialId,
       dataUltimaAlteracao: this.formatarData(new Date())
     };
@@ -261,10 +264,8 @@ export class AtividadeComponent implements OnInit {
         dataUltimaAlteracao: evento.dataUltimaAlteracao || this.anotacaoSelecionada.dataUltimaAlteracao
       };
   
-      // Call the service to update the activity/annotation
       this.atividadesService.atualizarAtividade(this.anotacaoSelecionada.id, updateDTO).subscribe({
         next: (updatedAnotacao) => {
-          // Update the local list
           const index = this.atividades.findIndex(a => a.id === this.anotacaoSelecionada?.id);
           if (index !== -1) {
             this.atividades[index] = updatedAnotacao;

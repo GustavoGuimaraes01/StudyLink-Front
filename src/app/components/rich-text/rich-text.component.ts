@@ -46,10 +46,8 @@ export class RichTextComponent implements OnInit, OnDestroy, OnChanges {
       bounds: '#editor',     
     });      
 
-    // Configurar salvamento automático
     this.configurarSalvamentoAutomatico();
 
-    // Se já existe conteúdo, carregar no editor
     if (this.conteudo) {
       this.carregarConteudo(this.conteudo);
     }
@@ -139,10 +137,8 @@ export class RichTextComponent implements OnInit, OnDestroy, OnChanges {
         anotacaoId: this.idAnotacao
       };
 
-      // Extract the first line as the title
       const primeiraLinha = this.extrairPrimeiraLinha(conteudo);
 
-      // Only save if content or title has changed
       if (this.ultimoConteudoSalvo !== conteudo || this.ultimoTituloSalvo !== primeiraLinha) {
         this.richTextService.salvarConteudoAnotacao(request)
           .pipe(
