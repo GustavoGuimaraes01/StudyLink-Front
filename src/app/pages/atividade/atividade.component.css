@@ -36,7 +36,6 @@ html, body {
 .menu-lateral {
   width: 220px;
   background-color: var(--cinza-claro);
-  padding: 20px;
   border-right: 1px solid #ddd;
   box-sizing: border-box;
   overflow-y: auto;
@@ -44,6 +43,7 @@ html, body {
   position: relative;
   z-index: 1;
   box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
+  scrollbar-width: none; 
 }
 
 .topoLista {
@@ -52,12 +52,14 @@ html, body {
   justify-content: flex-start;
   gap: 8px;
   margin-bottom: 16px;
+  margin: 20px 0 10px 20px;
+  cursor: pointer;
+
 }
 
 .topoLista img {
   width: 24px;
   height: auto;
-  cursor: pointer;
 }
 
 .topoLista h2 {
@@ -74,17 +76,18 @@ html, body {
 
 .menu-lateral ul li {
   list-style: none;
-  padding: 8px 0;
+  padding: 10px 0;
   display: flex;
   align-items: center;
   gap: 12px;
+  width: 100%;
 }
 
 .menu-lateral ul li a {
   text-decoration: none;
   color: var(--cinza666);
   font-weight: 600;
-  font-size: 0.9em;
+  font-size: 16px;
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -92,13 +95,21 @@ html, body {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  width: 100%;
+}
+
+li.selected {
+  background-color: #e0e0e0; 
+  font-weight: bold;
+  border-left: 4px solid var(--azul-principal); 
 }
 
 .menu-lateral ul li a .icon-pasta {
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   object-fit: contain;
-  margin-right: 4px;
+  margin-right: 3px;
+  margin-left: 20px;
 }
 
 .menu-lateral-secundario {
@@ -110,6 +121,7 @@ html, body {
   overflow-y: auto;
   position: relative;
   height: 100%;
+  scrollbar-width: none; 
 }
 
 .resize-bar {
@@ -137,6 +149,9 @@ html, body {
   margin: 0;
   flex-grow: 1;
   text-align: center;
+  white-space: nowrap; 
+  overflow: hidden;    
+  text-overflow: ellipsis; 
 }
 
 .topoAtividades i, .topoAtividades .material-icons {
@@ -146,6 +161,7 @@ html, body {
   margin-left: 8px; 
   transition: color 0.3s ease;
 }
+
 .cardAtividades {
   display: flex;
   flex-direction: column;  
@@ -163,7 +179,7 @@ html, body {
 }
 
 .cardAtividades:hover {
-  background-color: var(--cinza-claro);
+  background-color: #e6e5e5;
 }
 
 .cardAtividades .tituloAtividades {
@@ -186,6 +202,9 @@ html, body {
   transition: color 0.3s ease;
 }
 
+.selecionado {
+  background-color: #e6e5e5;
+}
 
 .conteudo-principal {
   flex: 1;
@@ -196,3 +215,21 @@ html, body {
   overflow-y: auto;
   box-sizing: border-box;
 }
+
+
+@keyframes slideDown {
+  0% {
+    transform: translateY(-20px); 
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0); 
+    opacity: 1;
+  }
+}
+
+.cardAtividades {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  animation: slideDown 0.5s ease-out;
+}
+

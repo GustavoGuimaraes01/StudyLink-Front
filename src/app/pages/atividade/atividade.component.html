@@ -1,67 +1,71 @@
 <body class="conteudoPrincipal">
-  <!-- Barra superior com a logo -->
+  <!-- Barra de Navegação -->
   <mat-toolbar class="barra">
     <div class="logo">
-      <img src="img/logoBranco.svg" alt="">
+      <img src="img/logoBranco.svg" alt="Logo">
     </div>
   </mat-toolbar>
 
   <div class="container">
-    <!-- Menu lateral principal -->
+    <!-- Menu Lateral Principal -->
     <aside class="menu-lateral">
-      <div class="topoLista">
-        <img src="img/setaVoltar.svg" alt="">
+      <div class="topoLista" (click)="voltarParaMateriais()">
+        <img src="img/setaVoltar.svg" alt="Voltar">
         <h2>Materiais</h2>
       </div>
       <ul>
-        <li>
-          <a href="#">
-            <img src="img/pastaAzul.svg" alt="" class="icon-pasta">
-            Estequiometria
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <img src="img/pastaAzul.svg" alt="" class="icon-pasta">
-            Calorimetria
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <img src="img/pastaAzul.svg" alt="" class="icon-pasta">
-            Quimica Organica
+        <li *ngFor="let material of materiais" 
+            (click)="selecionarMaterial(material)"
+            [class.selected]="material.id === materialId">
+          <a href="javascript:void(0)">
+            <img src="img/pastaAzul.svg" alt="Ícone de Pasta" class="icon-pasta">
+            {{ material.titulo }}
           </a>
         </li>
       </ul>
     </aside>
 
-    <!-- Menu lateral secundário -->
+    <!-- Menu Lateral Secundário -->
     <aside class="menu-lateral-secundario" #menuSecundario>
       <div class="topoAtividades">
-        <h2>Estequiometria</h2>
-        <span class="material-icons">delete</span>
-        <span class="material-icons">add</span>
+        <h2>{{ materialAtual?.titulo }}</h2>
+        <span class="material-icons">search</span>
+        <span class="material-icons" (click)="criarAtividade()">add</span>
       </div>
       
-      <div class="cardAtividades">
-        <span class="tituloAtividades">Como calcular</span>
-        <span class="material-icons icon-menu">more_vert</span>
-        <span class="ultimaAlteracao">18:00</span>
-      </div>
-      
-      <div class="cardAtividades">
-        <span class="tituloAtividades">Exemplo prático</span>
-        <span class="material-icons icon-menu">more_vert</span>
-        <span class="ultimaAlteracao">18:30</span>
+      <!-- Lista de Atividades -->
+      <div 
+        class="cardAtividades" 
+        *ngFor="let atividade of atividades"
+        (click)="selecionarAtividade(atividade)"
+        [class.selecionado]="anotacaoSelecionada?.id === atividade.id">
+        <span class="tituloAtividades">{{ atividade.titulo }}</span>
+        <span 
+          class="material-icons icon-menu" 
+          [matMenuTriggerFor]="menuOpcao">
+          more_vert
+        </span>
+        <span class="ultimaAlteracao">{{ atividade.dataUltimaAlteracao }}</span>
       </div>
 
-      <div class="resize-bar" (mousedown)="onResizeStart($event, menuSecundario)"></div>
+      <!-- Barra de Redimensionamento -->
+      <div class="resize-bar" (mousedown)="onResizeStart($event)"></div>
     </aside>
 
-     <main class="conteudo-principal">
-      
-      <app-rich-text ></app-rich-text>
+    <!-- Menu de Opções -->
+    <mat-menu #menuOpcao="matMenu">
+      <button mat-menu-item (click)="deletarAtividade()">
+        <mat-icon>delete</mat-icon>
+        <span>Deletar</span>
+      </button>
+    </mat-menu>
 
-     </main>
+   <main class="conteudo-principal">
+  <app-rich-text 
+    [conteudo]="conteudoRichText" 
+    [idAnotacao]="anotacaoSelecionada?.id ?? null"
+    (conteudoSalvo)="onConteudoSalvo($event)">
+  </app-rich-text>
+</main>
   </div>
 </body>

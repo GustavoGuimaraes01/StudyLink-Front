@@ -55,6 +55,7 @@
 .list-item.active {
   box-shadow: inset 5px 0 0 0 var(--azul-principal);
   background-color: transparent;
+  
 }
 
 .list-item.active .material-symbols-outlined {

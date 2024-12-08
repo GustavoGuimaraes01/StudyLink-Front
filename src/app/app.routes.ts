@@ -13,7 +13,12 @@ export const routes: Routes = [
   { path: "home", loadComponent: () => import('./pages/home/home.component').then(c => c.HomeComponent) },
   { path: "materias", loadComponent: () => import('./pages/materias/materias.component').then(c => c.MateriasComponent) },
   { path: "descobrir", loadComponent: () => import('./pages/descobrir/descobrir.component').then(c => c.DescobrirComponent) },
-  { path: "atividades", loadComponent: () => import('./pages/atividade/atividade.component').then(c => c.AtividadeComponent) },
-  { path: "**", loadComponent: () => import('./pages/nao-encontrada/nao-encontrada.component').then(c => c.NaoEncontradaComponent) }
+  { path: 'atividade/:materialId', loadComponent: () => import('./pages/atividade/atividade.component').then(c => c.AtividadeComponent) },
+
+
+
+  
+  { path: "**", loadComponent: () => import('./pages/nao-encontrada/nao-encontrada.component').then(c => c.NaoEncontradaComponent) },
+
   
 ];

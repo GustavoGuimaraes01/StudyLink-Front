@@ -4,9 +4,10 @@ import { CriarMaterialComponent } from '../criar-material/criar-material.compone
 import { CommonModule } from '@angular/common';
 import { MateriaisService, Material } from  '../../services/materiais/materiais.service';
 import { MatIconModule } from '@angular/material/icon';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-materias',
+  selector: 'app-materias', 
   standalone: true,
   imports: [MenuPesquisaComponent, CriarMaterialComponent, CommonModule, MatIconModule],
   templateUrl: './materias.component.html',
@@ -19,11 +20,15 @@ export class MateriasComponent {
   materialParaEditar: Material | null = null;
   searchTerm: string = ''; 
 
-  constructor(private materiaisService: MateriaisService, private cdr: ChangeDetectorRef) {
+  constructor(
+    private materiaisService: MateriaisService,
+    private cdr: ChangeDetectorRef,
+    private router: Router
+  ) {
     this.carregarMateriais(); 
   }
 
-  carregarMateriais() {
+ carregarMateriais() {
     if (this.searchTerm) {
     
       this.materiaisService.pesquisarMateriais(this.searchTerm).subscribe({
@@ -48,6 +53,13 @@ export class MateriasComponent {
       });
     }
   }
+
+
+  navegarParaAtividades(materialId: number): void {
+    this.selectedMaterialId = materialId; 
+    this.router.navigate([`atividade/${materialId}`]);
+  }
+  
 
   openCriarMaterial(material?: Material) {
     this.materialParaEditar = material || null;

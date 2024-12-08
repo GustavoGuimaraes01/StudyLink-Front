@@ -164,7 +164,7 @@ export class AgendadorComponent implements OnInit {
   criarTarefa(event: SchedulerEvent): void {
     this.tarefaService.criarTarefa(event).subscribe({
       next: () => {
-        this.carregarTarefas(); // Recarrega as tarefas após a criação
+        this.carregarTarefas(); 
       },
       error: (erro) => {
         console.error('Erro ao criar tarefa', erro);
@@ -187,7 +187,7 @@ export class AgendadorComponent implements OnInit {
     if (event.Id) {
       this.tarefaService.deletarTarefa(event.Id).subscribe({
         next: () => {
-          this.carregarTarefas(); // Recarrega as tarefas após a exclusão
+          this.carregarTarefas(); 
         },
         error: (erro) => {
           console.error('Erro ao deletar tarefa', erro);
