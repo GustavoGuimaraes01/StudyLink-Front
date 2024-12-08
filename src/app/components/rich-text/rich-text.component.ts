@@ -1,156 +1,212 @@
-  import { Component, ViewEncapsulation, OnInit, OnDestroy, Input, Output, EventEmitter, SimpleChanges, OnChanges } from '@angular/core'; 
-  import Quill from 'quill'; 
-  import 'quill/dist/quill.snow.css'; 
-  import { debounceTime, Subject } from 'rxjs';
-  import { takeUntil } from 'rxjs/operators';
-  import { RichTextService, AnotacaoConteudoDTO } from '../../services/rich-text/rich-text.service';  
+import { Component, ViewEncapsulation, OnInit, OnDestroy, Input, Output, EventEmitter, SimpleChanges, OnChanges } from '@angular/core'; 
+import Quill from 'quill'; 
+import 'quill/dist/quill.snow.css'; 
+import { debounceTime, Subject, distinctUntilChanged, filter, retry, EMPTY } from 'rxjs';
+import { catchError, takeUntil } from 'rxjs/operators';
+import { RichTextService, AnotacaoConteudoDTO } from '../../services/rich-text/rich-text.service';  
 
-  @Component({   
-    selector: 'app-rich-text',   
-    standalone: true,   
-    templateUrl: `./rich-text.component.html`,   
-    styleUrls: ['./rich-text.component.css'],   
-    encapsulation: ViewEncapsulation.None, 
-  }) 
-  export class RichTextComponent implements OnInit, OnDestroy, OnChanges {   
-    @Input() conteudo: string = '';
-    @Input() idAnotacao: number | null = null;
-    @Output() conteudoSalvo = new EventEmitter<AnotacaoConteudoDTO>();
+@Component({   
+  selector: 'app-rich-text',   
+  standalone: true,   
+  templateUrl: `./rich-text.component.html`,   
+  styleUrls: ['./rich-text.component.css'],   
+  encapsulation: ViewEncapsulation.None, 
+}) 
+export class RichTextComponent implements OnInit, OnDestroy, OnChanges {   
+  @Input() conteudo: string = '';
+  @Input() idAnotacao: number | null = null;
+  @Output() conteudoSalvo = new EventEmitter<{
+    conteudoResult: AnotacaoConteudoDTO, 
+    titulo?: string, 
+    dataUltimaAlteracao?: string
+  }>();
 
-    private editor: Quill | null = null;   
-    private conteudoSubject = new Subject<string>();   
-    private destroy$ = new Subject<void>();   
+  private editor: Quill | null = null;   
+  private conteudoSubject = new Subject<string>();   
+  private destroy$ = new Subject<void>();
+  private ultimoConteudoSalvo: string | null = null;
+  private ultimoTituloSalvo: string | null = null;
 
-    constructor(private richTextService: RichTextService) {}    
+  constructor(private richTextService: RichTextService) {}    
 
-    ngOnInit() {     
-      const toolbarOptions = [       
-        [{ header: [1, 2, 3, 4, 5] }, { font: [] }],       
-        [{ list: 'ordered' }, { list: 'bullet' }],       
-        ['bold', 'italic', 'underline', 'strike'],       
-        [{ align: [] }],       
-        ['link', 'image'],       
-        ['blockquote', 'code-block'],     
-      ];      
+  ngOnInit() {     
+    const toolbarOptions = [       
+      [{ header: [1, 2, 3, 4, 5] }, { font: [] }],       
+      [{ list: 'ordered' }, { list: 'bullet' }],       
+      ['bold', 'italic', 'underline', 'strike'],       
+      [{ align: [] }],       
+      ['link', 'image'],       
+      ['blockquote', 'code-block'],     
+    ];      
 
-      this.editor = new Quill('#editor', {       
-        theme: 'snow',       
-        modules: { toolbar: toolbarOptions },       
-        placeholder: 'Comece a escrever...',       
-        bounds: '#editor',     
-      });      
+    this.editor = new Quill('#editor', {       
+      theme: 'snow',       
+      modules: { toolbar: toolbarOptions },       
+      placeholder: 'Comece a escrever...',       
+      bounds: '#editor',     
+    });      
 
-      // Configurar salvamento automático
-      this.configurarSalvamentoAutomatico();
+    // Configurar salvamento automático
+    this.configurarSalvamentoAutomatico();
 
-      // Se já existe conteúdo, carregar no editor
-      if (this.conteudo) {
-        this.carregarConteudo(this.conteudo);
-      }
+    // Se já existe conteúdo, carregar no editor
+    if (this.conteudo) {
+      this.carregarConteudo(this.conteudo);
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['idAnotacao'] && !changes['idAnotacao'].firstChange) {
+      this.resetarEditor();
     }
 
-    ngOnChanges(changes: SimpleChanges) {
-      // Quando o ID da anotação muda, resetar o editor
-      if (changes['idAnotacao'] && !changes['idAnotacao'].firstChange) {
-        this.resetarEditor();
-      }
-
-      // Carregar novo conteúdo quando ele mudar
-      if (changes['conteudo'] && this.editor) {
-        this.carregarConteudo(changes['conteudo'].currentValue);
-      }
+    // Carregar novo conteúdo quando ele mudar
+    if (changes['conteudo'] && this.editor) {
+      this.carregarConteudo(changes['conteudo'].currentValue);
     }
+  }
 
-    private resetarEditor() {
-      if (this.editor) {
-        this.editor.setText('');
-        this.editor.format('header', 1);
-      }
+  private resetarEditor() {
+    if (this.editor) {
+      this.editor.setText('');
+      this.editor.format('header', 1);
+      this.ultimoConteudoSalvo = null;
+      this.ultimoTituloSalvo = null;
     }
+  }
 
-    private carregarConteudo(conteudo: any): void {
-      if (this.editor) {
-        try {
-          // Se for uma lista, pegue o primeiro item
-          const conteudoParaProcessar = Array.isArray(conteudo) 
-            ? (conteudo.length > 0 ? conteudo[0].conteudo : null) 
-            : conteudo;
+  private carregarConteudo(conteudo: any): void {
+    if (this.editor) {
+      try {
+        const conteudoParaProcessar = Array.isArray(conteudo) 
+          ? (conteudo.length > 0 ? conteudo[0].conteudo : null) 
+          : conteudo;
     
-          if (conteudoParaProcessar) {
-            // Tenta parsear o conteúdo
-            const parsedContent = typeof conteudoParaProcessar === 'string' 
-              ? JSON.parse(conteudoParaProcessar) 
-              : conteudoParaProcessar;
+        if (conteudoParaProcessar) {
+          const parsedContent = typeof conteudoParaProcessar === 'string' 
+            ? JSON.parse(conteudoParaProcessar) 
+            : conteudoParaProcessar;
     
-            // Verifica se o conteúdo tem o formato esperado pelo Quill
-            if (parsedContent && parsedContent.ops && Array.isArray(parsedContent.ops)) {
-              this.editor.setContents(parsedContent);
-            } else {
-              console.error('Conteúdo inválido', parsedContent);
-              this.editor.setText('Erro ao carregar conteúdo.');
-            }
+          if (parsedContent && parsedContent.ops && Array.isArray(parsedContent.ops)) {
+            this.editor.setContents(parsedContent);
+            
+            const length = this.editor.getLength();
+            this.editor.setSelection(length, 0);
+
+            // Atualizar último conteúdo salvo para evitar salvamento redundante
+            this.ultimoConteudoSalvo = JSON.stringify(parsedContent);
           } else {
-            console.warn('Nenhum conteúdo encontrado');
-            this.editor.setText('');
+            console.error('Conteúdo inválido', parsedContent);
+            this.editor.setText('Erro ao carregar conteúdo.');
           }
-        } catch (error) {
-          console.error('Erro ao carregar conteúdo:', error);
-          this.editor.setText('Erro ao carregar conteúdo.');
+        } else {
+          console.warn('Nenhum conteúdo encontrado');
+          this.editor.setText('');
         }
+      } catch (error) {
+        console.error('Erro ao carregar conteúdo:', error);
+        this.editor.setText('Erro ao carregar conteúdo.');
       }
     }
-    
+  }
+  
   private configurarSalvamentoAutomatico() {
-    // Verifique a existência de `this.editor`
     this.editor?.on('text-change', () => {
-      const conteudo = JSON.stringify(this.editor?.getContents()); // Evite acessar se for undefined
+      const conteudo = JSON.stringify(this.editor?.getContents()); 
       this.conteudoSubject.next(conteudo);
     });
 
     this.conteudoSubject
       .pipe(
-        debounceTime(1000),
+        debounceTime(1500),
+        distinctUntilChanged(),
+        filter(conteudo => this.isConteudoAlterado(conteudo)),
         takeUntil(this.destroy$)
       )
       .subscribe(conteudo => {
         this.salvarConteudo(conteudo);
       });
   }
-    
+
+  private isConteudoAlterado(novoConteudo: string): boolean {
+    return this.ultimoConteudoSalvo !== novoConteudo;
+  }
 
   private salvarConteudo(conteudo: string) {
-    // Só salva se tiver um ID de anotação
     if (this.idAnotacao) {
       const request: AnotacaoConteudoDTO = {
         conteudo: conteudo,
         anotacaoId: this.idAnotacao
       };
 
-      // Logando o conteúdo antes de enviar para a API
-      console.log('Conteúdo que será enviado:', conteudo);
-      console.log('Request completo:', request);
+      // Extract the first line as the title
+      const primeiraLinha = this.extrairPrimeiraLinha(conteudo);
 
-      this.richTextService.salvarConteudoAnotacao(request)
-        .pipe(takeUntil(this.destroy$))
-        .subscribe({
-          next: (resposta) => {
-            // Logando a resposta da API
-            console.log('Conteúdo salvo com sucesso:', resposta);
-            this.conteudoSalvo.emit(resposta);
-          },
-          error: (erro) => {
-            // Logando o erro da API
-            console.error('Erro ao salvar conteúdo:', erro);
-          },
-        });
+      // Only save if content or title has changed
+      if (this.ultimoConteudoSalvo !== conteudo || this.ultimoTituloSalvo !== primeiraLinha) {
+        this.richTextService.salvarConteudoAnotacao(request)
+          .pipe(
+            takeUntil(this.destroy$),
+            retry(2),
+            catchError(error => {
+              console.error('Erro persistente ao salvar:', error);
+              return EMPTY;
+            })
+          )
+          .subscribe({
+            next: (resposta) => {
+              console.log('Conteúdo salvo com sucesso:', resposta);
+              
+              // Update last saved content and title
+              this.ultimoConteudoSalvo = conteudo;
+              this.ultimoTituloSalvo = primeiraLinha;
+              
+              // Emit an event with the new title and timestamp
+              this.conteudoSalvo.emit({
+                conteudoResult: resposta,
+                titulo: primeiraLinha,
+                dataUltimaAlteracao: this.formatarData(new Date())
+              });
+            },
+            error: (erro) => {
+              console.error('Erro ao salvar conteúdo:', erro);
+            },
+          });
+      }
     } else {
       console.warn('ID da anotação não encontrado. Conteúdo não será salvo.');
     }
   }
 
-
-    ngOnDestroy() {     
-      this.destroy$.next();     
-      this.destroy$.complete();   
-    }  
+  private extrairPrimeiraLinha(conteudo: string): string {
+    try {
+      const parsedContent = JSON.parse(conteudo);
+      if (parsedContent.ops && parsedContent.ops.length > 0) {
+        const primeiraLinha = parsedContent.ops
+          .find((op: any) => op.insert && typeof op.insert === 'string')
+          ?.insert.split('\n')[0]
+          .trim();
+        
+        return primeiraLinha || 'Nova Anotação';
+      }
+    } catch (error) {
+      console.error('Erro ao extrair primeira linha:', error);
+    }
+    return 'Nova Anotação';
   }
+
+  ngOnDestroy() {     
+    this.destroy$.next();     
+    this.destroy$.complete();   
+  }
+  
+  private formatarData(data: Date): string {
+    const dia = data.getDate().toString().padStart(2, '0');
+    const mes = (data.getMonth() + 1).toString().padStart(2, '0');
+    const ano = data.getFullYear();
+    const hora = data.getHours().toString().padStart(2, '0');
+    const minutos = data.getMinutes().toString().padStart(2, '0');
+
+    return `${dia}/${mes}/${ano} ${hora}:${minutos}`;
+  }
+}

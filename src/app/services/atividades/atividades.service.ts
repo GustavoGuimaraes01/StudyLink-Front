@@ -65,6 +65,16 @@ export class AtividadesService {
     );
   }
 
+  atualizarAtividade(id: number, dto: CriarAnotacaoDTO): Observable<AnotacaoDTO> {
+    return this.http.put<AnotacaoDTO>(`${this.apiUrl}atividades/${id}`, dto,{
+      headers: this.getHeaders()
+    }).pipe(
+      catchError ((error: HttpErrorResponse) => {
+        return throwError(() => new Error ('Erro ao atualizar atividades'));
+      })
+    )
+  }
+
   
   deletarAtividade(atividadeId: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}atividades/${atividadeId}`, {

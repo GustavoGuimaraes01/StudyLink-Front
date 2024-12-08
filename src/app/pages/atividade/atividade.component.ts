@@ -102,7 +102,6 @@ export class AtividadeComponent implements OnInit {
     this.anotacaoSelecionada = anotacao;
   
     if (anotacao?.id) {
-      // Busca o conteúdo associado à anotação
       this.richTextService.buscarConteudoPorAnotacaoId(anotacao.id).subscribe({
         next: (conteudo : any) => {
           this.conteudoRichText = conteudo; // Atualiza o conteúdo do Rich Text
@@ -115,39 +114,42 @@ export class AtividadeComponent implements OnInit {
     }
   }
   
-  
 
   carregarAtividades(): void {
-    if (this.materialId === undefined) return;
-  
-    this.atividadesService
-      .listarAtividadesPorMaterial(this.materialId)
-      .subscribe({
-        next: (response) => {
-          this.atividades = response || [];
-  
-          if (this.atividades.length > 0) {
-            if (!this.anotacaoSelecionada) {
-              this.selecionarAtividade(this.atividades[0]);
-            } else {
-              const currentActivityStillExists = this.atividades.some(
-                a => a.id === this.anotacaoSelecionada?.id
-              );
-              
-              if (!currentActivityStillExists) {
-                this.selecionarAtividade(this.atividades[0]);
-              }
-            }
+  if (this.materialId === undefined) return;
+
+  this.atividadesService
+    .listarAtividadesPorMaterial(this.materialId)
+    .subscribe({
+      next: (response) => {
+        this.atividades = (response || []).sort((a, b) => {
+          const dateA = a.dataUltimaAlteracao ? new Date(a.dataUltimaAlteracao).getTime() : 0;
+          const dateB = b.dataUltimaAlteracao ? new Date(b.dataUltimaAlteracao).getTime() : 0;
+          return dateB - dateA; 
+        });
+
+        if (this.atividades.length > 0) {
+          if (!this.anotacaoSelecionada) {
+            this.selecionarAtividade(this.atividades[0]);
           } else {
-            this.anotacaoSelecionada = null;
+            const currentActivityStillExists = this.atividades.some(
+              (a) => a.id === this.anotacaoSelecionada?.id
+            );
+
+            if (!currentActivityStillExists) {
+              this.selecionarAtividade(this.atividades[0]);
+            }
           }
-        },
-        error: (error) => {
-          console.error('Erro ao carregar atividades:', error);
-        },
-      });   
-  }
-  
+        } else {
+          this.anotacaoSelecionada = null;
+        }
+      },
+      error: (error) => {
+        console.error('Erro ao carregar atividades:', error);
+      },
+    });
+}
+
 
   criarAtividade(): void {
     if (!this.materialId) {
@@ -246,9 +248,43 @@ export class AtividadeComponent implements OnInit {
     document.removeEventListener('mousemove', onMove);
   }
 
-  onConteudoSalvo(evento: AnotacaoConteudoDTO) {
-    // Opcional: fazer algo após o conteúdo ser salvo
-    console.log('Conteúdo salvo:', evento);
+  onConteudoSalvo(evento: {
+    conteudoResult: AnotacaoConteudoDTO, 
+    titulo?: string, 
+    dataUltimaAlteracao?: string
+  }) {
+    if (this.anotacaoSelecionada && this.anotacaoSelecionada.id) {
+      // Prepare the update DTO
+      const updateDTO: CriarAnotacaoDTO = {
+        materialId: this.materialId,
+        titulo: evento.titulo || this.anotacaoSelecionada.titulo,
+        dataUltimaAlteracao: evento.dataUltimaAlteracao || this.anotacaoSelecionada.dataUltimaAlteracao
+      };
+  
+      // Call the service to update the activity/annotation
+      this.atividadesService.atualizarAtividade(this.anotacaoSelecionada.id, updateDTO).subscribe({
+        next: (updatedAnotacao) => {
+          // Update the local list
+          const index = this.atividades.findIndex(a => a.id === this.anotacaoSelecionada?.id);
+          if (index !== -1) {
+            this.atividades[index] = updatedAnotacao;
+  
+            // Resort the activities list
+            this.atividades.sort((a, b) => {
+              const dateA = a.dataUltimaAlteracao ? new Date(a.dataUltimaAlteracao).getTime() : 0;
+              const dateB = b.dataUltimaAlteracao ? new Date(b.dataUltimaAlteracao).getTime() : 0;
+              return dateB - dateA; 
+            });
+  
+            // Update the selected activity
+            this.selecionarAtividade(updatedAnotacao);
+          }
+        },
+        error: (error) => {
+          console.error('Erro ao atualizar atividade:', error);
+        }
+      });
+    }
   }
 
   
