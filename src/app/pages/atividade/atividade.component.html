@@ -64,6 +64,7 @@
   <app-rich-text 
     [conteudo]="conteudoRichText" 
     [idAnotacao]="anotacaoSelecionada?.id ?? null"
+    [habilitado]="!!anotacaoSelecionada"
     (conteudoSalvo)="onConteudoSalvo($event)">
   </app-rich-text>
 </main>

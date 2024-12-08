@@ -1,6 +1,7 @@
 import { Component, ViewEncapsulation, OnInit, OnDestroy, Input, Output, EventEmitter, SimpleChanges, OnChanges } from '@angular/core'; 
 import Quill from 'quill'; 
-import 'quill/dist/quill.snow.css'; 
+import 'quill/dist/quill.snow.css';
+  
 import { debounceTime, Subject, distinctUntilChanged, filter, retry, EMPTY } from 'rxjs';
 import { catchError, takeUntil } from 'rxjs/operators';
 import { RichTextService, AnotacaoConteudoDTO } from '../../services/rich-text/rich-text.service';  
@@ -13,6 +14,7 @@ import { RichTextService, AnotacaoConteudoDTO } from '../../services/rich-text/r
   encapsulation: ViewEncapsulation.None, 
 }) 
 export class RichTextComponent implements OnInit, OnDestroy, OnChanges {   
+  @Input() habilitado: boolean = true;
   @Input() conteudo: string = '';
   @Input() idAnotacao: number | null = null;
   @Output() conteudoSalvo = new EventEmitter<{
@@ -44,8 +46,11 @@ export class RichTextComponent implements OnInit, OnDestroy, OnChanges {
       modules: { toolbar: toolbarOptions },       
       placeholder: 'Comece a escrever...',       
       bounds: '#editor',     
+      
     });      
 
+    this.editor.enable(this.habilitado);
+    
     this.configurarSalvamentoAutomatico();
 
     if (this.conteudo) {
@@ -62,7 +67,24 @@ export class RichTextComponent implements OnInit, OnDestroy, OnChanges {
     if (changes['conteudo'] && this.editor) {
       this.carregarConteudo(changes['conteudo'].currentValue);
     }
+     // Verificar mudança no estado de habilitação
+    if (changes['habilitado'] && this.editor) {
+      this.atualizarEstadoEditor();
   }
+    
+  }
+    private atualizarEstadoEditor() {
+      if (this.editor) {
+        this.editor.enable(this.habilitado);
+        
+        // Opcional: atualizar placeholder
+        this.editor.root.setAttribute(
+          'data-placeholder', 
+          this.habilitado ? 'Comece a escrever...' : 'Nenhuma atividade selecionada'
+        );
+      }
+    }
+
 
   private resetarEditor() {
     if (this.editor) {
