@@ -1,14 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { 
-  TarefaDTO, 
-  TarefaCreateDTO, 
-  TarefaUpdateDTO, 
-  SchedulerEvent 
-} from '../../types/tarefa';
+import { TarefaDTO,   TarefaCreateDTO,   TarefaUpdateDTO,  SchedulerEvent } from '../../types/tarefa';
 import { environment } from '../../../environments/environment';
+import { AuthService } from '../auth/auth.service'; // Ajuste o caminho conforme necessário
 
 @Injectable({
   providedIn: 'root'
@@ -16,19 +12,9 @@ import { environment } from '../../../environments/environment';
 export class TarefaService {
   private apiUrl = `${environment.apiBaseUrl}tarefas`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
-  private getHeaders(): HttpHeaders {
-    const token = sessionStorage.getItem('auth-token');
-    if (!token) {
-      throw new Error('Token não encontrado no sessionStorage');
-    }
-    return new HttpHeaders({
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json'
-    });
-  }
-
+  // Método para lidar com erros
   private handleError(error: HttpErrorResponse) {
     let errorMessage = 'Ocorreu um erro na operação.';
     if (error.error instanceof ErrorEvent) {
@@ -59,10 +45,8 @@ export class TarefaService {
   }
 
   private formatDateForSpring(date: Date): string {
-    const pad = (n: number) => n < 10 ? `0${n}` : `${n}`;
-    
-    return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${
-      pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
+    const pad = (n: number) => (n < 10 ? `0${n}` : `${n}`);
+    return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
   }
 
   private toCreateDTO(event: SchedulerEvent): TarefaCreateDTO {
@@ -84,16 +68,15 @@ export class TarefaService {
   private toUpdateDTO(event: SchedulerEvent): TarefaDTO {
     return {
       id: event.Id || '',
-      titulo: event.Subject,  
-      descricao: event.Description || '', 
-      dataInicio: this.formatLocalDateTime(new Date(event.StartTime)), 
-      dataFim: this.formatLocalDateTime(new Date(event.EndTime)),  // Formatação da data de fim
-      recurrenceID: event.RecurrenceID, 
-      recurrenceRule: event.RecurrenceRule,  // Regra de recorrência (por exemplo, semanal)
-      recurrenceException: event.RecurrenceException,  // Exceção de recorrência, se houver
+      titulo: event.Subject,
+      descricao: event.Description || '',
+      dataInicio: this.formatLocalDateTime(new Date(event.StartTime)),
+      dataFim: this.formatLocalDateTime(new Date(event.EndTime)),
+      recurrenceID: event.RecurrenceID,
+      recurrenceRule: event.RecurrenceRule,
+      recurrenceException: event.RecurrenceException
     };
   }
-  
 
   private getStartOfDay(date: Date): Date {
     const startOfDay = new Date(date);
@@ -110,23 +93,23 @@ export class TarefaService {
   getTarefas(dataInicio: Date, dataFim: Date): Observable<SchedulerEvent[]> {
     const startDate = this.formatLocalDateTime(this.getStartOfDay(dataInicio));
     const endDate = this.formatLocalDateTime(this.getEndOfDay(dataFim));
-  
+
     return this.http.get<TarefaDTO[]>(`${this.apiUrl}/${startDate}/${endDate}`, { 
-      headers: this.getHeaders() 
+      headers: this.authService.getHeaders() 
     }).pipe(
       map(tarefas => {
         console.log('Tarefas recebidas:', tarefas);
-  
+
         const eventoSet = new Set<string>();
         return tarefas
           .map(tarefa => this.toSchedulerEvent(tarefa))
           .filter(tarefa => {
             const identificador = tarefa.RecurrenceException || tarefa.StartTime.toString();
-            
+
             if (eventoSet.has(identificador)) {
               return false;
             }
-  
+
             eventoSet.add(identificador);
             return true;
           });
@@ -134,15 +117,13 @@ export class TarefaService {
       catchError(this.handleError)
     );
   }
-  
-  
 
   criarTarefa(event: SchedulerEvent): Observable<SchedulerEvent> {
     const tarefaDTO = this.toCreateDTO(event);
     console.log('TarefaDTO enviado:', tarefaDTO);
-    
+
     return this.http.post<TarefaDTO>(this.apiUrl, tarefaDTO, { 
-      headers: this.getHeaders() 
+      headers: this.authService.getHeaders() 
     }).pipe(
       map(response => {
         console.log('Resposta do backend:', response);
@@ -155,19 +136,17 @@ export class TarefaService {
   updateTarefa(event: SchedulerEvent): Observable<SchedulerEvent> {
     const tarefaDTO = this.toUpdateDTO(event);
     console.log('TarefaDTO editada:', tarefaDTO);
-  
+
     return this.http.put<TarefaDTO>(`${this.apiUrl}/${event.Id}`, tarefaDTO, { 
-      headers: this.getHeaders(),
+      headers: this.authService.getHeaders(),
       params: {
-        editOccurrence: 'true' 
+        editOccurrence: 'true'
       }
     }).pipe(
       map(response => this.toSchedulerEvent(response)),
       catchError(this.handleError)
     );
   }
-  
-  
 
   deletarTarefa(id: string, recurrenceException?: string): Observable<void> {
     const url = recurrenceException 
@@ -175,7 +154,7 @@ export class TarefaService {
       : `${this.apiUrl}/${id}`;
 
     return this.http.delete<void>(url, { 
-      headers: this.getHeaders() 
+      headers: this.authService.getHeaders() 
     }).pipe(
       catchError(this.handleError)
     );

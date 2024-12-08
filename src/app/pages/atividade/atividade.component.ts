@@ -5,8 +5,9 @@ import { RichTextComponent } from '../../components/rich-text/rich-text.componen
 import { AnotacaoDTO, CriarAnotacaoDTO, AtividadesService } from '../../services/atividades/atividades.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { MateriaisService, Material } from '../../services/materiais/materiais.service';
+import { MateriaisService } from '../../services/materiais/materiais.service';
 import { MatMenuModule } from '@angular/material/menu';
+import { Material } from '../../types/materiais';
 import { AnotacaoConteudoDTO, RichTextService } from '../../services/rich-text/rich-text.service';
 
 @Component({

@@ -63,11 +63,9 @@ export class RichTextComponent implements OnInit, OnDestroy, OnChanges {
       this.resetarEditor();
     }
 
-    // Carregar novo conteúdo quando ele mudar
     if (changes['conteudo'] && this.editor) {
       this.carregarConteudo(changes['conteudo'].currentValue);
     }
-     // Verificar mudança no estado de habilitação
     if (changes['habilitado'] && this.editor) {
       this.atualizarEstadoEditor();
   }
@@ -77,7 +75,6 @@ export class RichTextComponent implements OnInit, OnDestroy, OnChanges {
       if (this.editor) {
         this.editor.enable(this.habilitado);
         
-        // Opcional: atualizar placeholder
         this.editor.root.setAttribute(
           'data-placeholder', 
           this.habilitado ? 'Comece a escrever...' : 'Nenhuma atividade selecionada'
@@ -113,7 +110,6 @@ export class RichTextComponent implements OnInit, OnDestroy, OnChanges {
             const length = this.editor.getLength();
             this.editor.setSelection(length, 0);
 
-            // Atualizar último conteúdo salvo para evitar salvamento redundante
             this.ultimoConteudoSalvo = JSON.stringify(parsedContent);
           } else {
             console.error('Conteúdo inválido', parsedContent);
@@ -175,11 +171,9 @@ export class RichTextComponent implements OnInit, OnDestroy, OnChanges {
             next: (resposta) => {
               console.log('Conteúdo salvo com sucesso:', resposta);
               
-              // Update last saved content and title
               this.ultimoConteudoSalvo = conteudo;
               this.ultimoTituloSalvo = primeiraLinha;
               
-              // Emit an event with the new title and timestamp
               this.conteudoSalvo.emit({
                 conteudoResult: resposta,
                 titulo: primeiraLinha,

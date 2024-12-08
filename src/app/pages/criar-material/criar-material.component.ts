@@ -2,7 +2,8 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { MateriaisService, Material } from '../../services/materiais/materiais.service';
+import { MateriaisService } from '../../services/materiais/materiais.service';
+import { Material } from '../../types/materiais';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatSelectionList } from '@angular/material/list';

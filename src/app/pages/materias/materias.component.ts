@@ -2,7 +2,8 @@ import { Component, ChangeDetectorRef } from '@angular/core';
 import { MenuPesquisaComponent } from '../../components/menu-pesquisa/menu-pesquisa.component';
 import { CriarMaterialComponent } from '../criar-material/criar-material.component';
 import { CommonModule } from '@angular/common';
-import { MateriaisService, Material } from  '../../services/materiais/materiais.service';
+import { MateriaisService } from  '../../services/materiais/materiais.service';
+import { Material } from '../../types/materiais';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 

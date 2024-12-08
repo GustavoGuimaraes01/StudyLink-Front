@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
+import { AuthService } from '../auth/auth.service'; // Ajuste o caminho conforme necessário
 
 export interface AnotacaoConteudoDTO {
   id?: number;
@@ -16,19 +17,7 @@ export interface AnotacaoConteudoDTO {
 export class RichTextService {
   private apiUrl = `${environment.apiBaseUrl}arquivo`;
 
-  constructor(private http: HttpClient) {}
-
-  // Método para obter os cabeçalhos com o token
-  private getHeaders(): HttpHeaders {
-    const token = sessionStorage.getItem('auth-token');
-    if (!token) {
-      throw new Error('Token não encontrado no sessionStorage');
-    }
-    return new HttpHeaders({
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json'
-    });
-  }
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   // Método para lidar com erros
   private handleError(error: HttpErrorResponse): Observable<never> {
@@ -46,19 +35,20 @@ export class RichTextService {
 
   // Método para criar/atualizar o conteúdo de uma anotação
   salvarConteudoAnotacao(request: AnotacaoConteudoDTO): Observable<AnotacaoConteudoDTO> {
+    const headers = this.authService.getHeaders();
     console.log('Request enviado para salvar:', request);
 
     if (request.id) {
       // Atualiza o conteúdo existente
       return this.http.put<AnotacaoConteudoDTO>(`${this.apiUrl}/atualizar`, request, {
-        headers: this.getHeaders()
+        headers
       }).pipe(
         catchError(this.handleError)
       );
     } else {
       // Cria um novo conteúdo
       return this.http.post<AnotacaoConteudoDTO>(`${this.apiUrl}/criar`, request, {
-        headers: this.getHeaders()
+        headers
       }).pipe(
         catchError(this.handleError)
       );
@@ -67,10 +57,11 @@ export class RichTextService {
 
   // Método para buscar o conteúdo de uma anotação pelo ID
   buscarConteudoPorAnotacaoId(anotacaoId: number): Observable<AnotacaoConteudoDTO> {
+    const headers = this.authService.getHeaders();
     console.log('Buscando conteúdo para anotação com ID:', anotacaoId);
 
     return this.http.get<AnotacaoConteudoDTO>(`${this.apiUrl}/anotacao/${anotacaoId}`, {
-      headers: this.getHeaders()
+      headers
     }).pipe(
       catchError(this.handleError)
     );

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MateriaisService, MaterialReadDTO } from '../../services/materiais/materiais.service';
+import { MateriaisService } from '../../services/materiais/materiais.service';
+import { MaterialReadDTO } from '../../types/materiais';
 import { MenuPesquisaComponent } from "../../components/menu-pesquisa/menu-pesquisa.component";
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
