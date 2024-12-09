@@ -5,6 +5,7 @@ import { environment } from '../../../environments/environment';
 import { MATERIAL_ENDPOINTS } from './endpoints';
 import { AuthService } from '../auth/auth.service'; 
 import { Material, MaterialCreateDTO, MaterialReadDTO, MaterialSearchDTO } from '../../types/materiais';
+import { AnotacaoDTO } from '../atividades/atividades.service';
 
 @Injectable({
   providedIn: 'root',
@@ -70,4 +71,5 @@ export class MateriaisService {
       responseType: 'text' as 'json',
     });
   }
+
 }

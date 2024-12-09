@@ -14,7 +14,7 @@ export const routes: Routes = [
   { path: "materias", loadComponent: () => import('./pages/materias/materias.component').then(c => c.MateriasComponent) },
   { path: "descobrir", loadComponent: () => import('./pages/descobrir/descobrir.component').then(c => c.DescobrirComponent) },
   { path: 'atividade/:materialId', loadComponent: () => import('./pages/atividade/atividade.component').then(c => c.AtividadeComponent) },
-
+  { path: 'material-publico/:materialId', loadComponent: () => import('./pages/material-publico/material-publico.component').then(c => c.MaterialPublicoComponent) },
   { path: "", loadComponent: () => import('./pages/landing-page/landing-page.component').then(c => c.LandingPageComponent) },
 
 

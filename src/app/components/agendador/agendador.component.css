@@ -137,3 +137,41 @@ input.e-input::selection, textarea.e-input::selection, .e-input-group input.e-in
     width: 100% !important;
 }
 
+.e-btn.e-primary.e-active, .e-css.e-btn.e-primary.e-active {
+    background: var(--azul-principal);
+    border-color: rgba(0, 0, 0, 0);
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, .2), 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0, .12);
+    color: #fff;
+}
+/* Quando o elemento está focado ou é selecionado */
+.e-input-group-icon:focus::before,
+.e-input-group-icon:active::before {
+    color: var(--azul-principal); /* Cor do ícone antes */
+}
+
+
+.e-datetime-wrapper .e-input-group-icon.e-icons.e-active {
+    color: var(--azul-principal);
+}
+
+/* Cor do texto quando o item for selecionado */
+.e-popup .e-list-item.e-active {
+    color: var(--azul-principal); /* Cor do texto quando o item estiver selecionado */
+    background-color: lightgray; /* Cor de fundo do item selecionado */
+}
+
+/* Cor do texto ao passar o mouse (hover), mas apenas se não estiver selecionado */
+.e-popup .e-list-item:not(.e-active):hover {
+    color: var(--azul-principal); /* Cor do texto quando passar o mouse */
+    background-color: lightblue; /* Cor de fundo quando passar o mouse */
+}
+
+.e-radio:checked + label::before {
+    background-color: #fff;
+    border-color: var(--azul-principal);
+}
+
+.e-radio:checked + label::after {
+    background-color: var(--azul-principal);
+    color: var(--azul-principal);
+}

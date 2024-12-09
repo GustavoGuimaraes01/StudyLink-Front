@@ -1,0 +1,61 @@
+<body class="conteudoPrincipal">
+    <!-- Barra de Navegação -->
+    <mat-toolbar class="barra">
+      <div class="logo">
+        <img src="img/logoBranco.svg" alt="Logo" routerLink="/descobrir">
+      </div>
+    
+    
+    </mat-toolbar>
+  
+    <div *ngIf="isListaOpen" class="dropdown-menu">
+      <ul>
+        <li><mat-icon>account_circle</mat-icon> {{ nomeUsuario }}</li>
+        <li><mat-icon>mail</mat-icon> {{ email }}</li>
+        <li><mat-icon>info</mat-icon> Sobre</li>
+        <li><button (click)="logout()"><mat-icon>exit_to_app</mat-icon> Sair</button></li>
+      </ul>
+    </div>
+  
+    <div class="container">
+      <!-- Menu Lateral Secundário -->
+      <aside class="menu-lateral-secundario">
+        <div class="topoAtividades">
+          <h2>{{ materialAtual?.titulo }}</h2>
+          <span class="material-icons">search</span>
+        </div>
+        
+        <div class="lista-anotacoes">
+          <div 
+            *ngFor="let anotacao of anotacoes" 
+            class="item-anotacao"
+            [class.selecionada]="anotacao.id === anotacaoSelecionada?.id"
+            (click)="selecionarAnotacao(anotacao)"
+          >
+            <span class="tituloAtividades">{{ anotacao.titulo }}</span>
+            <span  
+            class="material-icons icon-menu" 
+            [matMenuTriggerFor]="menuOpcao">
+            more_vert
+          </span>
+            <span class="ultimaAlteracao">{{ anotacao.dataUltimaAlteracao}}</span>
+          </div>
+        </div>
+      </aside>
+
+      <mat-menu #menuOpcao="matMenu">
+        <button mat-menu-item >
+          <mat-icon>delete</mat-icon>
+          <span>Deletar</span>
+        </button>
+      </mat-menu>
+  
+      <main class="conteudo-principal">
+        <app-rich-text 
+          [conteudo]="conteudoRichText" 
+          [idAnotacao]="anotacaoSelecionada?.id ?? null"
+          [habilitado]= false>
+        </app-rich-text>
+      </main>
+    </div>
+  </body>

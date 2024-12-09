@@ -2,9 +2,23 @@
   <!-- Barra de Navegação -->
   <mat-toolbar class="barra">
     <div class="logo">
-      <img src="img/logoBranco.svg" alt="Logo">
+      <img src="img/logoBranco.svg" alt="Logo" routerLink="/home">
+    </div>
+  
+    <!-- Inicial do Usuário no canto direito -->
+    <div class="user-inicial" (click)="toggleListaSuspensa()">
+      {{ nomeUsuario[0].toUpperCase() }}
     </div>
   </mat-toolbar>
+   <div *ngIf="isListaOpen" class="dropdown-menu">
+      <ul>
+        <li><mat-icon>account_circle</mat-icon> {{ nomeUsuario }}</li>
+        <li><mat-icon>mail</mat-icon> {{ email }}</li>
+        <li><mat-icon>info</mat-icon> Sobre</li>
+        <li><button (click)="logout()"><mat-icon>exit_to_app</mat-icon> Sair</button></li>
+      </ul>
+    </div>
+  
 
   <div class="container">
     <!-- Menu Lateral Principal -->
@@ -65,6 +79,7 @@
     [conteudo]="conteudoRichText" 
     [idAnotacao]="anotacaoSelecionada?.id ?? null"
     [habilitado]="!!anotacaoSelecionada"
+    [habilitado]="true"
     (conteudoSalvo)="onConteudoSalvo($event)">
   </app-rich-text>
 </main>

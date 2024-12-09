@@ -32,20 +32,21 @@ export class RichTextComponent implements OnInit, OnDestroy, OnChanges {
   constructor(private richTextService: RichTextService) {}    
 
   ngOnInit() {     
-    const toolbarOptions = [       
+    const toolbarOptions = this.habilitado ? [       
       [{ header: [1, 2, 3, 4, 5] }, { font: [] }],       
       [{ list: 'ordered' }, { list: 'bullet' }],       
       ['bold', 'italic', 'underline', 'strike'],       
       [{ align: [] }],       
       ['link', 'image'],       
       ['blockquote', 'code-block'],     
-    ];      
+    ] : null
 
     this.editor = new Quill('#editor', {       
       theme: 'snow',       
       modules: { toolbar: toolbarOptions },       
       placeholder: 'Comece a escrever...',       
       bounds: '#editor',     
+      readOnly: !this.habilitado, 
       
     });      
 
@@ -71,26 +72,31 @@ export class RichTextComponent implements OnInit, OnDestroy, OnChanges {
   }
     
   }
-    private atualizarEstadoEditor() {
-      if (this.editor) {
-        this.editor.enable(this.habilitado);
-        
-        this.editor.root.setAttribute(
-          'data-placeholder', 
-          this.habilitado ? 'Comece a escrever...' : 'Nenhuma atividade selecionada'
-        );
+  private atualizarEstadoEditor() {
+    if (this.editor) {
+      this.editor.enable(this.habilitado);
+      this.editor.root.setAttribute('contenteditable', this.habilitado.toString());
+
+      this.editor.root.setAttribute(
+        'data-placeholder', 
+        this.habilitado ? 'Comece a escrever...' : ''
+      );
+
+      if (!this.habilitado && (!this.conteudo || this.conteudo === '')) {
+        this.editor.setText('');
       }
     }
-
-
-  private resetarEditor() {
-    if (this.editor) {
-      this.editor.setText('');
-      this.editor.format('header', 1);
-      this.ultimoConteudoSalvo = null;
-      this.ultimoTituloSalvo = null;
-    }
   }
+
+
+    private resetarEditor() {
+      if (this.editor) {
+        this.editor.setText('');
+        this.editor.format('header', 1);
+        this.ultimoConteudoSalvo = null;
+        this.ultimoTituloSalvo = null;
+      }
+    }
 
   private carregarConteudo(conteudo: any): void {
     if (this.editor) {
@@ -98,6 +104,12 @@ export class RichTextComponent implements OnInit, OnDestroy, OnChanges {
         const conteudoParaProcessar = Array.isArray(conteudo) 
           ? (conteudo.length > 0 ? conteudo[0].conteudo : null) 
           : conteudo;
+    
+        // Se não tiver conteúdo e não estiver habilitado, defina como vazio
+        if ((!conteudoParaProcessar || conteudoParaProcessar === '') && !this.habilitado) {
+          this.editor.setText('');
+          return;
+        }
     
         if (conteudoParaProcessar) {
           const parsedContent = typeof conteudoParaProcessar === 'string' 
@@ -121,7 +133,7 @@ export class RichTextComponent implements OnInit, OnDestroy, OnChanges {
         }
       } catch (error) {
         console.error('Erro ao carregar conteúdo:', error);
-        this.editor.setText('Erro ao carregar conteúdo.');
+        this.editor.setText('');
       }
     }
   }

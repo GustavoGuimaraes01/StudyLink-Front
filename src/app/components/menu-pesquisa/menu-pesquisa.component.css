@@ -30,6 +30,7 @@
   align-items: center;
   font-weight: bold;
   z-index: 10;
+  cursor: pointer;
 }
 
 .barra .logo mat-icon { margin-right: 8px; }

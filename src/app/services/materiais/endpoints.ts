@@ -5,6 +5,6 @@ export const MATERIAL_ENDPOINTS = {
     pesquisar: 'materiais/pesquisar',
     adicionar: 'materiais/add',
     atualizar: (id: number) => `materiais/${id}`,
-    deletar: (id: number) => `materiais/${id}`
+    deletar: (id: number) => `materiais/${id}`,
   };
   

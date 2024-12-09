@@ -3,7 +3,7 @@ import { MateriaisService } from '../../services/materiais/materiais.service';
 import { MaterialReadDTO } from '../../types/materiais';
 import { MenuPesquisaComponent } from "../../components/menu-pesquisa/menu-pesquisa.component";
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-descobrir',
@@ -16,10 +16,13 @@ export class DescobrirComponent implements OnInit {
   materiais: MaterialReadDTO[] = [];
   isLoading: boolean = false;
   mensagemErro: string = '';
+  selectedMaterialId: number | null = null;
 
   constructor(
     private materiaisService: MateriaisService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
+    
   ) {}
 
   ngOnInit(): void {
@@ -79,4 +82,10 @@ export class DescobrirComponent implements OnInit {
   onPesquisaRealizada(termo: string): void {
     this.realizarPesquisa(termo);
   }
+  
+  
+navegarParaMaterialPublico(materialId: number): void {
+  this.router.navigate([`material-publico/${materialId}`]);
+}
+
 }

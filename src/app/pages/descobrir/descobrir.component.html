@@ -20,7 +20,7 @@
 
     <!-- Lista de materiais -->
     <section class="cards" *ngIf="!isLoading && materiais.length > 0">
-      <div *ngFor="let material of materiais" class="botao">
+      <div *ngFor="let material of materiais" class="botao" (click)="navegarParaMaterialPublico(material.id!)">
         <div class="header">
         <img 
         [src]="material.imagemBanner" 

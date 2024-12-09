@@ -38,6 +38,9 @@ export class AtividadeComponent implements OnInit {
   materialAtual: Material | null = null; 
   anotacaoSelecionada: AnotacaoDTO | null = null;
   conteudoRichText: any;
+  nomeUsuario: string = '';
+  isListaOpen: boolean = false;
+  email: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -52,6 +55,12 @@ export class AtividadeComponent implements OnInit {
 
   //Relacionamento de materiais com atividades
   ngOnInit(): void {
+
+    const emailSalvo = sessionStorage.getItem('email');
+    this.email = emailSalvo ? emailSalvo : 'não cadastrado';
+    const nomeSalvo = sessionStorage.getItem('nome_usuario');
+    this.nomeUsuario = nomeSalvo ? nomeSalvo : '?';
+
     const idParam = this.route.snapshot.paramMap.get('materialId');
     this.materialId = idParam ? Number(idParam) : undefined;
   
@@ -88,7 +97,6 @@ export class AtividadeComponent implements OnInit {
       this.materialAtual = materialParaSelecionar;
       this.materialId = materialParaSelecionar.id;
   
-      // Atualiza a URL com o novo ID do material
       this.router.navigate([`atividade/${this.materialId}`]);
   
       this.carregarAtividades();
@@ -287,6 +295,16 @@ export class AtividadeComponent implements OnInit {
         }
       });
     }
+  }
+  toggleListaSuspensa() {
+    this.isListaOpen = !this.isListaOpen;
+  }
+
+  logout() {
+    sessionStorage.removeItem('nome_usuario');
+    sessionStorage.removeItem('email');
+    sessionStorage.removeItem('auth-token');
+    this.router.navigate(['/login']);
   }
 
   

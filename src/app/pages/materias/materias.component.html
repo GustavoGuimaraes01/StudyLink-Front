@@ -12,7 +12,7 @@
                 (materialSalvo)="onMaterialSalvo()">
             </app-criar-material>
 
-           <div *ngFor="let material of materiais" class="botao" (click)="navegarParaAtividades(material.id!)">
+    <div *ngFor="let material of materiais" class="botao" (click)="navegarParaAtividades(material.id!)">
     <div class="header">
         <img [src]="material.imagemBanner" alt="" class="background-img">
         <a class="assunto">{{ material.titulo }}</a>
