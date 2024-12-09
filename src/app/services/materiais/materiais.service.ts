@@ -6,6 +6,9 @@ import { MATERIAL_ENDPOINTS } from './endpoints';
 import { AuthService } from '../auth/auth.service'; 
 import { Material, MaterialCreateDTO, MaterialReadDTO, MaterialSearchDTO } from '../../types/materiais';
 import { AnotacaoDTO } from '../atividades/atividades.service';
+import { MatDialog } from '@angular/material/dialog';
+import { MateriasComponent } from '../../pages/materias/materias.component';
+import { HomeComponent } from '../../pages/home/home.component';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +16,7 @@ import { AnotacaoDTO } from '../atividades/atividades.service';
 export class MateriaisService {
   private apiUrl = `${environment.apiBaseUrl}`;
 
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  constructor(private http: HttpClient, private authService: AuthService, private dialog: MatDialog) {}
 
   listarMateriaisPublicos(): Observable<MaterialReadDTO[]> {
     const url = `${this.apiUrl}${MATERIAL_ENDPOINTS.descobrir}`;
@@ -71,5 +74,6 @@ export class MateriaisService {
       responseType: 'text' as 'json',
     });
   }
+
 
 }

@@ -55,7 +55,6 @@ export class MateriasComponent {
     }
   }
 
-
   navegarParaAtividades(materialId: number): void {
     this.selectedMaterialId = materialId; 
     this.router.navigate([`atividade/${materialId}`]);

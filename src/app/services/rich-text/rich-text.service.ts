@@ -33,22 +33,21 @@ export class RichTextService {
   salvarConteudoAnotacao(request: AnotacaoConteudoDTO): Observable<AnotacaoConteudoDTO> {
     const headers = this.authService.getHeaders();
     console.log('Request enviado para salvar:', request);
-
+  
     if (request.id) {
-      return this.http.put<AnotacaoConteudoDTO>(`${this.apiUrl}/atualizar`, request, {
-        headers
-      }).pipe(
-        catchError(this.handleError)
-      );
+      console.log('Atualizando arquivo...');
     } else {
-      // Cria um novo conteúdo
-      return this.http.post<AnotacaoConteudoDTO>(`${this.apiUrl}/criar`, request, {
-        headers
-      }).pipe(
-        catchError(this.handleError)
-      );
+      console.log('Criando novo arquivo...');
     }
+  
+    return this.http.post<AnotacaoConteudoDTO>(`${this.apiUrl}/criar`, request, { headers }).pipe(
+      catchError(error => {
+        console.error('Erro no salvarConteudoAnotacao:', error);
+        return this.handleError(error);
+      })
+    );
   }
+  
 
   buscarConteudoPorAnotacaoId(anotacaoId: number): Observable<AnotacaoConteudoDTO> {
     const headers = this.authService.getHeaders();

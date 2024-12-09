@@ -44,12 +44,12 @@
       </aside>
 
       <mat-menu #menuOpcao="matMenu">
-        <button mat-menu-item >
-          <mat-icon>delete</mat-icon>
-          <span>Deletar</span>
+        <button mat-menu-item (click)="copiarAnotacao()">
+          <mat-icon>file_download</mat-icon>
+          <span>Download</span>
         </button>
       </mat-menu>
-  
+    
       <main class="conteudo-principal">
         <app-rich-text 
           [conteudo]="conteudoRichText" 
