@@ -5,7 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { LoginServiceService } from '../../services/usuarios/login-service.service';
 import { ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -13,7 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [LayoutLoginComponent, ReactiveFormsModule, MatFormFieldModule, MatInputModule, CommonModule, MatIconModule, MatButtonModule],
+  imports: [LayoutLoginComponent, ReactiveFormsModule, MatFormFieldModule, MatInputModule, CommonModule, MatIconModule, MatButtonModule, RouterLink],
   providers: [LoginServiceService],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
@@ -90,4 +90,5 @@ export class LoginComponent implements OnInit {
     if (parts.length === 2) return parts.pop()?.split(';').shift() || null;
     return null;
   }
+
 }

@@ -1,0 +1,68 @@
+  <div class="redefinir-senha-container">
+    <h2>{{ estaResetandoSenha ? 'Definir Nova Senha' : 'Redefinir Senha' }}</h2>
+
+    <form [formGroup]="resetForm" (ngSubmit)="solicitarRedefinicao()">
+      <!-- Primeira Etapa - Campo de E-mail -->
+      <ng-container *ngIf="!estaResetandoSenha">
+        <mat-form-field appearance="fill">
+          <mat-label>E-mail</mat-label>
+          <input 
+            matInput 
+            formControlName="email" 
+            type="email" 
+            required
+          />
+          <mat-error *ngIf="resetForm.get('email')?.hasError('required')">O e-mail é obrigatório.</mat-error>
+          <mat-error *ngIf="resetForm.get('email')?.hasError('email')">Digite um e-mail válido.</mat-error>
+        </mat-form-field>
+        
+        <button 
+          mat-raised-button 
+          color="primary" 
+          type="submit" 
+          [disabled]="!emailValido">
+          Enviar
+        </button>
+      </ng-container>
+
+      <!-- Segunda Etapa - Campos de Senha (só aparecem após e-mail enviado) -->
+      <ng-container *ngIf="estaResetandoSenha">
+        <mat-form-field appearance="fill">
+          <mat-label>Nova Senha</mat-label>
+          <input 
+            matInput 
+            formControlName="novaSenha" 
+            type="password" 
+            placeholder="Digite sua nova senha"
+          />
+          <mat-error *ngIf="resetForm.get('novaSenha')?.hasError('required')">
+            A senha é obrigatória.
+          </mat-error>
+          <mat-error *ngIf="resetForm.get('novaSenha')?.hasError('minlength')">
+            A senha deve ter no mínimo 6 caracteres.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Confirmar Nova Senha</mat-label>
+          <input 
+            matInput 
+            formControlName="confirmacaoSenha" 
+            type="password" 
+            placeholder="Confirme sua nova senha"
+          />
+          <mat-error *ngIf="resetForm.hasError('senhasNaoConferem')">
+            As senhas não conferem.
+          </mat-error>
+        </mat-form-field>
+
+        <button 
+          mat-raised-button 
+          color="primary" 
+          type="submit" 
+          [disabled]="resetForm.invalid">
+          Redefinir Senha
+        </button>
+      </ng-container>
+    </form>
+  </div>

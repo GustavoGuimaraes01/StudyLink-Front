@@ -77,7 +77,7 @@ button.toggle-password:hover {
     border: 1px solid #ff4d4d; 
 }
 
-.esqueceu_senha {
+.option {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -86,11 +86,11 @@ button.toggle-password:hover {
     gap: 10px;
 }
 
-.esqueceu_senha p {
+.option p {
     margin: 0;
 }
 
-.esqueceu_senha a {
+.option a {
     text-decoration: none;
     color: var(--azul-principal);
     margin-left: auto;

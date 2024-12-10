@@ -33,11 +33,13 @@
           
           
 
-        <div class="esqueceu_senha">
-          <input type="checkbox" class="checkbox" formControlName="lembrarDeMim">
+          <div class="option">
+            <input type="checkbox" class="checkbox" formControlName="lembrarDeMim">
             <p>Lembrar de mim</p>
-            <a href="#">Esqueceu a senha?</a>
-        </div>
+            <a class="esqueceu_senha" [routerLink]="['/redefinir-senha']">Esqueceu a senha?</a>
+          </div>
+          
+          
     </form>
 
     <section class="selector">
