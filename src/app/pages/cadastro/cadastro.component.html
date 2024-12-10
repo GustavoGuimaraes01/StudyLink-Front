@@ -7,14 +7,14 @@
     <form [formGroup]="cadastroForm" class="form" (ngSubmit)="enviar()">
 
         <div class="campo">
-            <input formControlName="nome_usuario" type="text" class="input" placeholder="Nome">
+            <input formControlName="nome_usuario" type="text" class="input" placeholder="Nome" (keydown.enter)="enviar()">
             <div *ngIf="cadastroForm.get('nome_usuario')?.invalid && cadastroForm.get('nome_usuario')?.touched" class="error-message">
                 <small *ngIf="cadastroForm.get('nome_usuario')?.errors?.['required']">O nome é obrigatório.</small>
             </div>
         </div>
 
         <div class="campo">
-            <input formControlName="email" type="email" class="input" placeholder="E-mail">
+            <input formControlName="email" type="email" class="input" placeholder="E-mail" (keydown.enter)="enviar()">
             <div *ngIf="cadastroForm.get('email')?.invalid && cadastroForm.get('email')?.touched" class="error-message">
                 <small *ngIf="cadastroForm.get('email')?.errors?.['required']">O e-mail é obrigatório.</small>
                 <small *ngIf="cadastroForm.get('email')?.errors?.['email']">Insira um e-mail válido.</small>
@@ -27,7 +27,8 @@
                     formControlName="senha" 
                     [type]="isPasswordVisible ? 'text' : 'password'" 
                     class="input" 
-                    placeholder="Senha">
+                    placeholder="Senha"
+                    (keydown.enter)="enviar()">
                 <button 
                     type="button" 
                     class="toggle-password" 
@@ -51,7 +52,8 @@
                 <button 
                     type="button" 
                     class="toggle-password" 
-                    (click)="togglePasswordVisibility()">
+                    (click)="togglePasswordVisibility()"
+                    (keydown.enter)="enviar()">
                     <mat-icon>{{ isPasswordVisible ? 'visibility' : 'visibility_off' }}</mat-icon>
                 </button>
             </div>

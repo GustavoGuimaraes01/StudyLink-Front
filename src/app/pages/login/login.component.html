@@ -6,7 +6,7 @@
 >
     <form [formGroup]="loginForm" class="login-form">
         <div class="campo">
-            <input formControlName="email" type="email" class="borda" placeholder="E-mail">
+            <input formControlName="email" type="email" class="borda" placeholder="E-mail" (keydown.enter)="enviar()">
             <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="error-message">
                 <small *ngIf="loginForm.get('email')?.errors?.['required']">O e-mail é obrigatório.</small>
                 <small *ngIf="loginForm.get('email')?.errors?.['email']">Insira um e-mail válido.</small>
@@ -19,7 +19,8 @@
                 formControlName="senha" 
                 [type]="isPasswordVisible ? 'text' : 'password'" 
                 class="borda" 
-                placeholder="Senha">
+                placeholder="Senha"
+                (keydown.enter)="enviar()">
               <button mat-icon-button type="button" (click)="togglePasswordVisibility()" class="toggle-password">
                 <mat-icon>{{ isPasswordVisible ? 'visibility' : 'visibility_off' }}</mat-icon>
               </button>
