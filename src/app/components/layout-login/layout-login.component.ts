@@ -1,6 +1,4 @@
 import { Component, EventEmitter, Input, input, Output } from '@angular/core';
-import { setAlternateWeakRefImpl } from '@angular/core/primitives/signals';
-import { Title } from '@angular/platform-browser';
 import {MatButtonModule} from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 

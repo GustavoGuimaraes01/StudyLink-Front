@@ -8,15 +8,31 @@ export class AuthService {
   constructor() {}
 
   getHeaders(): HttpHeaders {
-    const token = sessionStorage.getItem('auth-token');
+    let token = sessionStorage.getItem('auth-token');
+    
+    if (!token) {
+      // Verifica se o token está nos cookies
+      token = this.getCookie('auth-token');
+    }
 
     if (!token) {
-      throw new Error('Token não encontrado no sessionStorage');
+      throw new Error('Token não encontrado');
     }
 
     return new HttpHeaders({
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json',
     });
+  }
+
+  getCookie(name: string): string | null {
+    const nameEQ = name + "=";
+    const ca = document.cookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
   }
 }

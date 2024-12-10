@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { LayoutLoginComponent } from '../../components/layout-login/layout-login.component';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -18,7 +18,7 @@ import { MatIconModule } from '@angular/material/icon';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   isPasswordVisible: boolean = false;
 
@@ -29,8 +29,16 @@ export class LoginComponent {
   ) {
     this.loginForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
-      senha: new FormControl('', [Validators.required, Validators.minLength(6)])
+      senha: new FormControl('', [Validators.required, Validators.minLength(6)]),
+      lembrarDeMim: new FormControl(false) 
     });
+  }
+
+  ngOnInit(): void {
+    const authToken = this.getCookie('auth-token');
+    if (authToken) {
+      this.router.navigate(['/home']); 
+    }
   }
 
   togglePasswordVisibility(): void {
@@ -47,8 +55,17 @@ export class LoginComponent {
     }
 
     this.loginService.login(this.loginForm.value.email, this.loginForm.value.senha).subscribe({
-      next: () => {
-  
+      next: (response: any) => {
+        const token = response.token; 
+        const email = response.email;
+        const nomeUsuario = response.nome_usuario;
+
+        if (this.loginForm.value.lembrarDeMim) {
+          this.setCookie('auth-token', token, 30); 
+          this.setCookie('email', email, 30); 
+          this.setCookie('nome_usuario', nomeUsuario, 30); 
+        }
+
         this.router.navigate(['/home']);
       },
       error: () => {
@@ -58,5 +75,19 @@ export class LoginComponent {
         });
       }
     });
+  }
+
+  setCookie(name: string, value: string, days: number): void {
+    const date = new Date();
+    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000)); 
+    const expires = `expires=${date.toUTCString()}`;
+    document.cookie = `${name}=${value};${expires};path=/`;
+  }
+
+  private getCookie(name: string): string | null {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop()?.split(';').shift() || null;
+    return null;
   }
 }

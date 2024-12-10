@@ -4,7 +4,9 @@
       <div class="logo">
         <img src="img/logoBranco.svg" alt="Logo" routerLink="/descobrir">
       </div>
-    
+      <div *ngIf="nomeUsuario && nomeUsuario.length" class="user-inicial" (click)="toggleListaSuspensa()">
+        {{ nomeUsuario[0].toUpperCase() }}
+      </div>
     
     </mat-toolbar>
   
@@ -21,7 +23,10 @@
       <!-- Menu Lateral Secundário -->
       <aside class="menu-lateral-secundario">
         <div class="topoAtividades">
-          <h2>{{ materialAtual?.titulo }}</h2>
+          <div class="voltar" >
+            <img src="img/setaVoltar.svg" alt="Voltar" (click)="voltar()">
+            <h2>{{ materialAtual?.titulo }}</h2>
+          </div>
           <span class="material-icons">search</span>
         </div>
         

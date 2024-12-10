@@ -99,7 +99,6 @@ html, body {
   }
 
 
-  /* Menu Lateral Secundário */
 .menu-lateral-secundario {
   width: 280px;
   background-color: var(--branco);
@@ -130,17 +129,38 @@ html, body {
   margin-bottom: 16px;
 }
 
-.topoAtividades h2 {
+.topoAtividades .voltar {
+  display: flex;
+  align-items: center;
+  gap: 8px; 
+}
+
+.topoAtividades .voltar img{
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  margin-left: 10px;
+}
+
+.topoAtividades .voltar h2 {
   font-size: 1.2em;
   font-weight: 500;
   color: var(--cinza666);
   margin: 0;
-  flex-grow: 1;
-  text-align: center;
-  white-space: nowrap; 
+  white-space: nowrap;
   overflow: hidden;    
-  text-overflow: ellipsis; 
+  text-overflow: ellipsis;
+  margin-left: 45px;
 }
+
+.topoAtividades .material-icons{
+  font-size: 28px; 
+  color: var(--cinza666); 
+  cursor: pointer;
+  margin-left: 8px; 
+  transition: color 0.3s ease;
+}
+
 
 .item-anotacao {
   display: flex;
@@ -153,6 +173,7 @@ html, body {
   margin-bottom: 10px;
   border-bottom: 1px solid #ddd;
   cursor: pointer;
+  height: 95px;
   transition: background-color 0.3s ease;
   box-shadow: 1px 2px 0px rgba(0, 0, 0, 0.1);
 }
@@ -168,6 +189,11 @@ html, body {
 .item-anotacao .tituloAtividades {
   color: var(--cinza666);
   font-weight: 500;
+  white-space: nowrap;  
+  overflow: hidden;    
+  text-overflow: ellipsis; 
+  line-height: 1.3em;  
+  max-width: 100%;     
 }
 
 .item-anotacao .ultimaAlteracao {
@@ -194,33 +220,6 @@ html, body {
     background-color: #ddd;
   }
   
-  .topoAtividades {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    margin-bottom: 16px;
-  }
-  
-  .topoAtividades h2 {
-    font-size: 1.2em;
-    font-weight: 500;
-    color: var(--cinza666);
-    margin: 0;
-    flex-grow: 1;
-    text-align: center;
-    white-space: nowrap; 
-    overflow: hidden;    
-    text-overflow: ellipsis; 
-  }
-  
-  .topoAtividades i, .topoAtividades .material-icons {
-    font-size: 24px; 
-    color: var(--cinza666); 
-    cursor: pointer;
-    margin-left: 8px; 
-    transition: color 0.3s ease;
-  }
   
   .conteudo-principal {
     flex: 1;

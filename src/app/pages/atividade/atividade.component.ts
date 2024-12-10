@@ -55,12 +55,18 @@ export class AtividadeComponent implements OnInit {
 
   //Relacionamento de materiais com atividades
   ngOnInit(): void {
+    const emailCookie = this.getCookie('email');
+    const nomeUsuarioCookie = this.getCookie('nome_usuario');
 
-    const emailSalvo = sessionStorage.getItem('email');
-    this.email = emailSalvo ? emailSalvo : 'não cadastrado';
-    const nomeSalvo = sessionStorage.getItem('nome_usuario');
-    this.nomeUsuario = nomeSalvo ? nomeSalvo : '?';
-
+    if (emailCookie && nomeUsuarioCookie) {
+      this.email = emailCookie;
+      this.nomeUsuario = nomeUsuarioCookie;
+    } else {
+      const emailSalvo = sessionStorage.getItem('email');
+      this.email = emailSalvo ? emailSalvo : 'não cadastrado';
+      const nomeSalvo = sessionStorage.getItem('nome_usuario');
+      this.nomeUsuario = nomeSalvo ? nomeSalvo : '?';
+    }
     const idParam = this.route.snapshot.paramMap.get('materialId');
     this.materialId = idParam ? Number(idParam) : undefined;
   
@@ -73,6 +79,13 @@ export class AtividadeComponent implements OnInit {
     this.carregarMateriais();
   }
   
+  private getCookie(name: string): string | null {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop()?.split(';').shift() || null;
+    return null;
+  }
+
   carregarMateriais(): void {
     this.materiaisService.listarMateriais().subscribe({
       next: (materiais) => {
@@ -304,8 +317,20 @@ export class AtividadeComponent implements OnInit {
     sessionStorage.removeItem('nome_usuario');
     sessionStorage.removeItem('email');
     sessionStorage.removeItem('auth-token');
+
+    this.deleteCookie('auth-token');
+    this.deleteCookie('email');
+    this.deleteCookie('nome_usuario');
+
     this.router.navigate(['/login']);
-  }
+}
+
+deleteCookie(name: string): void {
+    const date = new Date();
+    date.setTime(date.getTime() - 1); 
+    const expires = `expires=${date.toUTCString()}`;
+    document.cookie = `${name}=;${expires};path=/`; 
+}
 
   
 }

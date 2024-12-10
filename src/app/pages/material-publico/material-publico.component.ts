@@ -40,10 +40,9 @@ export class MaterialPublicoComponent implements OnInit {
   materialAtual: MaterialReadDTO | null = null;
   anotacaoSelecionada: AnotacaoDTO | null = null;
   conteudoRichText: any;
-
-  nomeUsuario: string = sessionStorage.getItem('nome_usuario') || '';
-  email: string = sessionStorage.getItem('email') || '';
+  nomeUsuario: string = '';
   isListaOpen: boolean = false;
+  email: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -55,6 +54,20 @@ export class MaterialPublicoComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    const emailCookie = this.getCookie('email');
+    const nomeUsuarioCookie = this.getCookie('nome_usuario');
+
+    if (emailCookie && nomeUsuarioCookie) {
+      this.email = emailCookie;
+      this.nomeUsuario = nomeUsuarioCookie;
+    } else {
+      const emailSalvo = sessionStorage.getItem('email');
+      this.email = emailSalvo ? emailSalvo : 'não cadastrado';
+      const nomeSalvo = sessionStorage.getItem('nome_usuario');
+      this.nomeUsuario = nomeSalvo ? nomeSalvo : '?';
+    }
+
+
     const idParam = this.route.snapshot.paramMap.get('materialId');
     this.materialId = idParam ? Number(idParam) : undefined;
   
@@ -66,6 +79,13 @@ export class MaterialPublicoComponent implements OnInit {
   
     this.carregarMaterial();
     this.carregarAnotacoes();
+  }
+
+  private getCookie(name: string): string | null {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop()?.split(';').shift() || null;
+    return null;
   }
 
   carregarMaterial() {
@@ -104,6 +124,10 @@ export class MaterialPublicoComponent implements OnInit {
       },
     });
   }
+  
+  voltar(): void {
+    this.router.navigate(['/descobrir']);
+  }
 
   selecionarAnotacao(anotacao: AnotacaoDTO): void {
     this.anotacaoSelecionada = anotacao;
@@ -119,8 +143,7 @@ export class MaterialPublicoComponent implements OnInit {
       });
     }
   }
-
-  toggleListaSuspensa() {
+  toggleListaSuspensa(): void {
     this.isListaOpen = !this.isListaOpen;
   }
 
@@ -128,8 +151,20 @@ export class MaterialPublicoComponent implements OnInit {
     sessionStorage.removeItem('nome_usuario');
     sessionStorage.removeItem('email');
     sessionStorage.removeItem('auth-token');
+
+    this.deleteCookie('auth-token');
+    this.deleteCookie('email');
+    this.deleteCookie('nome_usuario');
+
     this.router.navigate(['/login']);
-  }
+}
+
+deleteCookie(name: string): void {
+    const date = new Date();
+    date.setTime(date.getTime() - 1); 
+    const expires = `expires=${date.toUTCString()}`;
+    document.cookie = `${name}=;${expires};path=/`; 
+}
 
   copiarAnotacao(): void {
     if (!this.anotacaoSelecionada) {

@@ -2,13 +2,11 @@
     <div class="barra">
       <img src="img/logo.svg" alt="Logo" class="logo">
   
-      <!-- Botões de Entrar/Cadastrar visíveis apenas quando não há usuário -->
       <div class="acesso" *ngIf="!nomeUsuario">
         <a href="/login" class="entrar">Entrar</a>
         <a href="/cadastro" class="cadastrar">Cadastrar</a>
       </div>
   
-      <!-- Inicial do usuário visível apenas quando há usuário -->
       <div *ngIf="nomeUsuario && nomeUsuario.length" class="user-inicial" (click)="toggleListaSuspensa()">
         {{ nomeUsuario[0].toUpperCase() }}
       </div>

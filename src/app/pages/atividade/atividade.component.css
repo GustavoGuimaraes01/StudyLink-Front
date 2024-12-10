@@ -239,7 +239,7 @@ li.selected {
   border-bottom: 1px solid #ddd;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  height: 90px;
+  height: 95px;
   box-shadow: 1px 2px 0px rgba(0, 0, 0, 0.1);
 }
 
@@ -250,6 +250,11 @@ li.selected {
 .cardAtividades .tituloAtividades {
   color: var(--cinza666);
   font-weight: 500;
+  white-space: nowrap;  
+  overflow: hidden;    
+  text-overflow: ellipsis; 
+  line-height: 1.3em;  
+  max-width: 100%;      
 }
 
 .cardAtividades .ultimaAlteracao {

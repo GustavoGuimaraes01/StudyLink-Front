@@ -45,10 +45,18 @@ export class MenuPesquisaComponent implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit() {
-    const emailSalvo = sessionStorage.getItem('email');
-    this.email = emailSalvo ? emailSalvo : 'não cadastrado';
-    const nomeSalvo = sessionStorage.getItem('nome_usuario');
-    this.nomeUsuario = nomeSalvo ? nomeSalvo : '?';
+    const emailCookie = this.getCookie('email');
+    const nomeUsuarioCookie = this.getCookie('nome_usuario');
+
+    if (emailCookie && nomeUsuarioCookie) {
+      this.email = emailCookie;
+      this.nomeUsuario = nomeUsuarioCookie;
+    } else {
+      const emailSalvo = sessionStorage.getItem('email');
+      this.email = emailSalvo ? emailSalvo : 'não cadastrado';
+      const nomeSalvo = sessionStorage.getItem('nome_usuario');
+      this.nomeUsuario = nomeSalvo ? nomeSalvo : '?';
+    }
     this.checkScreenSize();
 
     this.router.events
@@ -65,16 +73,22 @@ export class MenuPesquisaComponent implements OnInit {
         this.termoPesquisa = term;
       });
   }
+  private getCookie(name: string): string | null {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop()?.split(';').shift() || null;
+    return null;
+  }
+
   realizarPesquisa(termo: string): void {
     // Verifica se o termo está vazio
     if (!termo.trim()) {
       this.router.url.includes('http://localhost:4200/descobrir')
-        ? this.pesquisaRealizada.emit('') // Emite vazio para resetar os materiais
-        : this.router.navigate(['/descobrir']); // Navega para a rota padrão sem parâmetro
+        ? this.pesquisaRealizada.emit('')
+        : this.router.navigate(['/descobrir']); 
       return;
     }
   
-    // Realiza a pesquisa com o termo fornecido
     if (this.router.url.includes('http://localhost:4200/descobrir')) {
       this.pesquisaRealizada.emit(termo); 
     } else {
@@ -86,7 +100,6 @@ export class MenuPesquisaComponent implements OnInit {
     const termo = (event.target as HTMLInputElement).value.trim();
     this.searchTerms.next(termo);
   
-    // Se o campo de entrada for limpo, reseta os materiais
     if (!termo) {
       this.realizarPesquisa('');
     }
@@ -103,11 +116,9 @@ export class MenuPesquisaComponent implements OnInit {
         this.realizarPesquisa(''); 
       }
     }
-  }
-  
-  toggleListaSuspensa() {
-    this.isListaOpen = !this.isListaOpen;
-  }
+  } 
+
+
 
   toggleSearch() {
     const screenWidth = window.innerWidth;
@@ -154,10 +165,27 @@ export class MenuPesquisaComponent implements OnInit {
     this.sidenavOpened = !this.sidenavOpened;
   }
 
+    
+  toggleListaSuspensa() {
+    this.isListaOpen = !this.isListaOpen;
+  }
+
   logout() {
     sessionStorage.removeItem('nome_usuario');
     sessionStorage.removeItem('email');
     sessionStorage.removeItem('auth-token');
+
+    this.deleteCookie('auth-token');
+    this.deleteCookie('email');
+    this.deleteCookie('nome_usuario');
+
     this.router.navigate(['/login']);
-  }
+}
+
+deleteCookie(name: string): void {
+    const date = new Date();
+    date.setTime(date.getTime() - 1); 
+    const expires = `expires=${date.toUTCString()}`;
+    document.cookie = `${name}=;${expires};path=/`; 
+}
 }

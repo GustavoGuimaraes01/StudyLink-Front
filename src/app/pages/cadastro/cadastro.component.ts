@@ -1,22 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { LayoutLoginComponent } from '../../components/layout-login/layout-login.component';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 import { CadastroService } from '../../services/usuarios/cadastro.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { MatIconButton } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-cadastro',
   standalone: true,
-  imports: [LayoutLoginComponent, ReactiveFormsModule, CommonModule, MatIconButton, MatIconModule],
+  imports: [LayoutLoginComponent, ReactiveFormsModule, CommonModule, MatIconModule],
   providers: [CadastroService],
   templateUrl: './cadastro.component.html',
   styleUrls: ['./cadastro.component.css']
 })
-export class CadastroComponent {
+export class CadastroComponent implements OnInit {
   cadastroForm!: FormGroup;
   isPasswordVisible: boolean = false;
 
@@ -31,6 +30,13 @@ export class CadastroComponent {
       senha: new FormControl('', [Validators.required, Validators.minLength(6)]),
       confirmarSenha: new FormControl('', [Validators.required])
     }, { validators: this.passwordsMatchValidator() });
+  }
+
+  ngOnInit(): void {
+    const authToken = this.getCookie('auth-token');
+    if (authToken) {
+      this.router.navigate(['/home']); 
+    }
   }
 
   togglePasswordVisibility(): void {
@@ -74,5 +80,12 @@ export class CadastroComponent {
         });
       }
     });
+  }
+
+  private getCookie(name: string): string | null {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop()?.split(';').shift() || null;
+    return null;
   }
 }
