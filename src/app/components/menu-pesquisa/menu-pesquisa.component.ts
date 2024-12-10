@@ -65,31 +65,46 @@ export class MenuPesquisaComponent implements OnInit {
         this.termoPesquisa = term;
       });
   }
-
   realizarPesquisa(termo: string): void {
+    // Verifica se o termo está vazio
+    if (!termo.trim()) {
+      this.router.url.includes('http://localhost:4200/descobrir')
+        ? this.pesquisaRealizada.emit('') // Emite vazio para resetar os materiais
+        : this.router.navigate(['/descobrir']); // Navega para a rota padrão sem parâmetro
+      return;
+    }
+  
+    // Realiza a pesquisa com o termo fornecido
     if (this.router.url.includes('http://localhost:4200/descobrir')) {
       this.pesquisaRealizada.emit(termo); 
     } else {
-      this.router.navigate(['/descobrir'], { queryParams: { pesquisa: termo } }); 
+      this.router.navigate(['/descobrir'], { queryParams: { pesquisa: termo } });
     }
   }
-
+  
   onSearchInput(event: Event): void {
-    const termo = (event.target as HTMLInputElement).value;
-    this.searchTerms.next(termo); 
+    const termo = (event.target as HTMLInputElement).value.trim();
+    this.searchTerms.next(termo);
+  
+    // Se o campo de entrada for limpo, reseta os materiais
+    if (!termo) {
+      this.realizarPesquisa('');
+    }
   }
-
+  
   @HostListener('keydown.enter', ['$event'])
-  onKeydownEnter(event: KeyboardEvent) {
+  onKeydownEnter(event: KeyboardEvent): void {
     const input = event.target as HTMLInputElement;
     if (input.tagName.toLowerCase() === 'input') {
       const termo = input.value.trim();
       if (termo) {
-        this.realizarPesquisa(termo); 
+        this.realizarPesquisa(termo);
+      } else {
+        this.realizarPesquisa(''); 
       }
     }
   }
-
+  
   toggleListaSuspensa() {
     this.isListaOpen = !this.isListaOpen;
   }

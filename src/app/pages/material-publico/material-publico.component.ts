@@ -131,17 +131,17 @@ export class MaterialPublicoComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
-
   copiarAnotacao(): void {
     if (!this.anotacaoSelecionada) {
       console.error('Nenhuma anotação selecionada.');
       return;
     }
   
-    const anotacaoId = this.anotacaoSelecionada.id!;
+    const anotacaoIdOriginal = this.anotacaoSelecionada.id!;
     const titulo = this.anotacaoSelecionada.titulo;
   
-    // Abrir o modal para selecionar o material
+    console.log('ID da anotação original:', anotacaoIdOriginal);
+  
     const dialogRef = this.dialog.open(SelecionarMaterialComponent, {
       width: '400px',
     });
@@ -152,21 +152,38 @@ export class MaterialPublicoComponent implements OnInit {
         return;
       }
   
-      // Buscar conteúdo da anotação selecionada
-      this.richTextService.buscarConteudoPorAnotacaoId(anotacaoId).subscribe({
+      // Primeiro, buscar o conteúdo da anotação original
+      this.richTextService.buscarConteudoPorAnotacaoId(anotacaoIdOriginal).subscribe({
         next: (conteudoResponse: AnotacaoConteudoDTO | null) => {
-          const conteudo = conteudoResponse?.conteudo || ''; // Padrão vazio se não existir
+          console.log('Resposta completa ao buscar conteúdo:', conteudoResponse);
+          
+          // Garantir que o conteúdo não seja nulo
+          const conteudo = conteudoResponse?.conteudo || ''; 
+          console.log('Conteúdo recuperado:', conteudo);
+          console.log('Tamanho do conteúdo:', conteudo.length);
   
           // Criar nova anotação
-          const novaAnotacao: CriarAnotacaoDTO = { titulo, materialId };
+          const novaAnotacao: CriarAnotacaoDTO = { 
+            titulo, 
+            materialId 
+          };
   
           this.atividadesService.criarAtividade(novaAnotacao).subscribe({
             next: (anotacaoCriada) => {
+              // Verificar se a anotação foi criada corretamente
+              if (!anotacaoCriada.id) {
+                console.error('Criação da anotação falhou');
+                alert('Erro ao criar nova anotação.');
+                return;
+              }
+  
               // Criar o conteúdo associado à nova anotação
               const novoConteudo: AnotacaoConteudoDTO = {
-                anotacaoId: anotacaoCriada.id!,
-                conteudo,
+                anotacaoId: anotacaoCriada.id,
+                conteudo: conteudo // Usar o conteúdo buscado da anotação original
               };
+  
+              console.log('Novo conteúdo a ser salvo:', novoConteudo);
   
               this.richTextService.salvarConteudoAnotacao(novoConteudo).subscribe({
                 next: () => {

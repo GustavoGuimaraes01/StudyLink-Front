@@ -1,19 +1,47 @@
 <body>
     <div class="barra">
-        <img src="img/logo.svg" alt="Logo" class="logo">
-        <div class="acesso">
-            <a href="/login" class="entrar">Entrar</a>
-            <a href="/cadastro" class="cadastrar">Cadastrar</a>
-        </div>
+      <img src="img/logo.svg" alt="Logo" class="logo">
+  
+      <!-- Botões de Entrar/Cadastrar visíveis apenas quando não há usuário -->
+      <div class="acesso" *ngIf="!nomeUsuario">
+        <a href="/login" class="entrar">Entrar</a>
+        <a href="/cadastro" class="cadastrar">Cadastrar</a>
+      </div>
+  
+      <!-- Inicial do usuário visível apenas quando há usuário -->
+      <div *ngIf="nomeUsuario && nomeUsuario.length" class="user-inicial" (click)="toggleListaSuspensa()">
+        {{ nomeUsuario[0].toUpperCase() }}
+      </div>
+  
+      <!-- Menu suspenso -->
+      <div *ngIf="isListaOpen && nomeUsuario" class="dropdown-menu">
+        <ul>
+          <li><mat-icon>account_circle</mat-icon> {{ nomeUsuario }}</li>
+          <li><mat-icon>mail</mat-icon> {{ email || 'não cadastrado' }}</li>
+          <li><mat-icon>info</mat-icon> Sobre</li>
+          <li>
+            <button (click)="logout()">
+              <mat-icon>exit_to_app</mat-icon> Sair
+            </button>
+          </li>
+        </ul>
+      </div>
     </div>
-    
+  
     <main class="pagina-nao-encontrada">
-        <div class="conteudo">
-            <h1>404</h1>
-            <p>Oops! A página que você está procurando não foi encontrada.</p>
-            <div class="ilustracao-erro">
-                <img src="img/animacao404.gif" alt="Estudante perdido" class="ilustracao">
-            </div>
+      <div class="conteudo">
+        <h1>404</h1>
+        <p>Oops! A página que você está procurando não foi encontrada.</p>
+  
+        <a *ngIf="nomeUsuario" routerLink="/home" class="voltar-home">
+            Voltar para Home
+          </a>
+          
+  
+        <div class="ilustracao-erro">
+          <img src="img/animacao404.gif" alt="Estudante perdido" class="ilustracao">
         </div>
+      </div>
     </main>
-</body>
+  </body>
+  

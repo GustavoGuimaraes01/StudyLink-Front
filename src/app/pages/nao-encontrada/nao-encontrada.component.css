@@ -71,6 +71,70 @@ body {
     padding: 20px;
   }
   
+.user-inicial {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background-color: var(--azul-principal);
+  color: var(--branco);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 20px;
+  text-transform: uppercase;
+  cursor: pointer;
+  margin-right: 16px;
+  z-index: 10;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background-color: white;
+  border: 1px solid var(--cinzaccc);
+  border-radius: 4px;
+  box-shadow: var(--shadow-sm);
+  z-index: 1000;
+  width: 220px;
+  min-height: 200px;
+  padding: 10px;
+}
+
+.dropdown-menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  color: rgba(0, 0, 0, .87);
+}
+
+.dropdown-menu ul li {
+  width: 100%;
+  padding: 15px 0;
+  display: flex;
+  align-items: center;
+}
+
+.dropdown-menu mat-icon {
+  font-size: 18px;
+  margin-right: 10px;
+  color: var(--cinza-escuro);
+  padding: 5px 0;
+}
+
+.dropdown-menu button {
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  width: 100%;
+}
+  
   .conteudo {
     max-width: 800px;
     width: 100%;
@@ -88,6 +152,20 @@ body {
     color: var(--preto);
     margin-bottom: 40px;
   }
+  .voltar-home {
+    color: var(--azul-principal);
+    margin-top: 16px;
+    font-size: 1rem;
+    text-align: center;
+    text-decoration: underline;
+    text-decoration: none;
+    font-size: 20px;
+    cursor: pointer;
+    font-weight: bold;
+
+  }
+
+  
   
   .ilustracao-erro {
     margin-top: 20px;

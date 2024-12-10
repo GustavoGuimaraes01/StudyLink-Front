@@ -41,27 +41,6 @@ export class DescobrirComponent implements OnInit {
     event.target.src = 'img/students.svg'; 
   }
 
-  realizarPesquisa(termo: string): void {
-    this.isLoading = true;
-    this.mensagemErro = '';
-    
-    if (termo.trim()) {
-      this.materiaisService.pesquisarMateriais(termo).subscribe({
-        next: (materiais) => {
-          this.materiais = materiais;
-          this.isLoading = false;
-        },
-        error: (error) => {
-          console.error('Erro ao pesquisar materiais:', error);
-          this.mensagemErro = 'Erro ao pesquisar materiais. Tente novamente.';
-          this.isLoading = false;
-        }
-      });
-    } else {
-      this.carregarMateriaisPublicos();
-    }
-  }
-
   carregarMateriaisPublicos(): void {
     this.isLoading = true;
     this.mensagemErro = '';
@@ -79,9 +58,31 @@ export class DescobrirComponent implements OnInit {
     });
   }
 
+  realizarPesquisa(termo: string): void {
+    this.isLoading = true;
+    this.mensagemErro = '';
+  
+    if (termo.trim()) {
+      this.materiaisService.pesquisarMateriais(termo).subscribe({
+        next: (materiais) => {
+          this.materiais = materiais;
+          this.isLoading = false;
+        },
+        error: (error) => {
+          console.error('Erro ao pesquisar materiais:', error);
+          this.mensagemErro = 'Erro ao pesquisar materiais. Tente novamente.';
+          this.isLoading = false;
+        }
+      });
+    } else {
+      this.carregarMateriaisPublicos(); // Restaura materiais públicos
+    }
+  }
+  
   onPesquisaRealizada(termo: string): void {
     this.realizarPesquisa(termo);
   }
+  
   
   
 navegarParaMaterialPublico(materialId: number): void {

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { AuthService } from '../auth/auth.service'; // Ajuste o caminho conforme necessário
 
@@ -33,6 +33,20 @@ export class RichTextService {
   salvarConteudoAnotacao(request: AnotacaoConteudoDTO): Observable<AnotacaoConteudoDTO> {
     const headers = this.authService.getHeaders();
     console.log('Request enviado para salvar:', request);
+
+    console.log('Request enviado para salvar:', request);
+    console.log('Conteúdo da anotação:', request.conteudo);
+    console.log('ID da anotação:', request.anotacaoId);
+    console.log('Tamanho do conteúdo:', request.conteudo ? request.conteudo.length : 'Conteúdo vazio');
+
+    if (request.conteudo) {
+      try {
+        const parsed = JSON.parse(request.conteudo);
+        console.log('Estrutura do conteúdo Quill:', parsed);
+      } catch (e) {
+        console.error('Erro ao parsear conteúdo Quill:', e);
+      }
+    }
   
     if (request.id) {
       console.log('Atualizando arquivo...');
@@ -52,11 +66,18 @@ export class RichTextService {
   buscarConteudoPorAnotacaoId(anotacaoId: number): Observable<AnotacaoConteudoDTO> {
     const headers = this.authService.getHeaders();
     console.log('Buscando conteúdo para anotação com ID:', anotacaoId);
-
+  
     return this.http.get<AnotacaoConteudoDTO>(`${this.apiUrl}/anotacao/${anotacaoId}`, {
       headers
     }).pipe(
-      catchError(this.handleError)
+      tap(response => {
+        console.log('Resposta completa:', response);
+        console.log('Conteúdo recebido:', response?.conteudo);
+      }),
+      catchError(error => {
+        console.error('Erro detalhado na busca:', error);
+        return this.handleError(error);
+      })
     );
   }
 }
