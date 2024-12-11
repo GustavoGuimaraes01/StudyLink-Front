@@ -10,7 +10,6 @@ export class AuthInterceptor implements HttpInterceptor {
     const token = sessionStorage.getItem('auth-token');
     
     if (token) {
-      console.log('Enviando requisição com token');
       const cloned = request.clone({
         headers: request.headers.set('Authorization', `Bearer ${token}`)
       });

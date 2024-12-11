@@ -42,27 +42,15 @@
         </div>
       </div>
       <div class="user-inicial" (click)="toggleListaSuspensa()">
-        <img *ngIf="profileImageUrl; else defaultAvatar" [src]="profileImageUrl" class="user-avatar" />
-        <ng-template #defaultAvatar>
-          {{ nomeUsuario[0].toUpperCase() }}
-        </ng-template>
+        {{ nomeUsuario[0].toUpperCase() }}
       </div>
     </mat-toolbar>
     <div *ngIf="isListaOpen" class="dropdown-menu">
       <ul>
-        <li class="emailUser"><mat-icon>mail</mat-icon> {{ email }}</li>
-        <li class=" nomeUser"><mat-icon>account_circle</mat-icon> {{ nomeUsuario }}</li>
-        <li class="">
-          <button  (click)="openImageUploadDialog()">
-            <mat-icon>image</mat-icon> Alterar Imagem
-          </button>
-        </li>
+        <li><mat-icon>account_circle</mat-icon> {{ nomeUsuario }}</li>
+        <li><mat-icon>mail</mat-icon> {{ email }}</li>
         <li><mat-icon>info</mat-icon> Sobre</li>
-        <li>
-          <button (click)="logout()">
-            <mat-icon>exit_to_app</mat-icon> Sair
-          </button>
-        </li>
+        <li><button (click)="logout()"><mat-icon>exit_to_app</mat-icon> Sair</button></li>
       </ul>
     </div>
     <ng-content select=".conteudoPrincipal"></ng-content>

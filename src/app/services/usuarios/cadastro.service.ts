@@ -15,9 +15,7 @@ export class CadastroService {
   register(nome_usuario: string, email: string, senha: string) {
     const userRegister: Cadastro = { nome_usuario, email, senha }; 
     return this.httpClient.post(this.apiUrl, userRegister).pipe(
-      tap(response => {
-        console.log(response);
-      })
+     
     );
   }
 }

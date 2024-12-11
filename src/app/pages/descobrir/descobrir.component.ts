@@ -75,7 +75,7 @@ export class DescobrirComponent implements OnInit {
         }
       });
     } else {
-      this.carregarMateriaisPublicos(); // Restaura materiais públicos
+      this.carregarMateriaisPublicos(); 
     }
   }
   

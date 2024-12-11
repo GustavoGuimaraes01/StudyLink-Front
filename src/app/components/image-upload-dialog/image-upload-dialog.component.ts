@@ -50,9 +50,9 @@ export class ImageUploadDialogComponent {
   
         this.loginService.atualizarImagemPerfil(base64Image).subscribe({
           next: () => {
-            sessionStorage.setItem('profileImageUrl', base64Image); // Salva a imagem no sessionStorage
+            sessionStorage.setItem('profileImageUrl', base64Image); 
             alert('Imagem de perfil atualizada com sucesso!');
-            this.dialogRef.close(base64Image); // Retorna a URL da imagem ao fechar o diálogo
+            this.dialogRef.close(base64Image);
           },
           error: (err) => alert(`Erro ao atualizar imagem: ${err.message}`),
         });

@@ -174,10 +174,11 @@ copiarAnotacao(): void {
   const anotacaoIdOriginal = this.anotacaoSelecionada.id!;
   const titulo = this.anotacaoSelecionada.titulo;
 
-  console.log('ID da anotação original:', anotacaoIdOriginal);
 
   const dialogRef = this.dialog.open(SelecionarMaterialComponent, {
-    width: '400px',
+    width: '1000px',
+    height: '700px',
+    panelClass: 'custom-dialog'
   });
 
   dialogRef.afterClosed().subscribe((materialId: number | undefined) => {
@@ -188,7 +189,6 @@ copiarAnotacao(): void {
 
     this.richTextService.buscarConteudoPorAnotacaoId(anotacaoIdOriginal).subscribe({
       next: (conteudoResponse: AnotacaoConteudoDTO[]) => {
-        console.log('Resposta completa ao buscar conteúdo:', conteudoResponse);
     
         if (!conteudoResponse || conteudoResponse.length === 0) {
           console.error('Nenhum conteúdo encontrado para a anotação original.');
@@ -196,9 +196,7 @@ copiarAnotacao(): void {
           return;
         }
     
-        const conteudo = conteudoResponse[0].conteudo || ''; // Acessa o conteúdo do primeiro item
-        console.log('Conteúdo recuperado:', conteudo);
-        console.log('Tamanho do conteúdo:', conteudo.length);
+        const conteudo = conteudoResponse[0].conteudo || ''; 
     
         const novaAnotacao: CriarAnotacaoDTO = { 
           titulo, 
@@ -217,8 +215,6 @@ copiarAnotacao(): void {
               anotacaoId: anotacaoCriada.id,
               conteudo: conteudo
             };
-    
-            console.log('Novo conteúdo a ser salvo:', novoConteudo);
     
             this.richTextService.salvarConteudoAnotacao(novoConteudo).subscribe({
               next: () => {

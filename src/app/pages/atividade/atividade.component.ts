@@ -187,11 +187,7 @@ export class AtividadeComponent implements OnInit {
       materialId: this.materialId,
       dataUltimaAlteracao: this.formatarData(new Date())
     };
-  
-    // Logando dado por dado
-    console.log('Título:', novaAtividade.titulo);
-    console.log('Material ID:', novaAtividade.materialId);
-    console.log('Data Última Alteração:', novaAtividade.dataUltimaAlteracao);
+
   
     this.atividadesService.criarAtividade(novaAtividade).subscribe({
       next: (atividadeCriada) => {

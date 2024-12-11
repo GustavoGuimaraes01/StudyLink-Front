@@ -181,7 +181,6 @@ export class RichTextComponent implements OnInit, OnDestroy, OnChanges {
           )
           .subscribe({
             next: (resposta) => {
-              console.log('Conteúdo salvo com sucesso:', resposta);
               
               this.ultimoConteudoSalvo = conteudo;
               this.ultimoTituloSalvo = primeiraLinha;

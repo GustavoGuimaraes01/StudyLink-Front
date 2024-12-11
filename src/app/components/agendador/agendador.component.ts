@@ -108,7 +108,6 @@ export class AgendadorComponent implements OnInit {
     this.tarefaService.getTarefas(startOfMonth, endOfMonth)
       .subscribe({
         next: (tarefas: SchedulerEvent[]) => {
-          // Antes de adicionar as tarefas no calendário, verificamos se não há duplicatas
           this.eventSettings = {
             dataSource: tarefas
           };
@@ -122,20 +121,19 @@ export class AgendadorComponent implements OnInit {
 
   onActionComplete(args: ActionEventArgs): void {
     if (Array.isArray(args.data) && args.data.length > 0) {
-      const tarefa = args.data[0] as SchedulerEvent; // Obtém a tarefa que foi manipulada
+      const tarefa = args.data[0] as SchedulerEvent; 
   
-      // Verifica o tipo de requisição e chama o método apropriado
       switch (args.requestType) {
         case 'eventCreated':
-          this.criarTarefa(tarefa); // Chama o método para criar a tarefa
+          this.criarTarefa(tarefa); 
           break;
   
         case 'eventChanged':
-          this.atualizarTarefa(tarefa); // Chama o método para atualizar a tarefa
+          this.atualizarTarefa(tarefa); 
           break;
   
         case 'eventRemoved':
-          this.deletarTarefa(tarefa); // Chama o método para deletar a tarefa
+          this.deletarTarefa(tarefa); 
           break;
   
         default:

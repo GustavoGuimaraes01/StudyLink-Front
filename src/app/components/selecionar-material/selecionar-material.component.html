@@ -1,6 +1,6 @@
 <h2>Selecione o Material</h2>
 <div *ngFor="let material of materiais" class="item-material" (click)="selecionarMaterial(material.id)">
-  <mat-icon>folder</mat-icon>
+  <img src="img/pastaAzul.svg" alt="Ícone de Pasta" class="icon-pasta">
   <span>{{ material.titulo }}</span>
 </div>
 <button mat-button mat-dialog-close>Cancelar</button>

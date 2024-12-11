@@ -52,7 +52,6 @@ export class NaoEncontradaComponent implements OnInit {
     this.deleteCookie('email');
     this.deleteCookie('nome_usuario');
 
-    // Redireciona para a página de login
     this.router.navigate(['/login']);
   }
 

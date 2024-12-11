@@ -98,7 +98,6 @@ export class TarefaService {
       headers: this.authService.getHeaders() 
     }).pipe(
       map(tarefas => {
-        console.log('Tarefas recebidas:', tarefas);
 
         const eventoSet = new Set<string>();
         return tarefas
@@ -120,13 +119,11 @@ export class TarefaService {
 
   criarTarefa(event: SchedulerEvent): Observable<SchedulerEvent> {
     const tarefaDTO = this.toCreateDTO(event);
-    console.log('TarefaDTO enviado:', tarefaDTO);
 
     return this.http.post<TarefaDTO>(this.apiUrl, tarefaDTO, { 
       headers: this.authService.getHeaders() 
     }).pipe(
       map(response => {
-        console.log('Resposta do backend:', response);
         return this.toSchedulerEvent(response);
       }),
       catchError(this.handleError)
@@ -135,7 +132,6 @@ export class TarefaService {
 
   updateTarefa(event: SchedulerEvent): Observable<SchedulerEvent> {
     const tarefaDTO = this.toUpdateDTO(event);
-    console.log('TarefaDTO editada:', tarefaDTO);
 
     return this.http.put<TarefaDTO>(`${this.apiUrl}/${event.Id}`, tarefaDTO, { 
       headers: this.authService.getHeaders(),
