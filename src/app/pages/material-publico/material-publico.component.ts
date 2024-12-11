@@ -165,87 +165,85 @@ deleteCookie(name: string): void {
     const expires = `expires=${date.toUTCString()}`;
     document.cookie = `${name}=;${expires};path=/`; 
 }
+copiarAnotacao(): void {
+  if (!this.anotacaoSelecionada) {
+    console.error('Nenhuma anotação selecionada.');
+    return;
+  }
 
-  copiarAnotacao(): void {
-    if (!this.anotacaoSelecionada) {
-      console.error('Nenhuma anotação selecionada.');
+  const anotacaoIdOriginal = this.anotacaoSelecionada.id!;
+  const titulo = this.anotacaoSelecionada.titulo;
+
+  console.log('ID da anotação original:', anotacaoIdOriginal);
+
+  const dialogRef = this.dialog.open(SelecionarMaterialComponent, {
+    width: '400px',
+  });
+
+  dialogRef.afterClosed().subscribe((materialId: number | undefined) => {
+    if (!materialId) {
+      console.warn('Nenhum material selecionado.');
       return;
     }
-  
-    const anotacaoIdOriginal = this.anotacaoSelecionada.id!;
-    const titulo = this.anotacaoSelecionada.titulo;
-  
-    console.log('ID da anotação original:', anotacaoIdOriginal);
-  
-    const dialogRef = this.dialog.open(SelecionarMaterialComponent, {
-      width: '400px',
-    });
-  
-    dialogRef.afterClosed().subscribe((materialId: number | undefined) => {
-      if (!materialId) {
-        console.warn('Nenhum material selecionado.');
-        return;
-      }
-  
-      // Primeiro, buscar o conteúdo da anotação original
-      this.richTextService.buscarConteudoPorAnotacaoId(anotacaoIdOriginal).subscribe({
-        next: (conteudoResponse: AnotacaoConteudoDTO | null) => {
-          console.log('Resposta completa ao buscar conteúdo:', conteudoResponse);
-          
-          // Garantir que o conteúdo não seja nulo
-          const conteudo = conteudoResponse?.conteudo || ''; 
-          console.log('Conteúdo recuperado:', conteudo);
-          console.log('Tamanho do conteúdo:', conteudo.length);
-  
-          // Criar nova anotação
-          const novaAnotacao: CriarAnotacaoDTO = { 
-            titulo, 
-            materialId 
-          };
-  
-          this.atividadesService.criarAtividade(novaAnotacao).subscribe({
-            next: (anotacaoCriada) => {
-              // Verificar se a anotação foi criada corretamente
-              if (!anotacaoCriada.id) {
-                console.error('Criação da anotação falhou');
-                alert('Erro ao criar nova anotação.');
-                return;
-              }
-  
-              // Criar o conteúdo associado à nova anotação
-              const novoConteudo: AnotacaoConteudoDTO = {
-                anotacaoId: anotacaoCriada.id,
-                conteudo: conteudo // Usar o conteúdo buscado da anotação original
-              };
-  
-              console.log('Novo conteúdo a ser salvo:', novoConteudo);
-  
-              this.richTextService.salvarConteudoAnotacao(novoConteudo).subscribe({
-                next: () => {
-                  alert('Anotação e conteúdo copiados com sucesso!');
-                  this.router.navigate(['/materias']);
-                },
-                error: (erro) => {
-                  console.error('Erro ao salvar conteúdo da nova anotação:', erro);
-                  alert('Erro ao copiar conteúdo da anotação.');
-                },
-              });
-            },
-            error: (erro) => {
-              console.error('Erro ao criar nova anotação:', erro);
-              alert('Erro ao criar nova anotação.');
-            },
-          });
-        },
-        error: (erro) => {
-          console.error('Erro ao buscar conteúdo da anotação selecionada:', erro);
+
+    this.richTextService.buscarConteudoPorAnotacaoId(anotacaoIdOriginal).subscribe({
+      next: (conteudoResponse: AnotacaoConteudoDTO[]) => {
+        console.log('Resposta completa ao buscar conteúdo:', conteudoResponse);
+    
+        if (!conteudoResponse || conteudoResponse.length === 0) {
+          console.error('Nenhum conteúdo encontrado para a anotação original.');
           alert('Erro ao carregar o conteúdo da anotação original.');
-        },
-      });
-    });
-  }
+          return;
+        }
+    
+        const conteudo = conteudoResponse[0].conteudo || ''; // Acessa o conteúdo do primeiro item
+        console.log('Conteúdo recuperado:', conteudo);
+        console.log('Tamanho do conteúdo:', conteudo.length);
+    
+        const novaAnotacao: CriarAnotacaoDTO = { 
+          titulo, 
+          materialId 
+        };
+    
+        this.atividadesService.criarAtividade(novaAnotacao).subscribe({
+          next: (anotacaoCriada) => {
+            if (!anotacaoCriada.id) {
+              console.error('Criação da anotação falhou');
+              alert('Erro ao criar nova anotação.');
+              return;
+            }
+    
+            const novoConteudo: AnotacaoConteudoDTO = {
+              anotacaoId: anotacaoCriada.id,
+              conteudo: conteudo
+            };
+    
+            console.log('Novo conteúdo a ser salvo:', novoConteudo);
+    
+            this.richTextService.salvarConteudoAnotacao(novoConteudo).subscribe({
+              next: () => {
+                alert('Anotação e conteúdo copiados com sucesso!');
+                this.router.navigate(['/materias']);
+              },
+              error: (erro) => {
+                console.error('Erro ao salvar conteúdo da nova anotação:', erro);
+                alert('Erro ao copiar conteúdo da anotação.');
+              },
+            });
+          },
+          error: (erro) => {
+            console.error('Erro ao criar nova anotação:', erro);
+            alert('Erro ao criar nova anotação.');
+          },
+        });
+      },
+      error: (erro) => {
+        console.error('Erro ao buscar conteúdo da anotação selecionada:', erro);
+        alert('Erro ao carregar o conteúdo da anotação original.');
+      },
+    });    
+  });
+}
+
   
-  
-  
- 
 }

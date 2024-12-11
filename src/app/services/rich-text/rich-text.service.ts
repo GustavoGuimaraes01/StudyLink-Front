@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
-import { AuthService } from '../auth/auth.service'; // Ajuste o caminho conforme necessário
+import { AuthService } from '../auth/auth.service'; 
 
 export interface AnotacaoConteudoDTO {
   id?: number;
@@ -63,21 +63,9 @@ export class RichTextService {
   }
   
 
-  buscarConteudoPorAnotacaoId(anotacaoId: number): Observable<AnotacaoConteudoDTO> {
+  buscarConteudoPorAnotacaoId(anotacaoId: number): Observable<AnotacaoConteudoDTO[]> {
     const headers = this.authService.getHeaders();
-    console.log('Buscando conteúdo para anotação com ID:', anotacaoId);
-  
-    return this.http.get<AnotacaoConteudoDTO>(`${this.apiUrl}/anotacao/${anotacaoId}`, {
-      headers
-    }).pipe(
-      tap(response => {
-        console.log('Resposta completa:', response);
-        console.log('Conteúdo recebido:', response?.conteudo);
-      }),
-      catchError(error => {
-        console.error('Erro detalhado na busca:', error);
-        return this.handleError(error);
-      })
-    );
+    return this.http.get<AnotacaoConteudoDTO[]>(`${this.apiUrl}/anotacao/${anotacaoId}`, { headers });
   }
+  
 }

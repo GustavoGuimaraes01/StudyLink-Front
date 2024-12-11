@@ -178,12 +178,24 @@ export class MenuPesquisaComponent implements OnInit {
     this.isListaOpen = !this.isListaOpen;
   }
 
-  logout() {
+   logout() {
     sessionStorage.removeItem('nome_usuario');
     sessionStorage.removeItem('email');
     sessionStorage.removeItem('auth-token');
+
+    this.deleteCookie('auth-token');
+    this.deleteCookie('email');
+    this.deleteCookie('nome_usuario');
+
     this.router.navigate(['/login']);
-  }
+}
+
+deleteCookie(name: string): void {
+    const date = new Date();
+    date.setTime(date.getTime() - 1); 
+    const expires = `expires=${date.toUTCString()}`;
+    document.cookie = `${name}=;${expires};path=/`; 
+}
 
   openImageUploadDialog() {
     const dialogRef = this.dialog.open(ImageUploadDialogComponent, {

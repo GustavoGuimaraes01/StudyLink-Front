@@ -44,17 +44,16 @@
       <div class="user-inicial" (click)="toggleListaSuspensa()">
         <img *ngIf="profileImageUrl; else defaultAvatar" [src]="profileImageUrl" class="user-avatar" />
         <ng-template #defaultAvatar>
-          <span class="user-initial">{{ nomeUsuario[0].toUpperCase() }}</span>
+          {{ nomeUsuario[0].toUpperCase() }}
         </ng-template>
       </div>
-      
     </mat-toolbar>
     <div *ngIf="isListaOpen" class="dropdown-menu">
       <ul>
         <li class="emailUser"><mat-icon>mail</mat-icon> {{ email }}</li>
         <li class=" nomeUser"><mat-icon>account_circle</mat-icon> {{ nomeUsuario }}</li>
         <li class="">
-          <button (click)="openImageUploadDialog()">
+          <button  (click)="openImageUploadDialog()">
             <mat-icon>image</mat-icon> Alterar Imagem
           </button>
         </li>
