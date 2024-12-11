@@ -137,8 +137,8 @@
 .pesquisa input::placeholder { color: var(--cinza-claro); }
 
 .user-inicial {
-  width: 30px;
-  height: 30px;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
   background-color: var(--azul-principal);
   color: var(--branco);
@@ -151,6 +151,16 @@
   margin-right: 16px;
   z-index: 10;
 }
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.user-initial {
+  text-transform: uppercase;
+}
 
 .dropdown-menu {
   position: absolute;
@@ -161,7 +171,7 @@
   border-radius: 4px;
   box-shadow: var(--shadow-sm);
   z-index: 1000;
-  width: 220px;
+  width: 300px;
   min-height: 200px;
   padding: 10px;
 }

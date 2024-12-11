@@ -28,7 +28,7 @@ export class NaoEncontradaComponent implements OnInit {
       const emailSalvo = sessionStorage.getItem('email');
       this.email = emailSalvo ? emailSalvo : 'não cadastrado';
       const nomeSalvo = sessionStorage.getItem('nome_usuario');
-      this.nomeUsuario = nomeSalvo ? nomeSalvo : '?';
+      this.nomeUsuario = nomeSalvo ? nomeSalvo : '?';  
     }
   }
 
@@ -43,7 +43,6 @@ export class NaoEncontradaComponent implements OnInit {
     return null;
   }
 
- 
   logout() {
     sessionStorage.removeItem('nome_usuario');
     sessionStorage.removeItem('email');
@@ -53,14 +52,14 @@ export class NaoEncontradaComponent implements OnInit {
     this.deleteCookie('email');
     this.deleteCookie('nome_usuario');
 
+    // Redireciona para a página de login
     this.router.navigate(['/login']);
-}
+  }
 
-deleteCookie(name: string): void {
+  deleteCookie(name: string): void {
     const date = new Date();
-    date.setTime(date.getTime() - 1); 
+    date.setTime(date.getTime() - 1);  
     const expires = `expires=${date.toUTCString()}`;
-    document.cookie = `${name}=;${expires};path=/`; 
-}
-
+    document.cookie = `${name}=;${expires};path=/`;  
+  }
 }

@@ -7,8 +7,11 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { CommonModule } from '@angular/common';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog'; 
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { ImageUploadDialogComponent } from '../image-upload-dialog/image-upload-dialog.component';
+
 
 @Component({
   selector: 'app-menu-pesquisa',
@@ -20,8 +23,10 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
     MatToolbarModule,
     MatSidenavModule,
     MatListModule,
+    MatDialogModule,
     CommonModule
   ],
+  
   templateUrl: './menu-pesquisa.component.html',
   styleUrls: ['./menu-pesquisa.component.css']
 })
@@ -41,8 +46,10 @@ export class MenuPesquisaComponent implements OnInit {
   isSearchExpanded = false;
   isSearchActive: boolean = false;
   isScreenSmall: boolean = false;
+  profileImageUrl: string | null = null
+  imagemUsuario : string = ''
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private dialog: MatDialog) {}
 
   ngOnInit() {
     const emailCookie = this.getCookie('email');
@@ -57,6 +64,9 @@ export class MenuPesquisaComponent implements OnInit {
       const nomeSalvo = sessionStorage.getItem('nome_usuario');
       this.nomeUsuario = nomeSalvo ? nomeSalvo : '?';
     }
+    const imagemPerfilSalva = sessionStorage.getItem('profileImageUrl');
+    this.profileImageUrl = imagemPerfilSalva ? imagemPerfilSalva : null;
+
     this.checkScreenSize();
 
     this.router.events
@@ -81,7 +91,6 @@ export class MenuPesquisaComponent implements OnInit {
   }
 
   realizarPesquisa(termo: string): void {
-    // Verifica se o termo está vazio
     if (!termo.trim()) {
       this.router.url.includes('http://localhost:4200/descobrir')
         ? this.pesquisaRealizada.emit('')
@@ -165,7 +174,6 @@ export class MenuPesquisaComponent implements OnInit {
     this.sidenavOpened = !this.sidenavOpened;
   }
 
-    
   toggleListaSuspensa() {
     this.isListaOpen = !this.isListaOpen;
   }
@@ -174,18 +182,19 @@ export class MenuPesquisaComponent implements OnInit {
     sessionStorage.removeItem('nome_usuario');
     sessionStorage.removeItem('email');
     sessionStorage.removeItem('auth-token');
-
-    this.deleteCookie('auth-token');
-    this.deleteCookie('email');
-    this.deleteCookie('nome_usuario');
-
     this.router.navigate(['/login']);
-}
+  }
 
-deleteCookie(name: string): void {
-    const date = new Date();
-    date.setTime(date.getTime() - 1); 
-    const expires = `expires=${date.toUTCString()}`;
-    document.cookie = `${name}=;${expires};path=/`; 
-}
+  openImageUploadDialog() {
+    const dialogRef = this.dialog.open(ImageUploadDialogComponent, {
+      width: '400px',
+      data: { currentImageUrl: this.profileImageUrl }
+    });
+
+    dialogRef.afterClosed().subscribe((newImageUrl) => {
+      if (newImageUrl) {
+        this.profileImageUrl = newImageUrl;
+      }
+    });
+  }
 }

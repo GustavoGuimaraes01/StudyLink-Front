@@ -36,6 +36,6 @@ export class SelecionarMaterialComponent {
   }
 
   selecionarMaterial(materialId: number): void {
-    this.dialogRef.close(materialId); // Retorna o ID do material selecionado
+    this.dialogRef.close(materialId); 
   }
 }

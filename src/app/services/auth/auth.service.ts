@@ -11,7 +11,6 @@ export class AuthService {
     let token = sessionStorage.getItem('auth-token');
     
     if (!token) {
-      // Verifica se o token está nos cookies
       token = this.getCookie('auth-token');
     }
 

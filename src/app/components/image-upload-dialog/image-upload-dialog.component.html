@@ -1,0 +1,21 @@
+<h2 mat-dialog-title>Upload de Imagem</h2>
+<div mat-dialog-content>
+  <input 
+    #fileInput
+    type="file" 
+    (change)="onFileSelected($event)" 
+    accept="image/*"
+    style="display: none;"
+  />
+  <button mat-raised-button color="primary" (click)="fileInput.click()">
+    Escolher Imagem
+  </button>
+  
+  <div *ngIf="imagePreview" class="preview-container">
+    <img [src]="imagePreview" style="max-width: 200px; max-height: 200px;" />
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancelar</button>
+  <button mat-button (click)="onUploadImage()" [disabled]="!selectedFile">Upload</button>
+</div>
