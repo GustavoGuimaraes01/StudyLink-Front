@@ -30,29 +30,31 @@ export class RichTextService {
     return throwError(() => new Error(errorMessage));
   }
 
-  salvarConteudoAnotacao(request: AnotacaoConteudoDTO): Observable<AnotacaoConteudoDTO> {
-    const headers = this.authService.getHeaders();
-  
-    if (request.conteudo) {
-      try {
-        JSON.parse(request.conteudo); // Validação do conteúdo sem log
-      } catch (e) {
-        console.error('Erro ao parsear conteúdo Quill:', e);
-      }
+ salvarConteudoAnotacao(request: AnotacaoConteudoDTO): Observable<AnotacaoConteudoDTO> {
+  const headers = this.authService.getHeaders();
+
+  if (request.conteudo) {
+    try {
+      JSON.parse(request.conteudo); // Validação do conteúdo sem log
+    } catch (e) {
+      console.error('Erro ao parsear conteúdo Quill:', e);
     }
-  
-    return this.http.post<AnotacaoConteudoDTO>(`${this.apiUrl}/criar`, request, { headers }).pipe(
-      catchError(error => {
-        console.error('Erro no salvarConteudoAnotacao:', error);
-        return this.handleError(error);
-      })
-    );
   }
-  
+
+  return this.http.post<AnotacaoConteudoDTO>(`${this.apiUrl}/criar`, request, { headers }).pipe(
+    catchError(error => {
+      console.error('Erro no salvarConteudoAnotacao:', error);
+      return this.handleError(error);
+    })
+  );
+}
+
 
   buscarConteudoPorAnotacaoId(anotacaoId: number): Observable<AnotacaoConteudoDTO[]> {
     const headers = this.authService.getHeaders();
     return this.http.get<AnotacaoConteudoDTO[]>(`${this.apiUrl}/anotacao/${anotacaoId}`, { headers });
   }
+
+  
   
 }

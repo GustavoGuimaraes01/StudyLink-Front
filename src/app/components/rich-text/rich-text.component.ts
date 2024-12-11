@@ -1,10 +1,12 @@
 import { Component, ViewEncapsulation, OnInit, OnDestroy, Input, Output, EventEmitter, SimpleChanges, OnChanges } from '@angular/core'; 
 import Quill from 'quill'; 
 import 'quill/dist/quill.snow.css';
-  
+import 'quill/modules/syntax'
+import 'highlight.js/styles/atom-one-dark.css';
 import { debounceTime, Subject, distinctUntilChanged, filter, retry, EMPTY } from 'rxjs';
 import { catchError, takeUntil } from 'rxjs/operators';
 import { RichTextService, AnotacaoConteudoDTO } from '../../services/rich-text/rich-text.service';  
+import hljs from 'highlight.js';
 
 @Component({   
   selector: 'app-rich-text',   
@@ -43,7 +45,11 @@ export class RichTextComponent implements OnInit, OnDestroy, OnChanges {
 
     this.editor = new Quill('#editor', {       
       theme: 'snow',       
-      modules: { toolbar: toolbarOptions },       
+      modules: { toolbar: toolbarOptions,
+        syntax: {
+          hljs: hljs 
+        }
+      },       
       placeholder: 'Comece a escrever...',       
       bounds: '#editor',     
       readOnly: !this.habilitado, 
@@ -105,7 +111,6 @@ export class RichTextComponent implements OnInit, OnDestroy, OnChanges {
           ? (conteudo.length > 0 ? conteudo[0].conteudo : null) 
           : conteudo;
     
-        // Se não tiver conteúdo e não estiver habilitado, defina como vazio
         if ((!conteudoParaProcessar || conteudoParaProcessar === '') && !this.habilitado) {
           this.editor.setText('');
           return;
@@ -181,7 +186,6 @@ export class RichTextComponent implements OnInit, OnDestroy, OnChanges {
           )
           .subscribe({
             next: (resposta) => {
-              
               this.ultimoConteudoSalvo = conteudo;
               this.ultimoTituloSalvo = primeiraLinha;
               

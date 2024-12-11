@@ -69,7 +69,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/home']);
       },
       error: () => {
-        this.toastr.error("Não foi possível efetuar o login!", "Erro", {
+        this.toastr.error("Não foi possível efetuar o login!, por favor verifique os campos", "Erro", {
           timeOut: 3000,
           progressBar: true,
         });
